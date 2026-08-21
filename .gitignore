@@ -1,0 +1,17 @@
+.env
+.env.*
+!.env.example
+backups/
+reports/*.csv
+reports/*.json
+*.pyc
+__pycache__/
+.venv/
+venv/
+.python-version
+.DS_Store
+*.log
+data/
+open-webui-data/
+.idea/
+.vscode/

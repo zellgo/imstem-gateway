@@ -1,0 +1,6 @@
+psycopg[binary]>=3.2
+pyyaml>=6.0
+# LiteLLM proxy currently breaks on FastAPI 0.116+ (missing get_flat_dependant).
+fastapi==0.115.12
+starlette==0.46.2
+litellm[proxy]

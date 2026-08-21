@@ -1,0 +1,111 @@
+# ImStem company model aliases.
+# Employees only ever see company-* names. Swap providers here without
+# changing employee clients.
+
+model_list:
+  # Fast / cheap default chat
+  - model_name: company-fast
+    litellm_params:
+      model: deepseek/deepseek-chat
+      api_key: os.environ/DEEPSEEK_API_KEY
+    model_info:
+      id: company-fast
+      mode: chat
+      description: Fast low-cost route (DeepSeek)
+
+  - model_name: company-fast
+    litellm_params:
+      model: openai/qwen-turbo
+      api_base: https://dashscope.aliyuncs.com/compatible-mode/v1
+      api_key: os.environ/DASHSCOPE_API_KEY
+    model_info:
+      id: company-fast-qwen
+      mode: chat
+      description: Fallback for company-fast (Qwen Turbo)
+
+  # Everyday quality
+  - model_name: company-standard
+    litellm_params:
+      model: openai/qwen-plus
+      api_base: https://dashscope.aliyuncs.com/compatible-mode/v1
+      api_key: os.environ/DASHSCOPE_API_KEY
+    model_info:
+      id: company-standard
+      mode: chat
+      description: Standard quality (Qwen Plus)
+
+  - model_name: company-standard
+    litellm_params:
+      model: openai/mimo-v2.5-flash
+      api_base: https://api.xiaomimimo.com/v1
+      api_key: os.environ/MIMO_API_KEY
+    model_info:
+      id: company-standard-mimo
+      mode: chat
+      description: Fallback for company-standard (MiMo Flash)
+
+  # Best approved domestic quality
+  - model_name: company-pro
+    litellm_params:
+      model: openai/mimo-v2.5-pro
+      api_base: https://api.xiaomimimo.com/v1
+      api_key: os.environ/MIMO_API_KEY
+    model_info:
+      id: company-pro
+      mode: chat
+      description: High-quality domestic route (MiMo V2.5 Pro)
+
+  - model_name: company-pro
+    litellm_params:
+      model: openai/qwen-max
+      api_base: https://dashscope.aliyuncs.com/compatible-mode/v1
+      api_key: os.environ/DASHSCOPE_API_KEY
+    model_info:
+      id: company-pro-qwen
+      mode: chat
+      description: Fallback for company-pro (Qwen Max)
+
+  # Tool calling / agents
+  - model_name: company-agent
+    litellm_params:
+      model: deepseek/deepseek-chat
+      api_key: os.environ/DEEPSEEK_API_KEY
+    model_info:
+      id: company-agent
+      mode: chat
+      description: Agent / tool-calling route (DeepSeek)
+
+  - model_name: company-agent
+    litellm_params:
+      model: openai/qwen-plus
+      api_base: https://dashscope.aliyuncs.com/compatible-mode/v1
+      api_key: os.environ/DASHSCOPE_API_KEY
+    model_info:
+      id: company-agent-qwen
+      mode: chat
+      description: Fallback for company-agent (Qwen Plus)
+
+litellm_settings:
+  drop_params: true
+  turn_off_message_logging: true
+  cache: false
+  request_timeout: 120
+  set_verbose: false
+
+router_settings:
+  routing_strategy: simple-shuffle
+  allowed_fails: 3
+  cooldown_time: 60
+  num_retries: 1
+  fallbacks:
+    - company-fast: ["company-standard"]
+    - company-standard: ["company-fast"]
+    - company-pro: ["company-standard"]
+    - company-agent: ["company-standard"]
+
+general_settings:
+  store_model_in_db: true
+  store_prompts_in_spend_logs: false
+  allow_user_auth: true
+  # Admin UI is protected by UI_USERNAME / UI_PASSWORD plus the master key.
+  # Do not share the LiteLLM URL with employees; they use Open WebUI or /v1.

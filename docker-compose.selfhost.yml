@@ -1,0 +1,102 @@
+# Portable self-host stack (US VPS or future China server).
+# Uses a local Postgres volume instead of Railway.
+# Start: docker compose -f docker-compose.selfhost.yml --env-file .env up -d
+
+name: imstem-gateway-selfhost
+
+services:
+  postgres:
+    image: postgres:18-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: railway
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks:
+      - internal
+
+  litellm:
+    image: ghcr.io/berriai/litellm:main-stable
+    restart: unless-stopped
+    volumes:
+      - ./litellm/config.yaml:/app/config.yaml:ro
+    command: ["--config", "/app/config.yaml", "--port", "4000"]
+    environment:
+      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/litellm
+      STORE_MODEL_IN_DB: "True"
+      LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY}
+      LITELLM_SALT_KEY: ${LITELLM_SALT_KEY}
+      UI_USERNAME: ${UI_USERNAME:-admin}
+      UI_PASSWORD: ${UI_PASSWORD}
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY}
+      DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY}
+      MIMO_API_KEY: ${MIMO_API_KEY}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:4000/health/readiness')"]
+      interval: 20s
+      timeout: 5s
+      retries: 10
+      start_period: 40s
+    networks:
+      - internal
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:v0.6.22
+    restart: unless-stopped
+    volumes:
+      - open-webui-data:/app/backend/data
+    environment:
+      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/openwebui
+      WEBUI_SECRET_KEY: ${WEBUI_SECRET_KEY}
+      WEBUI_NAME: ImStem AI
+      ENABLE_SIGNUP: "false"
+      ENABLE_LOGIN_FORM: "true"
+      WEBUI_AUTH: "true"
+      OPENAI_API_BASE_URL: http://litellm:4000/v1
+      OPENAI_API_KEY: ${OPENWEBUI_BOOTSTRAP_KEY}
+      ENABLE_OLLAMA_API: "false"
+      VECTOR_DB: chroma
+    depends_on:
+      litellm:
+        condition: service_healthy
+    networks:
+      - internal
+
+  caddy:
+    image: caddy:2.9-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./proxy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - litellm
+      - open-webui
+    networks:
+      - internal
+      - edge
+
+networks:
+  internal:
+    internal: true
+  edge:
+
+volumes:
+  pgdata:
+  open-webui-data:
+  caddy-data:
+  caddy-config:

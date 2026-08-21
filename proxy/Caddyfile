@@ -1,0 +1,18 @@
+# Reverse proxy for the self-host / China-migration stack.
+# Caddy is chosen because TLS via Let's Encrypt is automatic and the
+# config is a few lines. Nginx/Traefik would also work.
+
+ai.{$COMPANY_DOMAIN:localhost} {
+	reverse_proxy open-webui:8080
+}
+
+gateway.{$COMPANY_DOMAIN:localhost} {
+	# Employees should only call /v1. Admin UI is extra-protected.
+	@admin {
+		path /ui* /sso* /login /key/* /user/* /team/* /spend* /global/*
+	}
+	basicauth @admin {
+		admin {$CADDY_ADMIN_HASH}
+	}
+	reverse_proxy litellm:4000
+}

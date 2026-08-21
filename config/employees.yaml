@@ -1,0 +1,68 @@
+# Company AI identity registry.
+# Primary accounting ID is the employee code, never a personal name.
+
+departments:
+  Medical:
+    team_alias: Medical
+    default_chat_budget_usd: 30
+    default_agent_budget_usd: 50
+  CMC:
+    team_alias: CMC
+    default_chat_budget_usd: 30
+    default_agent_budget_usd: 50
+  Clinical:
+    team_alias: Clinical
+    default_chat_budget_usd: 30
+    default_agent_budget_usd: 50
+  BD:
+    team_alias: BD
+    default_chat_budget_usd: 20
+    default_agent_budget_usd: 30
+  Finance:
+    team_alias: Finance
+    default_chat_budget_usd: 20
+    default_agent_budget_usd: 30
+  Admin:
+    team_alias: Admin
+    default_chat_budget_usd: 50
+    default_agent_budget_usd: 100
+
+chat_models:
+  - company-fast
+  - company-standard
+
+agent_models:
+  - company-fast
+  - company-standard
+  - company-agent
+
+budget_duration: 30d
+
+employees:
+  - id: MED001
+    name: TBD
+    department: Medical
+  - id: MED002
+    name: TBD
+    department: Medical
+  - id: MED003
+    name: TBD
+    department: Medical
+  - id: CMC001
+    name: TBD
+    department: CMC
+  - id: CMC002
+    name: TBD
+    department: CMC
+  - id: CLIN001
+    name: TBD
+    department: Clinical
+  - id: BD001
+    name: TBD
+    department: BD
+  - id: FIN001
+    name: TBD
+    department: Finance
+  - id: ADMIN001
+    name: TBD
+    department: Admin
