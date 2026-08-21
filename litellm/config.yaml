@@ -85,6 +85,107 @@ model_list:
       mode: chat
       description: Fallback for company-agent (Qwen Plus)
 
+  # Codex / Claude Code send their own default model names. Map them onto
+  # company-agent so each employee's AGENT virtual key still owns the spend.
+  - model_name: gpt-4o
+    litellm_params:
+      model: deepseek/deepseek-chat
+      api_key: os.environ/DEEPSEEK_API_KEY
+    model_info:
+      id: agent-compat-gpt-4o
+      mode: chat
+  - model_name: gpt-4.1
+    litellm_params:
+      model: deepseek/deepseek-chat
+      api_key: os.environ/DEEPSEEK_API_KEY
+    model_info:
+      id: agent-compat-gpt-4.1
+      mode: chat
+  - model_name: gpt-4
+    litellm_params:
+      model: deepseek/deepseek-chat
+      api_key: os.environ/DEEPSEEK_API_KEY
+    model_info:
+      id: agent-compat-gpt-4
+      mode: chat
+  - model_name: gpt-5
+    litellm_params:
+      model: deepseek/deepseek-chat
+      api_key: os.environ/DEEPSEEK_API_KEY
+    model_info:
+      id: agent-compat-gpt-5
+      mode: chat
+  - model_name: o3
+    litellm_params:
+      model: deepseek/deepseek-chat
+      api_key: os.environ/DEEPSEEK_API_KEY
+    model_info:
+      id: agent-compat-o3
+      mode: chat
+  - model_name: o3-mini
+    litellm_params:
+      model: deepseek/deepseek-chat
+      api_key: os.environ/DEEPSEEK_API_KEY
+    model_info:
+      id: agent-compat-o3-mini
+      mode: chat
+  - model_name: o4-mini
+    litellm_params:
+      model: deepseek/deepseek-chat
+      api_key: os.environ/DEEPSEEK_API_KEY
+    model_info:
+      id: agent-compat-o4-mini
+      mode: chat
+  - model_name: claude-sonnet-4-20250514
+    litellm_params:
+      model: deepseek/deepseek-chat
+      api_key: os.environ/DEEPSEEK_API_KEY
+    model_info:
+      id: agent-compat-claude-sonnet
+      mode: chat
+  - model_name: claude-opus-4-20250514
+    litellm_params:
+      model: deepseek/deepseek-chat
+      api_key: os.environ/DEEPSEEK_API_KEY
+    model_info:
+      id: agent-compat-claude-opus
+      mode: chat
+  - model_name: claude-3-5-sonnet-latest
+    litellm_params:
+      model: deepseek/deepseek-chat
+      api_key: os.environ/DEEPSEEK_API_KEY
+    model_info:
+      id: agent-compat-claude-35-sonnet
+      mode: chat
+  - model_name: claude-3-5-haiku-latest
+    litellm_params:
+      model: deepseek/deepseek-chat
+      api_key: os.environ/DEEPSEEK_API_KEY
+    model_info:
+      id: agent-compat-claude-35-haiku
+      mode: chat
+  - model_name: claude-sonnet-4-5
+    litellm_params:
+      model: deepseek/deepseek-chat
+      api_key: os.environ/DEEPSEEK_API_KEY
+    model_info:
+      id: agent-compat-claude-sonnet-45
+      mode: chat
+  - model_name: claude-haiku-4-5
+    litellm_params:
+      model: deepseek/deepseek-chat
+      api_key: os.environ/DEEPSEEK_API_KEY
+    model_info:
+      id: agent-compat-claude-haiku-45
+      mode: chat
+  - model_name: claude-opus-4-1
+    litellm_params:
+      model: deepseek/deepseek-chat
+      api_key: os.environ/DEEPSEEK_API_KEY
+    model_info:
+      id: agent-compat-claude-opus-41
+      mode: chat
+
 litellm_settings:
   drop_params: true
   turn_off_message_logging: true

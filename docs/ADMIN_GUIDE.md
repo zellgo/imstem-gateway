@@ -28,8 +28,17 @@ Then in Open WebUI Admin → Users:
 Give the employee:
 
 - Open WebUI login
-- CHAT key (optional, already in the UI)
-- AGENT key + `OPENAI_BASE_URL=https://<gateway>/v1` for Codex/OpenCode
+- CHAT key (browser only)
+- **AGENT key** — private to that employee — plus the Codex / Claude Code snippets printed by the script
+
+The AGENT key is what Codex and Claude Code use. Spend for that key is always `user_id = MED00X` and `key_alias = MED00X-AGENT`. See [CODING_AGENTS.md](CODING_AGENTS.md).
+
+Default create-user talks to production:
+
+```bash
+PUBLIC_GATEWAY_URL=https://imstem-gateway-production.up.railway.app \
+  ./scripts/create-user.sh MED004 Medical
+```
 
 Budgets are not hardcoded. Change them in LiteLLM UI or pass `CHAT_BUDGET` / `AGENT_BUDGET` when running the script.
 

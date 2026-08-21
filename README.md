@@ -58,14 +58,28 @@ Required service variables (set once, never commit):
 | `MIMO_API_KEY` | Xiaomi MiMo |
 | `STORE_MODEL_IN_DB` | `True` |
 
-## Employee usage
+## Employee usage — private keys
+
+Each employee gets two virtual keys. They never receive DeepSeek / Qwen / MiMo secrets.
+
+| Key | Who uses it | Tracked as |
+|---|---|---|
+| `MED001-CHAT` | Open WebUI | that employee’s chat spend |
+| `MED001-AGENT` | Codex, Claude Code, OpenCode | that employee’s agent spend |
 
 ```bash
-OPENAI_BASE_URL=https://<gateway-host>/v1
-OPENAI_API_KEY=<MED001-AGENT virtual key>
+# Codex / OpenCode
+OPENAI_BASE_URL=https://imstem-gateway-production.up.railway.app/v1
+OPENAI_API_KEY=<that employee's MED001-AGENT key>
+
+# Claude Code  (no /v1 on the base URL)
+ANTHROPIC_BASE_URL=https://imstem-gateway-production.up.railway.app
+ANTHROPIC_API_KEY=<same MED001-AGENT key>
+ANTHROPIC_MODEL=company-agent
 ```
 
-Models: `company-fast`, `company-standard`, `company-pro`, `company-agent`.
+Issue a new pair: `./scripts/create-user.sh MED004 Medical`  
+Details: [docs/CODING_AGENTS.md](docs/CODING_AGENTS.md)
 
 ## Ops
 

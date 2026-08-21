@@ -13,14 +13,15 @@ fi
 EMPLOYEE_ID="${1:?employee id required, e.g. MED004}"
 DEPARTMENT="${2:?department required, e.g. Medical}"
 DISPLAY_NAME="${3:-$EMPLOYEE_ID}"
-GATEWAY="${PUBLIC_GATEWAY_URL:-http://127.0.0.1:${LITELLM_PORT:-4000}}"
+GATEWAY="${PUBLIC_GATEWAY_URL:-https://imstem-gateway-production.up.railway.app}"
 AUTH="Authorization: Bearer ${LITELLM_MASTER_KEY:?LITELLM_MASTER_KEY missing}"
 
 CHAT_BUDGET="${CHAT_BUDGET:-30}"
 AGENT_BUDGET="${AGENT_BUDGET:-50}"
 DURATION="${BUDGET_DURATION:-30d}"
-CHAT_MODELS='["company-fast","company-standard"]'
-AGENT_MODELS='["company-fast","company-standard","company-agent"]'
+MODELS_FILE="${ROOT}/config/agent-models.json"
+CHAT_MODELS="$(python3 -c "import json; print(json.dumps(json.load(open('${MODELS_FILE}'))['chat_models']))")"
+AGENT_MODELS="$(python3 -c "import json; print(json.dumps(json.load(open('${MODELS_FILE}'))['agent_models']))")"
 
 api() {
   local method="$1" path="$2" body="$3"
@@ -76,21 +77,42 @@ echo "$AGENT_JSON" > "/tmp/${EMPLOYEE_ID}-AGENT.json"
 
 python3 - << PY
 import json
-chat=json.load(open("/tmp/${EMPLOYEE_ID}-CHAT.json"))
-agent=json.load(open("/tmp/${EMPLOYEE_ID}-AGENT.json"))
+from pathlib import Path
+emp = "${EMPLOYEE_ID}"
+gw = "${GATEWAY}".rstrip("/")
+chat = json.load(open(f"/tmp/{emp}-CHAT.json"))
+agent = json.load(open(f"/tmp/{emp}-AGENT.json"))
+chat_key = chat.get("key") or ""
+agent_key = agent.get("key") or ""
 print("")
-print("Employee ${EMPLOYEE_ID} provisioned.")
-print("Give these keys to the employee once. They are not stored in git.")
+print(f"Employee {emp} provisioned. Give these keys to that person only, once.")
+print("They are not stored in git. Usage is tracked per key in LiteLLM.")
 print("")
-print("Open WebUI username: ${EMPLOYEE_ID}")
-print("CHAT key (${EMPLOYEE_ID}-CHAT):", chat.get("key") or chat)
-print("AGENT key (${EMPLOYEE_ID}-AGENT):", agent.get("key") or agent)
+print(f"Open WebUI username: {emp}")
+print(f"CHAT key  ({emp}-CHAT):  {chat_key}")
+print(f"AGENT key ({emp}-AGENT): {agent_key}")
 print("")
-print("Chat/API base:  ${GATEWAY}/v1")
-print("Agent env:")
-print("  OPENAI_BASE_URL=${GATEWAY}/v1")
-print("  OPENAI_API_KEY=<AGENT key>")
+print("--- Codex / OpenCode / OpenAI SDKs ---")
+print(f"  export OPENAI_BASE_URL={gw}/v1")
+print(f"  export OPENAI_API_KEY={agent_key}")
+print("  model: company-agent   (gpt-4o / gpt-5 are remapped to this)")
+print("")
+print("--- Claude Code ---")
+print(f"  export ANTHROPIC_BASE_URL={gw}")
+print(f"  export ANTHROPIC_API_KEY={agent_key}")
+print("  export ANTHROPIC_MODEL=company-agent")
+print("  (do not append /v1; Claude Code adds /v1/messages)")
 print("")
 print("Create the matching Open WebUI user in Admin → Users (signup is disabled).")
-print("Set that user's OpenAI API key to the CHAT key so spend is attributed to ${EMPLOYEE_ID}-CHAT.")
+print(f"Set that user's OpenAI API key to the CHAT key so browser spend is {emp}-CHAT.")
+print(f"See docs/CODING_AGENTS.md")
+out = Path(f"/tmp/{emp}-credentials.txt")
+out.write_text(
+    f"employee={emp}\n"
+    f"chat_key={chat_key}\n"
+    f"agent_key={agent_key}\n"
+    f"openai_base={gw}/v1\n"
+    f"anthropic_base={gw}\n"
+)
+print(f"Copy of this printout: {out}")
 PY

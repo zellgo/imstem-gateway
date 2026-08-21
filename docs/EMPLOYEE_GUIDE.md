@@ -12,18 +12,30 @@
 
 Do not paste provider keys. You do not have them.
 
-## Agents (Codex, OpenCode, and similar)
+## Coding agents (Codex, Claude Code, OpenCode)
 
-Ask admin for your **AGENT** key (`MED001-AGENT`).
+Ask admin for **your** AGENT key. It looks like `MED001-AGENT`. Nobody else should have it. All of your agent usage is billed and reported under that key.
 
-```text
-OPENAI_BASE_URL=https://<gateway-host>/v1
-OPENAI_API_KEY=sk-…your AGENT key…
+### Codex / OpenCode
+
+```bash
+export OPENAI_BASE_URL=https://imstem-gateway-production.up.railway.app/v1
+export OPENAI_API_KEY=sk-…your AGENT key…
 ```
 
-Set the model to `company-agent` (or `company-fast` / `company-standard`).
+Prefer model `company-agent`. If the tool still sends `gpt-4o` or `gpt-5`, the gateway maps that to `company-agent` and still counts it as **you**.
 
-Never put a DeepSeek / Qwen / MiMo key in an agent tool.
+### Claude Code
+
+```bash
+export ANTHROPIC_BASE_URL=https://imstem-gateway-production.up.railway.app
+export ANTHROPIC_API_KEY=sk-…your AGENT key…
+export ANTHROPIC_MODEL=company-agent
+```
+
+Do not add `/v1` on `ANTHROPIC_BASE_URL`. Full copy-paste examples: [CODING_AGENTS.md](CODING_AGENTS.md).
+
+Never put a DeepSeek / Qwen / MiMo key in an agent tool. Those stay on the server.
 
 ## What you must not upload
 
