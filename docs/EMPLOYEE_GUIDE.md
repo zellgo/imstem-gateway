@@ -2,7 +2,8 @@
 
 ## Chat (browser)
 
-1. Open the company AI site (admin will send the URL)
+1. Open the employee chat: https://open-webui-production-f828.up.railway.app
+   (Not the LiteLLM `/ui` admin URL.)
 2. Sign in with your employee ID (`MED001`, `CMC001`, …)
 3. Pick a model:
    - **company-fast** — quick drafts, translation

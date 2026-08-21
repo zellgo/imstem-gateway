@@ -38,8 +38,9 @@ docker compose up -d
 
 Open:
 
-- Gateway / Admin UI: http://127.0.0.1:4000/ui  (master key + UI password)
-- Open WebUI: http://127.0.0.1:3000
+- **Employee chat (use this in the browser):** https://open-webui-production-f828.up.railway.app
+- Gateway API for Codex / Claude Code: https://imstem-gateway-production.up.railway.app/v1
+- LiteLLM **admin** (not for employees): https://imstem-gateway-production.up.railway.app/ui
 
 ## Railway
 

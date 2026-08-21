@@ -2,9 +2,13 @@
 
 ## URLs
 
-- Chat: Open WebUI (`ai` hostname)
-- Gateway API: LiteLLM `/v1` (`gateway` hostname)
-- LiteLLM admin: `/ui` on the gateway host — **admins only**
+| Who | URL |
+|---|---|
+| **Employees (chat homepage)** | https://open-webui-production-f828.up.railway.app |
+| Agents (Codex / Claude Code) | https://imstem-gateway-production.up.railway.app/v1 |
+| LiteLLM admin (keys, spend) | https://imstem-gateway-production.up.railway.app/ui |
+
+The LiteLLM host is an **admin/API** site. Do not send it to employees as the homepage. First Open WebUI login on an empty database becomes the admin user; after that, create employees in Open WebUI Admin → Users (`ENABLE_SIGNUP` is off).
 
 Log into LiteLLM UI with `UI_USERNAME` / `UI_PASSWORD`, then paste `LITELLM_MASTER_KEY` when asked.
 
