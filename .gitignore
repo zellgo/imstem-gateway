@@ -1,6 +1,7 @@
 .env
 .env.*
 !.env.example
+.openai-webui.key
 backups/
 reports/*.csv
 reports/*.json

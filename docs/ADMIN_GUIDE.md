@@ -66,7 +66,7 @@ LiteLLM UI → Virtual Keys → select `MED001-CHAT` → set max budget / durati
 
 ## Assign models
 
-Edit `litellm/config.yaml` aliases, or restrict models on the key (`models` list). Employees never see `deepseek-chat` / `qwen-plus` / `mimo-v2.5-pro`.
+Edit `litellm/config.yaml` aliases, or restrict models on the key (`models` list). Employees never see `deepseek-chat` / `qwen-plus` / `mimo-v2.5-pro`. Open WebUI should list `company-fast`, `company-standard`, `company-pro`, and `mimo-pro` (`mimo-pro` is MiMo V2.5 Pro, same backend as `company-pro`).
 
 ## Read spend
 

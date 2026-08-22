@@ -32,7 +32,7 @@ api() {
 }
 
 echo "Ensuring team ${DEPARTMENT}..."
-api POST /team/new "{\"team_alias\":\"${DEPARTMENT}\",\"models\":[\"company-fast\",\"company-standard\",\"company-pro\",\"company-agent\"]}" >/tmp/imstem-team.json || true
+api POST /team/new "{\"team_alias\":\"${DEPARTMENT}\",\"models\":[\"company-fast\",\"company-standard\",\"company-pro\",\"mimo-pro\",\"company-agent\"]}" >/tmp/imstem-team.json || true
 
 echo "Creating user ${EMPLOYEE_ID}..."
 api POST /user/new "$(cat <<JSON

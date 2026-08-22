@@ -30,6 +30,8 @@ departments:
 chat_models:
   - company-fast
   - company-standard
+  - company-pro
+  - mimo-pro
 
 agent_models:
   - company-fast

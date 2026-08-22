@@ -55,6 +55,17 @@ model_list:
       mode: chat
       description: High-quality domestic route (MiMo V2.5 Pro)
 
+  # Same backend as company-pro; name employees expect in Open WebUI.
+  - model_name: mimo-pro
+    litellm_params:
+      model: openai/mimo-v2.5-pro
+      api_base: os.environ/MIMO_API_BASE
+      api_key: os.environ/MIMO_API_KEY
+    model_info:
+      id: mimo-pro
+      mode: chat
+      description: MiMo V2.5 Pro
+
   - model_name: company-pro
     litellm_params:
       model: openai/qwen-max
@@ -202,6 +213,7 @@ router_settings:
     - company-fast: ["company-standard"]
     - company-standard: ["company-fast"]
     - company-pro: ["company-standard"]
+    - mimo-pro: ["company-pro"]
     - company-agent: ["company-standard"]
 
 general_settings:

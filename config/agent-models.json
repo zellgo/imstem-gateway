@@ -1,5 +1,5 @@
 {
-  "chat_models": ["company-fast", "company-standard"],
+  "chat_models": ["company-fast", "company-standard", "company-pro", "mimo-pro"],
   "agent_models": [
     "company-fast",
     "company-standard",
