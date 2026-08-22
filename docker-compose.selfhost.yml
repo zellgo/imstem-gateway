@@ -52,7 +52,7 @@ services:
       - internal
 
   open-webui:
-    image: ghcr.io/open-webui/open-webui:v0.6.22
+    image: ghcr.io/open-webui/open-webui:v0.11.0
     restart: unless-stopped
     volumes:
       - open-webui-data:/app/backend/data
