@@ -12,6 +12,8 @@ The LiteLLM host is an **admin/API** site. Do not send it to employees as the ho
 
 Log into LiteLLM UI with `UI_USERNAME` / `UI_PASSWORD`, then paste `LITELLM_MASTER_KEY` when asked.
 
+Login can show a yellow **No Redis configured** banner. That is a warning, not a failed login. This stack runs **one LiteLLM worker** on purpose (small team, no Redis). Budgets still apply. `LITELLM_DISABLE_NO_REDIS_WARNING=true` hides the banner. Add a Railway Redis service only if you scale to more than one worker or replica.
+
 ## Company model names
 
 Employees never type DeepSeek / Qwen / MiMo. They pick a company name. Default mapping (change anytime in the UI):

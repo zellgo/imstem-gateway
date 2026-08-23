@@ -24,6 +24,8 @@ services:
       LITELLM_SALT_KEY: ${LITELLM_SALT_KEY}
       UI_USERNAME: ${UI_USERNAME:-admin}
       UI_PASSWORD: ${UI_PASSWORD}
+      LITELLM_NUM_WORKERS: "1"
+      LITELLM_DISABLE_NO_REDIS_WARNING: "true"
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:4000/health/readiness')"]
       interval: 20s
