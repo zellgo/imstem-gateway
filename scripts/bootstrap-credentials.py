@@ -84,7 +84,10 @@ def wanted_credentials() -> list[dict]:
                 ),
             },
             "credential_info": {
-                "custom_llm_provider": "xiaomi_mimo",
+                # LiteLLM's credential form has no xiaomi_mimo fields, so the UI
+                # cannot edit api_key if this is set to xiaomi_mimo. custom_openai
+                # exposes api_key + api_base. Models still use xiaomi_mimo/ prefix.
+                "custom_llm_provider": "custom_openai",
                 "description": "Xiaomi MiMo Token Plan / PAYG",
             },
         },

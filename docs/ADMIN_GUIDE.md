@@ -26,7 +26,11 @@ Employees never type DeepSeek / Qwen / MiMo. They pick a company name. Default m
 | `mimo-pro` | MiMo V2.5 Pro | `xiaomi_mimo/` | `mimo` |
 | `company-agent` | DeepSeek Chat (extra: Qwen Plus) | `deepseek/` / `dashscope/` | `deepseek` / `dashscope` |
 
-In **Add Model** / **LLM Credentials**, pick **Dashscope** for Qwen and **Xiaomi MiMo** for Xiaomi. Do not pick OpenAI for those.
+In **Add Model** / **LLM Credentials**:
+
+- Qwen → **Dashscope**
+- Xiaomi MiMo keys → credential `mimo`, provider **Custom Openai** (LiteLLM has no Xiaomi credential form, so the API key box would be blank/locked). Models still use the `xiaomi_mimo/` prefix and show as Xiaomi MiMo on the model list.
+- DeepSeek → **Deepseek**
 
 Two rows with the same public name are one group (primary + extra). Codex/Claude default names (`gpt-4o`, `claude-sonnet-4-5`, …) are aliases of `company-agent`.
 
