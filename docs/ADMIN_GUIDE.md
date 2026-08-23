@@ -18,13 +18,15 @@ Login can show a yellow **No Redis configured** banner. That is a warning, not a
 
 Employees never type DeepSeek / Qwen / MiMo. They pick a company name. Default mapping (change anytime in the UI):
 
-| Employees call | Default backend | Credential |
-|---|---|---|
-| `company-fast` | DeepSeek Chat (extra: Qwen Turbo) | `deepseek` / `dashscope` |
-| `company-standard` | Qwen Plus (extra: MiMo V2.5) | `dashscope` / `mimo` |
-| `company-pro` | **MiMo V2.5 Pro** (extra: Qwen Max) | `mimo` / `dashscope` |
-| `mimo-pro` | MiMo V2.5 Pro | `mimo` |
-| `company-agent` | DeepSeek Chat (extra: Qwen Plus) | `deepseek` / `dashscope` |
+| Employees call | Default backend | Provider prefix | Credential |
+|---|---|---|---|
+| `company-fast` | DeepSeek Chat (extra: Qwen Turbo) | `deepseek/` / `dashscope/` | `deepseek` / `dashscope` |
+| `company-standard` | Qwen Plus (extra: MiMo V2.5) | `dashscope/` / `xiaomi_mimo/` | `dashscope` / `mimo` |
+| `company-pro` | **MiMo V2.5 Pro** (extra: Qwen Max) | `xiaomi_mimo/` / `dashscope/` | `mimo` / `dashscope` |
+| `mimo-pro` | MiMo V2.5 Pro | `xiaomi_mimo/` | `mimo` |
+| `company-agent` | DeepSeek Chat (extra: Qwen Plus) | `deepseek/` / `dashscope/` | `deepseek` / `dashscope` |
+
+In **Add Model** / **LLM Credentials**, pick **Dashscope** for Qwen and **Xiaomi MiMo** for Xiaomi. Do not pick OpenAI for those.
 
 Two rows with the same public name are one group (primary + extra). Codex/Claude default names (`gpt-4o`, `claude-sonnet-4-5`, …) are aliases of `company-agent`.
 
@@ -35,7 +37,7 @@ These rows are stored in Postgres (`LiteLLM_ProxyModelTable`) and have a **datab
 1. LiteLLM UI → **Models + Endpoints** → **All Models**
 2. Open the **database** row (not a **config** row)
 3. **Edit Settings**
-   - `litellm` model: e.g. `openai/mimo-v2.5-pro` → `openai/qwen-max` or `deepseek/deepseek-chat`
+   - `litellm` model: e.g. `xiaomi_mimo/mimo-v2.5-pro` → `dashscope/qwen-max` or `deepseek/deepseek-chat`
    - Existing credential: `mimo` / `dashscope` / `deepseek`
    - Input / output cost per token (or per 1M, depending on the form)
 4. Save. New requests pick it up; no git push.

@@ -89,7 +89,7 @@ MODELS = [
     deployment(
         "company-fast",
         "company-fast-qwen",
-        "openai/qwen-turbo",
+        "dashscope/qwen-turbo",
         "dashscope",
         "qwen_turbo",
         "company-fast extra deployment → Qwen Turbo (load-balance / failover).",
@@ -97,7 +97,7 @@ MODELS = [
     deployment(
         "company-standard",
         "company-standard",
-        "openai/qwen-plus",
+        "dashscope/qwen-plus",
         "dashscope",
         "qwen_plus",
         "company-standard PRIMARY → Qwen Plus. Change litellm model + credential to retarget.",
@@ -105,7 +105,7 @@ MODELS = [
     deployment(
         "company-standard",
         "company-standard-mimo",
-        "openai/mimo-v2.5",
+        "xiaomi_mimo/mimo-v2.5",
         "mimo",
         "mimo",
         "company-standard extra deployment → MiMo V2.5.",
@@ -113,7 +113,7 @@ MODELS = [
     deployment(
         "company-pro",
         "company-pro",
-        "openai/mimo-v2.5-pro",
+        "xiaomi_mimo/mimo-v2.5-pro",
         "mimo",
         "mimo_pro",
         "company-pro PRIMARY → MiMo V2.5 Pro. Change litellm model + credential to retarget.",
@@ -121,7 +121,7 @@ MODELS = [
     deployment(
         "company-pro",
         "company-pro-qwen",
-        "openai/qwen-max",
+        "dashscope/qwen-max",
         "dashscope",
         "qwen_max",
         "company-pro extra deployment → Qwen Max.",
@@ -129,7 +129,7 @@ MODELS = [
     deployment(
         "mimo-pro",
         "mimo-pro",
-        "openai/mimo-v2.5-pro",
+        "xiaomi_mimo/mimo-v2.5-pro",
         "mimo",
         "mimo_pro",
         "mimo-pro PRIMARY → MiMo V2.5 Pro (same backend as company-pro by default).",
@@ -145,7 +145,7 @@ MODELS = [
     deployment(
         "company-agent",
         "company-agent-qwen",
-        "openai/qwen-plus",
+        "dashscope/qwen-plus",
         "dashscope",
         "qwen_plus",
         "company-agent extra deployment → Qwen Plus.",

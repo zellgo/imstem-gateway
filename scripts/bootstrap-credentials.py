@@ -70,8 +70,8 @@ def wanted_credentials() -> list[dict]:
                 ),
             },
             "credential_info": {
-                "custom_llm_provider": "openai",
-                "description": "Alibaba DashScope / Qwen",
+                "custom_llm_provider": "dashscope",
+                "description": "Alibaba Qwen via DashScope",
             },
         },
         {
@@ -84,7 +84,7 @@ def wanted_credentials() -> list[dict]:
                 ),
             },
             "credential_info": {
-                "custom_llm_provider": "openai",
+                "custom_llm_provider": "xiaomi_mimo",
                 "description": "Xiaomi MiMo Token Plan / PAYG",
             },
         },
