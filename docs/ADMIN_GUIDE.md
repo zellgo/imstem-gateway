@@ -28,9 +28,8 @@ Employees never type DeepSeek / Qwen / MiMo. They pick a company name. Default m
 
 In **Add Model** / **LLM Credentials**:
 
-- Qwen → **Dashscope**
-- Xiaomi MiMo keys → credential `mimo`, provider **Custom Openai** (LiteLLM has no Xiaomi credential form, so the API key box would be blank/locked). Models still use the `xiaomi_mimo/` prefix and show as Xiaomi MiMo on the model list.
-- DeepSeek → **Deepseek**
+- Qwen → **Dashscope** (key + URL)
+- DeepSeek (`deepseek`) and Xiaomi MiMo (`mimo`) → **Custom Openai** so both **API Key** and **API Base** are editable. LiteLLM’s native Deepseek form has no URL; Xiaomi MiMo has no credential form at all. Models still use `deepseek/` and `xiaomi_mimo/` prefixes.
 
 Two rows with the same public name are one group (primary + extra). Codex/Claude default names (`gpt-4o`, `claude-sonnet-4-5`, …) are aliases of `company-agent`.
 

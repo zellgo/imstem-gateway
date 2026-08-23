@@ -56,7 +56,9 @@ def wanted_credentials() -> list[dict]:
                 "api_base": os.environ.get("DEEPSEEK_API_BASE", "https://api.deepseek.com"),
             },
             "credential_info": {
-                "custom_llm_provider": "deepseek",
+                # LiteLLM Deepseek form is api_key only (no URL). custom_openai
+                # exposes api_key + api_base. Models still use deepseek/ prefix.
+                "custom_llm_provider": "custom_openai",
                 "description": "DeepSeek official API",
             },
         },
