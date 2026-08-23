@@ -12,6 +12,52 @@ The LiteLLM host is an **admin/API** site. Do not send it to employees as the ho
 
 Log into LiteLLM UI with `UI_USERNAME` / `UI_PASSWORD`, then paste `LITELLM_MASTER_KEY` when asked.
 
+## Company model names
+
+Employees never type DeepSeek / Qwen / MiMo. They pick a company name. Default mapping (change anytime in the UI):
+
+| Employees call | Default backend | Credential |
+|---|---|---|
+| `company-fast` | DeepSeek Chat (extra: Qwen Turbo) | `deepseek` / `dashscope` |
+| `company-standard` | Qwen Plus (extra: MiMo V2.5) | `dashscope` / `mimo` |
+| `company-pro` | **MiMo V2.5 Pro** (extra: Qwen Max) | `mimo` / `dashscope` |
+| `mimo-pro` | MiMo V2.5 Pro | `mimo` |
+| `company-agent` | DeepSeek Chat (extra: Qwen Plus) | `deepseek` / `dashscope` |
+
+Two rows with the same public name are one group (primary + extra). Codex/Claude default names (`gpt-4o`, `claude-sonnet-4-5`, …) are aliases of `company-agent`.
+
+## Change which LLM a company model uses, or its price
+
+These rows are stored in Postgres (`LiteLLM_ProxyModelTable`) and have a **database** badge. They are editable.
+
+1. LiteLLM UI → **Models + Endpoints** → **All Models**
+2. Open the **database** row (not a **config** row)
+3. **Edit Settings**
+   - `litellm` model: e.g. `openai/mimo-v2.5-pro` → `openai/qwen-max` or `deepseek/deepseek-chat`
+   - Existing credential: `mimo` / `dashscope` / `deepseek`
+   - Input / output cost per token (or per 1M, depending on the form)
+4. Save. New requests pick it up; no git push.
+
+If you still see grey **config** copies, the old `config.yaml` is still deployed. Push the yaml that no longer lists those models.
+
+Reset to the git defaults:
+
+```bash
+python3 scripts/sync-company-models.py
+```
+
+## Rotate DeepSeek / Qwen / MiMo keys
+
+LiteLLM UI → **Models + Endpoints** → **LLM Credentials** → `deepseek` / `dashscope` / `mimo`
+
+Change `api_key` and `api_base`. Encrypted in `LiteLLM_CredentialsTable` (database **`litellm`**). First-time seed:
+
+```bash
+python3 scripts/bootstrap-credentials.py
+```
+
+Pass `--update` only if you want to overwrite UI-edited keys from `.env` / Railway variables.
+
 ## Create an employee
 
 ```bash

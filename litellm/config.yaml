@@ -1,201 +1,18 @@
 # ImStem company model aliases.
-# Employees only ever see company-* names. Swap providers here without
-# changing employee clients.
-
-model_list:
-  # Fast / cheap default chat
-  - model_name: company-fast
-    litellm_params:
-      model: deepseek/deepseek-chat
-      api_key: os.environ/DEEPSEEK_API_KEY
-    model_info:
-      id: company-fast
-      mode: chat
-      description: Fast low-cost route (DeepSeek)
-
-  - model_name: company-fast
-    litellm_params:
-      model: openai/qwen-turbo
-      api_base: https://dashscope.aliyuncs.com/compatible-mode/v1
-      api_key: os.environ/DASHSCOPE_API_KEY
-    model_info:
-      id: company-fast-qwen
-      mode: chat
-      description: Fallback for company-fast (Qwen Turbo)
-
-  # Everyday quality
-  - model_name: company-standard
-    litellm_params:
-      model: openai/qwen-plus
-      api_base: https://dashscope.aliyuncs.com/compatible-mode/v1
-      api_key: os.environ/DASHSCOPE_API_KEY
-    model_info:
-      id: company-standard
-      mode: chat
-      description: Standard quality (Qwen Plus)
-
-  - model_name: company-standard
-    litellm_params:
-      model: openai/mimo-v2.5
-      api_base: os.environ/MIMO_API_BASE
-      api_key: os.environ/MIMO_API_KEY
-    model_info:
-      id: company-standard-mimo
-      mode: chat
-      description: Fallback for company-standard (MiMo V2.5)
-
-  # Best approved domestic quality
-  - model_name: company-pro
-    litellm_params:
-      model: openai/mimo-v2.5-pro
-      api_base: os.environ/MIMO_API_BASE
-      api_key: os.environ/MIMO_API_KEY
-    model_info:
-      id: company-pro
-      mode: chat
-      description: High-quality domestic route (MiMo V2.5 Pro)
-
-  # Same backend as company-pro; name employees expect in Open WebUI.
-  - model_name: mimo-pro
-    litellm_params:
-      model: openai/mimo-v2.5-pro
-      api_base: os.environ/MIMO_API_BASE
-      api_key: os.environ/MIMO_API_KEY
-    model_info:
-      id: mimo-pro
-      mode: chat
-      description: MiMo V2.5 Pro
-
-  - model_name: company-pro
-    litellm_params:
-      model: openai/qwen-max
-      api_base: https://dashscope.aliyuncs.com/compatible-mode/v1
-      api_key: os.environ/DASHSCOPE_API_KEY
-    model_info:
-      id: company-pro-qwen
-      mode: chat
-      description: Fallback for company-pro (Qwen Max)
-
-  # Tool calling / agents
-  - model_name: company-agent
-    litellm_params:
-      model: deepseek/deepseek-chat
-      api_key: os.environ/DEEPSEEK_API_KEY
-    model_info:
-      id: company-agent
-      mode: chat
-      description: Agent / tool-calling route (DeepSeek)
-
-  - model_name: company-agent
-    litellm_params:
-      model: openai/qwen-plus
-      api_base: https://dashscope.aliyuncs.com/compatible-mode/v1
-      api_key: os.environ/DASHSCOPE_API_KEY
-    model_info:
-      id: company-agent-qwen
-      mode: chat
-      description: Fallback for company-agent (Qwen Plus)
-
-  # Codex / Claude Code send their own default model names. Map them onto
-  # company-agent so each employee's AGENT virtual key still owns the spend.
-  - model_name: gpt-4o
-    litellm_params:
-      model: deepseek/deepseek-chat
-      api_key: os.environ/DEEPSEEK_API_KEY
-    model_info:
-      id: agent-compat-gpt-4o
-      mode: chat
-  - model_name: gpt-4.1
-    litellm_params:
-      model: deepseek/deepseek-chat
-      api_key: os.environ/DEEPSEEK_API_KEY
-    model_info:
-      id: agent-compat-gpt-4.1
-      mode: chat
-  - model_name: gpt-4
-    litellm_params:
-      model: deepseek/deepseek-chat
-      api_key: os.environ/DEEPSEEK_API_KEY
-    model_info:
-      id: agent-compat-gpt-4
-      mode: chat
-  - model_name: gpt-5
-    litellm_params:
-      model: deepseek/deepseek-chat
-      api_key: os.environ/DEEPSEEK_API_KEY
-    model_info:
-      id: agent-compat-gpt-5
-      mode: chat
-  - model_name: o3
-    litellm_params:
-      model: deepseek/deepseek-chat
-      api_key: os.environ/DEEPSEEK_API_KEY
-    model_info:
-      id: agent-compat-o3
-      mode: chat
-  - model_name: o3-mini
-    litellm_params:
-      model: deepseek/deepseek-chat
-      api_key: os.environ/DEEPSEEK_API_KEY
-    model_info:
-      id: agent-compat-o3-mini
-      mode: chat
-  - model_name: o4-mini
-    litellm_params:
-      model: deepseek/deepseek-chat
-      api_key: os.environ/DEEPSEEK_API_KEY
-    model_info:
-      id: agent-compat-o4-mini
-      mode: chat
-  - model_name: claude-sonnet-4-20250514
-    litellm_params:
-      model: deepseek/deepseek-chat
-      api_key: os.environ/DEEPSEEK_API_KEY
-    model_info:
-      id: agent-compat-claude-sonnet
-      mode: chat
-  - model_name: claude-opus-4-20250514
-    litellm_params:
-      model: deepseek/deepseek-chat
-      api_key: os.environ/DEEPSEEK_API_KEY
-    model_info:
-      id: agent-compat-claude-opus
-      mode: chat
-  - model_name: claude-3-5-sonnet-latest
-    litellm_params:
-      model: deepseek/deepseek-chat
-      api_key: os.environ/DEEPSEEK_API_KEY
-    model_info:
-      id: agent-compat-claude-35-sonnet
-      mode: chat
-  - model_name: claude-3-5-haiku-latest
-    litellm_params:
-      model: deepseek/deepseek-chat
-      api_key: os.environ/DEEPSEEK_API_KEY
-    model_info:
-      id: agent-compat-claude-35-haiku
-      mode: chat
-  - model_name: claude-sonnet-4-5
-    litellm_params:
-      model: deepseek/deepseek-chat
-      api_key: os.environ/DEEPSEEK_API_KEY
-    model_info:
-      id: agent-compat-claude-sonnet-45
-      mode: chat
-  - model_name: claude-haiku-4-5
-    litellm_params:
-      model: deepseek/deepseek-chat
-      api_key: os.environ/DEEPSEEK_API_KEY
-    model_info:
-      id: agent-compat-claude-haiku-45
-      mode: chat
-  - model_name: claude-opus-4-1
-    litellm_params:
-      model: deepseek/deepseek-chat
-      api_key: os.environ/DEEPSEEK_API_KEY
-    model_info:
-      id: agent-compat-claude-opus-41
-      mode: chat
+#
+# Employee-facing models (company-fast / company-standard / company-pro /
+# mimo-pro / company-agent) live in Postgres, NOT in this file, so the
+# Admin UI can retarget the backend LLM and edit prices:
+#   LiteLLM UI → Models + Endpoints → click a database-badge row → Edit
+#
+# Seed or reset those rows:
+#   python3 scripts/bootstrap-credentials.py
+#   python3 scripts/sync-company-models.py
+#
+# Provider keys: LiteLLM UI → LLM Credentials (deepseek | dashscope | mimo)
+#
+# Codex / Claude Code default model names are aliased onto company-agent
+# below so spend still lands on the employee's AGENT key.
 
 litellm_settings:
   drop_params: true
@@ -215,6 +32,21 @@ router_settings:
     - company-pro: ["company-standard"]
     - mimo-pro: ["company-pro"]
     - company-agent: ["company-standard"]
+  model_group_alias:
+    gpt-4o: company-agent
+    gpt-4.1: company-agent
+    gpt-4: company-agent
+    gpt-5: company-agent
+    o3: company-agent
+    o3-mini: company-agent
+    o4-mini: company-agent
+    claude-sonnet-4-20250514: company-agent
+    claude-opus-4-20250514: company-agent
+    claude-3-5-sonnet-latest: company-agent
+    claude-3-5-haiku-latest: company-agent
+    claude-sonnet-4-5: company-agent
+    claude-haiku-4-5: company-agent
+    claude-opus-4-1: company-agent
 
 general_settings:
   store_model_in_db: true
