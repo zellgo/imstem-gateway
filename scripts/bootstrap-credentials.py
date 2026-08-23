@@ -86,7 +86,8 @@ def wanted_credentials() -> list[dict]:
                 ),
             },
             "credential_info": {
-                "custom_llm_provider": "xiaomi_mimo",
+                # Enum key in the Admin UI dropdown (not the litellm slug).
+                "custom_llm_provider": "Xiaomi",
                 "description": "Xiaomi MiMo Token Plan / PAYG",
             },
         },
