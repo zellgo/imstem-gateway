@@ -172,6 +172,10 @@ export ANTHROPIC_API_KEY=sk-你的AGENT密钥
 export ANTHROPIC_MODEL=qwen3.8-flash
 ```
 
+### 5.4 WorkBuddy（免费额度用完）
+
+WorkBuddy 自带积分用完后，在设置里加 **自定义 / Custom** 模型，接到公司网关。接口地址要写完整：`https://llm.imstem.org/v1/chat/completions`。步骤见 [WORKBUDDY_ZH.md](WORKBUDDY_ZH.md)。
+
 ---
 
 ## 6. 可以问 / 不可以问
@@ -227,5 +231,6 @@ export ANTHROPIC_MODEL=qwen3.8-flash
 | 费用与选模型 | [模型单价与省钱](MODEL_COST_ZH.md) |
 | 网页对话与知识库 | [Open WebUI 指南](OPENWEBUI_GUIDE_ZH.md) |
 | 本地 Desktop / Computer | [本地 Open WebUI](OPENWEBUI_LOCAL_ZH.md) |
+| WorkBuddy 接公司网关 | [WorkBuddy 指南](WORKBUDDY_ZH.md) |
 
 出问题找网关管理员。不要把密钥发到微信群。

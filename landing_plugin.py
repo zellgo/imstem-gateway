@@ -55,6 +55,13 @@ GUIDES = (
         "kicker": "04 · 本机",
         "blurb": "Desktop 与 Computer：文件留在电脑，知识库自建，模型走公司网关。",
     },
+    {
+        "slug": "workbuddy",
+        "file": "WORKBUDDY_ZH.md",
+        "title": "WorkBuddy 接公司网关",
+        "kicker": "05 · Agent",
+        "blurb": "免费额度用完后，用自定义 / Custom 填公司 OpenAI 兼容接口。",
+    },
 )
 
 

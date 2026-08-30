@@ -79,6 +79,10 @@ Windows 上 ChatGPT / Codex / Claude Code：请用 CC Switch 切到公司密钥
   默认模型：点输入框右边下载按钮拉取列表，选好后 Save
   说明：https://llm.imstem.org/guide  与  https://llm.imstem.org/guides/user
 
+WorkBuddy 免费额度用完后：自定义 / Custom 接到公司网关
+  接口地址：https://llm.imstem.org/v1/chat/completions
+  说明：https://llm.imstem.org/guides/workbuddy
+
 Claude Code 注意：Base URL 不要加 /v1
   ANTHROPIC_BASE_URL=https://llm.imstem.org
   ANTHROPIC_API_KEY=（同一把 AGENT 密钥）
