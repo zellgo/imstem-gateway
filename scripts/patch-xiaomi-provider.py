@@ -151,6 +151,20 @@ def patch_js(root: Path) -> int:
             text = text.replace(JS_ENUM_OLD, JS_ENUM_NEW)
         if JS_MAP_OLD in text and 'Xiaomi:"xiaomi_mimo"' not in text:
             text = text.replace(JS_MAP_OLD, JS_MAP_NEW)
+        # Models page renders ["Input: $", cost, "/1M tokens"] — $ is its own text node.
+        if "Input: $" in text:
+            text = (
+                text.replace("Input: $", "Input: \\xA5")
+                .replace("Output: $", "Output: \\xA5")
+            )
+        if "Max Budget (USD)" in text:
+            text = text.replace("Max Budget (USD)", "Max Budget (CNY)")
+        if "Current Cycle Spend (USD)" in text:
+            text = text.replace("Current Cycle Spend (USD)", "Current Cycle Spend (CNY)")
+        if "maximum budget in USD" in text:
+            text = text.replace("maximum budget in USD", "maximum budget in CNY")
+        if "Cost per PTU / Hour (USD)" in text:
+            text = text.replace("Cost per PTU / Hour (USD)", "Cost per PTU / Hour (CNY)")
         if text != orig:
             js.write_text(text, encoding="utf-8")
             print(f"patched js {js}")

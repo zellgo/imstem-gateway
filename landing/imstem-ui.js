@@ -13,7 +13,7 @@
       "font:500 13px/1.4 'IBM Plex Sans',system-ui,sans-serif;padding:8px 16px;" +
       "border-bottom:1px solid #0b5243;";
     bar.innerHTML =
-      "用量与模型单价为人民币 <strong>&#165;</strong>（阿里云百炼华北2北京 / 小米国内按量 / OpenRouter×6.72）。界面里的 $ 表示同一笔人民币数字，不是美元。";
+      "模型单价数字已是人民币。单位是 <strong>&#165;</strong>（CNY），不是 USD / $。";
     document.body.insertBefore(bar, document.body.firstChild);
   }
 
@@ -22,13 +22,17 @@
     if (/https?:\/\//.test(t) || t.indexOf("${") !== -1) return t;
     if (t.trim() === "$") return YEN;
     return t
+      .replace(/\bUSD\b/g, "CNY")
+      .replace(/US\$/g, YEN)
+      .replace(/Input:\s*\$/g, "Input: " + YEN)
+      .replace(/Output:\s*\$/g, "Output: " + YEN)
+      .replace(/:\s*\$\s*$/g, ": " + YEN)
+      .replace(/\$\s*$/g, YEN)
       .replace(/\$\s*\/\s*1M/gi, YEN + " / 百万")
       .replace(/\$\s*\/\s*1k/gi, YEN + " / 千")
       .replace(/\$\s*\/\s*(?=token)/gi, YEN + " / ")
       .replace(/\(\s*\$\s*\)/g, "(" + YEN + ")")
-      .replace(/US\$/g, YEN)
       .replace(/\$\s*(?=\d)/g, YEN)
-      .replace(/\bUSD\b/g, "CNY")
       .replace(/\bSpend \(\$\)/g, "用量 (" + YEN + ")")
       .replace(/\bCost \(\$\)/g, "单价 (" + YEN + ")");
   }
@@ -62,6 +66,11 @@
       });
     });
     obs.observe(document.body, { childList: true, subtree: true, characterData: true });
+    var n = 0;
+    var tick = setInterval(function () {
+      walk(document.body);
+      if (++n > 40) clearInterval(tick);
+    }, 250);
   }
 
   if (document.readyState === "loading") {
