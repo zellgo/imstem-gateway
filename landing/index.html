@@ -54,40 +54,6 @@
         <em>llm.imstem.org/costs</em>
       </a>
     </nav>
-    <section class="value" id="value" aria-labelledby="value-heading">
-      <h2 id="value-heading">为什么默认千问 3.8 · 性价比</h2>
-      <p class="pick">日常用 <code>qwen3.8-flash</code>。写不好再升 <code>qwen3.8-27b</code>。法规对读、长文档、卡住再用 <code>qwen3.8-max</code>。<strong>不要把 kimi-k3 当默认</strong>——它最贵。</p>
-      <figure class="official">
-        <figcaption>通义官方测评图 · Qwen 3.8 Max 对 GPT-5.6 / Claude</figcaption>
-        <p class="chart-note">深蓝柱是 3.8 Max。Terminal-Bench、PaperBench、OSWorld 与美国旗舰同档。日常仍用 Flash，难题再用 Max。</p>
-        <img src="/img/qwen38-max-bench.webp" width="1462" height="1076" alt="Qwen 3.8 Max 官方柱状测评图：SWE-Pro、Terminal-Bench 2.1、PaperBench、OSWorld 等，对比 GPT-5.6 Sol、Claude Opus 4.8、Fable 5">
-      </figure>
-      <figure class="price">
-        <figcaption>公司网关输出价 · 元 / 百万 tokens</figcaption>
-        <p class="chart-note">越短越省。华北2 官方原价；DeepSeek 为忙时价。Flash 最便宜，Kimi 不要当默认。</p>
-        <div class="bar-row ours cheap">
-          <span class="bar-name">qwen3.8-flash</span>
-          <span class="bar-track"><span class="bar-fill" style="width:8%"></span></span>
-          <span class="bar-n">¥2.7</span>
-        </div>
-        <div class="bar-row">
-          <span class="bar-name">deepseek-v4-flash</span>
-          <span class="bar-track"><span class="bar-fill" style="width:27%"></span></span>
-          <span class="bar-n">¥9</span>
-        </div>
-        <div class="bar-row ours">
-          <span class="bar-name">qwen3.8-max</span>
-          <span class="bar-track"><span class="bar-fill" style="width:36%"></span></span>
-          <span class="bar-n">¥36</span>
-        </div>
-        <div class="bar-row dear">
-          <span class="bar-name">kimi-k3</span>
-          <span class="bar-track"><span class="bar-fill" style="width:100%"></span></span>
-          <span class="bar-n">¥100</span>
-        </div>
-      </figure>
-      <p class="cite">测评图来自 <a href="https://openlm.ai/qwen3.8/">Qwen 3.8 官方发布页</a>（2026-08）。价格：公司网关同步的阿里云华北2 官方原价。</p>
-    </section>
     <section class="notebook" aria-labelledby="guide-heading">
       <h2 id="guide-heading">使用指南</h2>
       <ol class="ledger">
@@ -133,7 +99,7 @@
       <ul class="model-list" id="model-list">
         <li>qwen3.8-flash<small>快、便宜，草稿和翻译</small></li>
         <li>qwen3.8-27b<small>日常写作与修改</small></li>
-        <li>qwen3.8-max<small>难文、长上下文、复杂推理</small></li>
+        <li>qwen3.8-max<small>尽量不用，贵</small></li>
         <li>kimi-k3<small>Agent / 代码，勿作默认（最贵）</small></li>
         <li>deepseek-v4-flash-0731<small>低成本推理</small></li>
         <li>deepseek-v4-pro-0813<small>更强的 DeepSeek V4</small></li>
@@ -143,6 +109,7 @@
     </section>
     <section class="scoreboard" id="scoreboard" aria-labelledby="score-heading">
       <h2 id="score-heading">国产旗舰分数对照（2026-08）</h2>
+      <p class="pick">公司默认请大家都用 <code>qwen3.8-flash</code>。不要默认 <code>qwen3.8-max</code> 或 <code>kimi-k3</code>——Max 和 Kimi 都贵。</p>
       <p class="chart-note">只比中国实验室。加粗是该行最高分（价格行是最低价）。★ 公司网关可调用。空为未公开或评测口径不同，不要跨行硬比。</p>
       <div class="table-wrap">
         <table class="scores">
