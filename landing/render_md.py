@@ -169,13 +169,16 @@ def md_to_html(src: str) -> str:
 
 
 def toc_from_html(body: str) -> str:
-    # Headings already carry 1 / 5.1 / 5.2. Never wrap them in <ol>/<ul>
-    # or the browser adds a second 1. 2. 3. and the sidebar reads 1.1. 2.2.
+    # Headings already carry 1 / 5.1 / 5.2. Use <div> (block) per row so
+    # items wrap even if CSS fails. Never use <ol> — that adds a second 1. 2. 3.
     items = re.findall(r'<h([23]) id="([^"]+)">(.*?)</h\1>', body, flags=re.S)
     if not items:
         return ""
-    links = []
+    rows = ['<nav class="toc" aria-label="本页目录">', "<p>本页</p>"]
     for level, i, t in items:
         cls = "toc-h3" if level == "3" else "toc-h2"
-        links.append(f'<a class="{cls}" href="#{html.escape(i, quote=True)}">{t}</a>')
-    return '<nav class="toc" aria-label="本页目录"><p>本页</p>' + "".join(links) + "</nav>"
+        rows.append(
+            f'<div class="{cls}"><a href="#{html.escape(i, quote=True)}">{t}</a></div>'
+        )
+    rows.append("</nav>")
+    return "\n".join(rows)
