@@ -129,7 +129,7 @@ print(client.chat.completions.create(
 直接改 `~/.codex/config.toml` 在 ChatGPT 桌面版上经常卡住（Windows 沙盒 / UAC 窗口过不去）。同事实测 **CC Switch** 可以一键把 Codex 切到公司网关，比手改配置稳。
 
 官方下载（中文站）：[https://ccswitch.io/zh/](https://ccswitch.io/zh/)  
-支持 Windows 10+、macOS、Linux。公司推荐从该站安装，不要用来路不明的安装包。
+支持 Windows 10+、macOS、Linux。公司推荐从该站安装，不要用来路不明的安装包。CC Switch 具体可参照[官网使用指南](https://ccswitch.io/zh/)。
 
 逐步操作：
 

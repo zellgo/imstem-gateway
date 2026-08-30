@@ -169,12 +169,13 @@ def md_to_html(src: str) -> str:
 
 
 def toc_from_html(body: str) -> str:
-    # Headings already include 1 / 1.1 / 5.2. Do not use <ol> markers on top.
+    # Headings already carry 1 / 5.1 / 5.2. Never wrap them in <ol>/<ul>
+    # or the browser adds a second 1. 2. 3. and the sidebar reads 1.1. 2.2.
     items = re.findall(r'<h([23]) id="([^"]+)">(.*?)</h\1>', body, flags=re.S)
     if not items:
         return ""
-    lis = []
+    links = []
     for level, i, t in items:
-        cls = ' class="h3"' if level == "3" else ""
-        lis.append(f'<li{cls}><a href="#{html.escape(i, quote=True)}">{t}</a></li>')
-    return '<nav class="toc" aria-label="本页目录"><p>本页</p><ol>' + "".join(lis) + "</ol></nav>"
+        cls = "toc-h3" if level == "3" else "toc-h2"
+        links.append(f'<a class="{cls}" href="#{html.escape(i, quote=True)}">{t}</a>')
+    return '<nav class="toc" aria-label="本页目录"><p>本页</p>' + "".join(links) + "</nav>"
