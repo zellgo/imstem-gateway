@@ -25,7 +25,7 @@ AGENT_MODELS="$(python3 -c "import json; print(json.dumps(json.load(open('${MODE
 
 api() {
   local method="$1" path="$2" body="$3"
-  curl -fsS -X "$method" \
+  curl -fsS -A "Mozilla/5.0 ImStemGateway/1.0" -X "$method" \
     -H "$AUTH" -H "Content-Type: application/json" \
     -d "$body" \
     "${GATEWAY}${path}"

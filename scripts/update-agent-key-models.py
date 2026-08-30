@@ -32,6 +32,7 @@ def api(gateway: str, master: str, method: str, path: str, body: dict | None = N
         headers={
             "Authorization": f"Bearer {master}",
             "Content-Type": "application/json",
+            "User-Agent": "Mozilla/5.0 ImStemGateway/1.0",
         },
     )
     try:

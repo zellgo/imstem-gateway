@@ -51,6 +51,7 @@ def api(gateway: str, master: str, method: str, path: str, body: dict | None = N
         headers={
             "Authorization": f"Bearer {master}",
             "Content-Type": "application/json",
+            "User-Agent": "Mozilla/5.0 ImStemGateway/1.0",
         },
     )
     try:
@@ -72,17 +73,30 @@ def password(length: int = 14) -> str:
 
 
 def list_key_aliases(gateway: str, master: str) -> dict[str, dict]:
-    result = api(gateway, master, "GET", "/key/list?return_full_object=true&size=200")
-    keys = result.get("keys") or result.get("data") or []
-    if isinstance(keys, dict):
-        keys = keys.get("keys") or []
     found: dict[str, dict] = {}
-    for item in keys:
-        if not isinstance(item, dict):
-            continue
-        alias = item.get("key_alias")
-        if alias:
-            found[str(alias)] = item
+    page = 1
+    while page <= 20:
+        result = api(
+            gateway,
+            master,
+            "GET",
+            f"/key/list?return_full_object=true&page={page}&size=100",
+        )
+        keys = result.get("keys") or result.get("data") or []
+        if isinstance(keys, dict):
+            keys = keys.get("keys") or []
+        if not keys:
+            break
+        for item in keys:
+            if not isinstance(item, dict):
+                continue
+            alias = item.get("key_alias")
+            if alias:
+                found[str(alias)] = item
+        total_pages = int(result.get("total_pages") or 1)
+        if page >= total_pages:
+            break
+        page += 1
     return found
 
 
