@@ -30,7 +30,7 @@ Open WebUI 界面与知识库：[OPENWEBUI_GUIDE_ZH.md](OPENWEBUI_GUIDE_ZH.md)
 
 管理员会发给你一把 **AGENT** 虚拟密钥。它只在 `https://llm.imstem.org` 上有效。用量记在你的工号上。完整说明：[https://llm.imstem.org/guide](https://llm.imstem.org/guide)
 
-Windows 上把 ChatGPT / Codex 桌面版切到公司网关：用 [CC Switch](https://ccswitch.io/zh/)（中文官方站）。在 Codex 面板添加 ImStem（Base URL `https://llm.imstem.org/v1` + AGENT 密钥），模型名要手填。每次切换后用任务管理器搜索 `chatgpt` 结束全部进程再打开。步骤见 [USER_GUIDE_ZH.md](USER_GUIDE_ZH.md) §5.2。
+Windows 上把 ChatGPT / Codex / Claude Code 切到公司网关：用 [CC Switch](https://ccswitch.io/zh/)（中文官方站）。地址栏叫 **API Request URL**（Codex 填 `https://llm.imstem.org/v1`，Claude Code 填 `https://llm.imstem.org` 不要加 `/v1`）+ AGENT 密钥。默认模型：点输入框右边下载按钮拉取列表，选好后 Save。Codex 每次切换后用任务管理器搜索 `chatgpt` 结束全部进程再打开。步骤见 [USER_GUIDE_ZH.md](USER_GUIDE_ZH.md) §5.2。
 
 ### Codex / OpenCode / OpenAI SDK
 

@@ -67,8 +67,12 @@ Agent API Key：
 请在工具里写上上面的模型名。若软件仍发送 gpt-4o / gpt-5 / claude-sonnet-4-5，
 网关会转到最贵的 kimi-k3，费用仍算您的。
 
-Windows 上 ChatGPT / Codex 桌面版：请用 CC Switch 切到公司密钥
+Windows 上 ChatGPT / Codex / Claude Code：请用 CC Switch 切到公司密钥
   下载：https://ccswitch.io/zh/
+  地址栏叫 API Request URL（不是 Base URL）
+    Codex：https://llm.imstem.org/v1
+    Claude Code：https://llm.imstem.org（不要加 /v1）
+  默认模型：点输入框右边下载按钮拉取列表，选好后 Save
   说明：https://llm.imstem.org/guide  与  https://llm.imstem.org/guides/user
 
 Claude Code 注意：Base URL 不要加 /v1
@@ -101,3 +105,5 @@ API 说明：https://llm.imstem.org/guide
 | MED003 | 刘士麟 | 项目经理 | shilinliu@imstem.com.cn | |
 | MED004 | 涂美慧 | CRA | meihuitu@imstem.com.cn | 邮箱待确认 |
 | MED005 | 王斯 | CRA | siwang@imstem.com.cn | |
+| MED006 | 于丽伟 | 项目经理 | liweiyu@imstem.com.cn | |
+| MED007 | 祁星 | CTA | xingqi@imstem.com.cn | |

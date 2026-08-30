@@ -169,8 +169,12 @@ def md_to_html(src: str) -> str:
 
 
 def toc_from_html(body: str) -> str:
-    items = re.findall(r'<h2 id="([^"]+)">(.*?)</h2>', body, flags=re.S)
+    # Headings already include 1 / 1.1 / 5.2. Do not use <ol> markers on top.
+    items = re.findall(r'<h([23]) id="([^"]+)">(.*?)</h\1>', body, flags=re.S)
     if not items:
         return ""
-    lis = "".join(f'<li><a href="#{html.escape(i, quote=True)}">{t}</a></li>' for i, t in items)
-    return '<nav class="toc" aria-label="本页目录"><p>本页</p><ol>' + lis + "</ol></nav>"
+    lis = []
+    for level, i, t in items:
+        cls = ' class="h3"' if level == "3" else ""
+        lis.append(f'<li{cls}><a href="#{html.escape(i, quote=True)}">{t}</a></li>')
+    return '<nav class="toc" aria-label="本页目录"><p>本页</p><ol>' + "".join(lis) + "</ol></nav>"

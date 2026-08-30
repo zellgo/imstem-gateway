@@ -70,6 +70,7 @@ h1 {
   grid-template-columns: repeat(2, 1fr);
   gap: 0.9rem;
 }
+.cassette,
 a.cassette {
   display: flex;
   flex-direction: column;
@@ -82,6 +83,7 @@ a.cassette {
   color: inherit;
   position: relative;
 }
+.cassette::before,
 a.cassette::before {
   content: "";
   position: absolute;
@@ -92,7 +94,9 @@ a.cassette::before {
   border: 1.5px solid var(--flask);
   transform: rotate(45deg);
 }
+.cassette:hover, .cassette:focus-within,
 a.cassette:hover, a.cassette:focus-visible { border-color: var(--flask); }
+.cassette strong,
 a.cassette strong {
   font-family: "Noto Serif SC", serif;
   font-size: 1.32rem;
@@ -100,7 +104,9 @@ a.cassette strong {
   display: block;
   margin-bottom: 0.35rem;
 }
+.cassette span,
 a.cassette span { color: var(--muted); font-size: 0.92rem; line-height: 1.45; }
+.cassette em,
 a.cassette em {
   font-style: normal;
   font-size: 0.72rem;
@@ -109,14 +115,34 @@ a.cassette em {
   color: var(--flask);
   margin-top: 1.15rem;
 }
+.cassette.ink,
 a.cassette.ink {
   background: var(--ink);
   color: var(--flask-ink);
   border-color: var(--ink);
 }
+.cassette.ink span,
 a.cassette.ink span { color: #c5d4cb; }
+.cassette.ink em,
 a.cassette.ink em { color: #9fd0bf; }
+.cassette.ink::before,
 a.cassette.ink::before { border-color: #9fd0bf; }
+.cassette-main {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.cassette-main:hover strong { color: var(--flask); }
+.cassette-tool {
+  display: inline-block;
+  margin-top: 0.7rem;
+  padding: 0.35rem 0;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--flask);
+  text-decoration: none;
+}
+.cassette-tool:hover { text-decoration: underline; }
 .notebook {
   margin-top: 2.6rem;
   border-top: 2px solid var(--ink);
@@ -192,8 +218,9 @@ footer.site {
   font-weight: 600;
   font-size: 0.72rem;
 }
-.toc ol { margin: 0; padding: 0 0 0 1.1rem; color: var(--muted); }
+.toc ol { list-style: none; margin: 0; padding: 0; color: var(--muted); }
 .toc li { margin: 0.35rem 0; line-height: 1.4; }
+.toc li.h3 { padding-left: 0.85rem; font-size: 0.92em; }
 .toc a { text-decoration: none; color: var(--muted); }
 .toc a:hover { color: var(--flask); }
 article.prose { max-width: 46rem; }

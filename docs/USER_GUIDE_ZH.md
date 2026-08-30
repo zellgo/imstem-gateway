@@ -133,21 +133,21 @@ print(client.chat.completions.create(
 
 逐步操作：
 
-1. 打开 CC Switch，选 **Codex** 面板。
-2. 先切到 **OpenAI 官方**，启动一次 ChatGPT / Codex 桌面版并完成官方登录（有 ChatGPT 账号即可）。这样桌面版功能还能用。
-3. 打开 **设置 → 通用 → Codex 应用增强 → 切换第三方时保留官方登录**（建议打开）。
+1. 打开 CC Switch，选 **Codex** 或 **Claude Code** 面板（软件里地址栏叫 **API Request URL**，不是 Base URL）。
+2. Codex：先切到 **OpenAI 官方**，启动一次 ChatGPT / Codex 桌面版并完成官方登录（有 ChatGPT 账号即可）。这样桌面版功能还能用。
+3. Codex：打开 **设置 → 通用 → Codex 应用增强 → 切换第三方时保留官方登录**（建议打开）。
 4. 添加自定义供应商（不要用阿里云/小米官方 Key）：
 
 | 项 | 填什么 |
 | --- | --- |
 | 名称 | `ImStem` |
-| Base URL | `https://llm.imstem.org/v1`（必须带 `/v1`） |
+| API Request URL（Codex） | `https://llm.imstem.org/v1`（必须带 `/v1`） |
+| API Request URL（Claude Code） | `https://llm.imstem.org`（**不要**加 `/v1`） |
 | API Key | 入职邮件里的 **AGENT** 密钥 |
-| 协议 | OpenAI 兼容 / `responses` |
-| 默认模型 | `qwen3.8-flash`（写代码再改 `mimo-v2.5-pro`） |
+| 默认模型 | 先点模型输入框**右边的下载按钮**，拉取可用模型，再选你要用的（日常 `qwen3.8-flash`，写代码 `mimo-v2.5-pro`），点 **Save** |
 
-5. 在 CC Switch 里把当前供应商切到 `ImStem`，并**手动**填入模型名（见下面已知问题）。
-6. **完全退出** ChatGPT / Codex，再打开。切供应商之后不要以为点一下桌面图标就生效。
+5. 在 CC Switch 里把当前供应商切到 `ImStem`。
+6. Codex 桌面版：**完全退出** ChatGPT / Codex，再打开。切供应商之后不要以为点一下桌面图标就生效。
 
 公司允许的模型名（必须一字不差，不要填 `gpt-5.4` / `gpt-5.6-*`）：
 
@@ -155,7 +155,7 @@ print(client.chat.completions.create(
 
 **已知问题（请照做，否则会以为「没切成功」）：**
 
-- CC Switch **列不全** 公司自定义模型。不要等列表里出现 Qwen / MiMo；在供应商设置里**手填**上面的模型名，再在 CC Switch 里切换当前模型。
+- 默认模型不要空手填完就走。先点输入框右边**下载按钮**拉取网关模型列表，再点选，最后 **Save**。列表里没有的名字可以再手填上面的网关名。
 - 每次切换供应商（公司网关 ⇄ OpenAI 官方），或刚换了模型名之后：打开 **任务管理器**，搜索 `chatgpt`，把列出的 **ChatGPT / Codex** 进程全部结束，再重新打开桌面版。只关窗口不够，托盘里残留进程会继续用旧配置。
 - 若桌面版仍发送 `gpt-5.4` 等到公司网关，会返回 403（密钥不允许该模型）。回到 CC Switch 确认当前模型是上表里的名字。
 
@@ -207,7 +207,7 @@ export ANTHROPIC_MODEL=qwen3.8-flash
 
 **ChatGPT 桌面版切不到公司模型？** 用 [CC Switch](https://ccswitch.io/zh/)（见 5.2）。手改 `config.toml` 在 Windows 桌面版上经常被沙盒窗口挡住。
 
-**CC Switch 列表里没有 qwen / mimo？** 已知限制。手填模型名，并在每次切换后用任务管理器结束全部 `chatgpt` 进程。
+**CC Switch 列表里没有 qwen / mimo？** 先点模型输入框右边的下载按钮拉取可用模型，选好后 Save。仍没有再手填网关模型名，并在每次切换后用任务管理器结束全部 `chatgpt` 进程。
 
 **能不能自己加 GPT / Claude 官方 Key？** 不要往公司工具里贴个人官方 Key 来「绕过」记账。用 CC Switch 时，公司工作走 ImStem 供应商；个人 OpenAI 账号仅用于登录桌面版本身。
 
