@@ -168,7 +168,7 @@ def _install() -> None:
     if _INSTALLED:
         return
     try:
-        from fastapi.responses import HTMLResponse, JSONResponse, Response
+        from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, Response
         from litellm.proxy.proxy_server import app
         from starlette.routing import Route
     except Exception:
@@ -207,6 +207,22 @@ def _install() -> None:
     async def css(_request=None):
         return Response(css_text, media_type="text/css; charset=utf-8")
 
+    img_dir = LANDING_DIR / "img"
+    img_ok = {".webp", ".png", ".jpg", ".jpeg", ".gif", ".svg"}
+
+    async def landing_img(request):
+        name = (request.path_params or {}).get("name") or ""
+        if "/" in name or "\\" in name or ".." in name or not name:
+            return HTMLResponse("未找到。", status_code=404)
+        path = (img_dir / name).resolve()
+        try:
+            path.relative_to(img_dir.resolve())
+        except ValueError:
+            return HTMLResponse("未找到。", status_code=404)
+        if path.suffix.lower() not in img_ok or not path.is_file():
+            return HTMLResponse("未找到。", status_code=404)
+        return FileResponse(path)
+
     async def guides_home(_request=None):
         return HTMLResponse(guides_index_html, media_type="text/html; charset=utf-8")
 
@@ -241,6 +257,7 @@ def _install() -> None:
     app.router.routes.insert(0, Route("/guides/{slug}", guide_one, methods=["GET"]))
     app.router.routes.insert(0, Route("/guides", guides_home, methods=["GET"]))
     app.router.routes.insert(0, Route("/site.css", css, methods=["GET"]))
+    app.router.routes.insert(0, Route("/img/{name}", landing_img, methods=["GET"]))
     app.router.routes.insert(0, Route("/imstem-ui.js", ui_script, methods=["GET"]))
     app.router.routes.insert(0, Route("/imstem/prices", prices, methods=["GET"]))
     app.router.routes.insert(0, Route("/costs", cost_page, methods=["GET"]))

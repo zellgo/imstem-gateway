@@ -167,23 +167,26 @@ a.cassette em {
   background: #e0eae3;
   padding: 0.08em 0.28em;
 }
-.charts {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.1rem;
-}
-.charts figure {
-  margin: 0;
+.value figure {
+  margin: 0 0 1.1rem;
   padding: 0.95rem 1rem 1rem;
   background: var(--card);
   border: 1px solid var(--line);
 }
-.charts figcaption {
+.value figcaption {
   font-family: "Noto Serif SC", serif;
   font-size: 1.02rem;
   font-weight: 700;
   margin: 0 0 0.25rem;
 }
+.value figure.official img {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #fff;
+  margin-top: 0.55rem;
+}
+.value figure.price { max-width: 28rem; }
 .chart-note {
   color: var(--muted);
   font-size: 0.82rem;
@@ -333,7 +336,6 @@ article.prose th {
   .guide-layout { grid-template-columns: 1fr; }
   .toc { position: static; }
   .cassettes { grid-template-columns: 1fr; }
-  .charts { grid-template-columns: 1fr; }
   .model-list { columns: 1; }
   .ledger a { grid-template-columns: 2.4rem 1fr; }
   .ledger .go { display: none; }
