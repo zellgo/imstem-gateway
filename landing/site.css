@@ -70,7 +70,6 @@ h1 {
   grid-template-columns: repeat(2, 1fr);
   gap: 0.9rem;
 }
-.cassette,
 a.cassette {
   display: flex;
   flex-direction: column;
@@ -83,7 +82,6 @@ a.cassette {
   color: inherit;
   position: relative;
 }
-.cassette::before,
 a.cassette::before {
   content: "";
   position: absolute;
@@ -94,9 +92,7 @@ a.cassette::before {
   border: 1.5px solid var(--flask);
   transform: rotate(45deg);
 }
-.cassette:hover, .cassette:focus-within,
 a.cassette:hover, a.cassette:focus-visible { border-color: var(--flask); }
-.cassette strong,
 a.cassette strong {
   font-family: "Noto Serif SC", serif;
   font-size: 1.32rem;
@@ -104,9 +100,7 @@ a.cassette strong {
   display: block;
   margin-bottom: 0.35rem;
 }
-.cassette span,
 a.cassette span { color: var(--muted); font-size: 0.92rem; line-height: 1.45; }
-.cassette em,
 a.cassette em {
   font-style: normal;
   font-size: 0.72rem;
@@ -115,18 +109,6 @@ a.cassette em {
   color: var(--flask);
   margin-top: 1.15rem;
 }
-.cassette.ink,
-a.cassette.ink {
-  background: var(--ink);
-  color: var(--flask-ink);
-  border-color: var(--ink);
-}
-.cassette.ink span,
-a.cassette.ink span { color: #c5d4cb; }
-.cassette.ink em,
-a.cassette.ink em { color: #9fd0bf; }
-.cassette.ink::before,
-a.cassette.ink::before { border-color: #9fd0bf; }
 .notebook {
   margin-top: 2.6rem;
   border-top: 2px solid var(--ink);
