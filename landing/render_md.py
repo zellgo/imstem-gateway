@@ -62,6 +62,7 @@ def _rewrite_href(href: str) -> str:
         "USER_GUIDE_ZH.md": "/guides/user",
         "OPENWEBUI_GUIDE_ZH.md": "/guides/openwebui",
         "MODEL_COST_ZH.md": "/guides/cost",
+        "OPENWEBUI_LOCAL_ZH.md": "/guides/local-openwebui",
         "EMAIL_ONBOARDING_ZH.md": "/guides",
     }
     name = href.split("/")[-1]

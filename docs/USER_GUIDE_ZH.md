@@ -41,7 +41,8 @@
 2. 用入职邮件里的 **登录邮箱 + 密码**（不是工号，也不是阿里云账号）
 3. 左上角选模型，发消息
 
-界面按钮、文件夹、**知识库（Workspace → Knowledge）** 的逐步说明见 [OPENWEBUI_GUIDE_ZH.md](OPENWEBUI_GUIDE_ZH.md)。
+界面按钮、文件夹、**知识库（Workspace → Knowledge）** 的逐步说明见 [OPENWEBUI_GUIDE_ZH.md](OPENWEBUI_GUIDE_ZH.md)。  
+处理大批本地文件、自己建知识库：用本机 [Open WebUI Desktop / Computer](OPENWEBUI_LOCAL_ZH.md)，不要把大文件传到云端。
 
 首次登录后建议：
 
@@ -225,5 +226,6 @@ export ANTHROPIC_MODEL=qwen3.8-flash
 | CC Switch（切公司密钥） | [https://ccswitch.io/zh/](https://ccswitch.io/zh/) |
 | 费用与选模型 | [模型单价与省钱](MODEL_COST_ZH.md) |
 | 网页对话与知识库 | [Open WebUI 指南](OPENWEBUI_GUIDE_ZH.md) |
+| 本地 Desktop / Computer | [本地 Open WebUI](OPENWEBUI_LOCAL_ZH.md) |
 
 出问题找网关管理员。不要把密钥发到微信群。

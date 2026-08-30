@@ -47,6 +47,10 @@
 
 登录后左上角选择模型。推荐先选：qwen3.8-flash
 
+大批本地文件、自己建知识库：不要往云端传。用本机 Open WebUI Desktop
+  下载：https://github.com/open-webui/desktop
+  说明：https://llm.imstem.org/guides/local-openwebui
+
 ━━━━━━━━━━━━━━━━
 三、编程 / Agent API（Codex、Claude Code、Python）
 ━━━━━━━━━━━━━━━━

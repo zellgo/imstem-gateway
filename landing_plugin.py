@@ -48,6 +48,13 @@ GUIDES = (
         "kicker": "03 · 费用",
         "blurb": "各模型人民币官方价、岗位怎么选才省钱。",
     },
+    {
+        "slug": "local-openwebui",
+        "file": "OPENWEBUI_LOCAL_ZH.md",
+        "title": "本地 Open WebUI",
+        "kicker": "04 · 本机",
+        "blurb": "Desktop 与 Computer：文件留在电脑，知识库自建，模型走公司网关。",
+    },
 )
 
 
@@ -115,7 +122,7 @@ def _guides_index() -> str:
     <a class="back" href="/">← 返回入口</a>
     <p class="kicker">ImStem LLM</p>
     <h1>使用指南</h1>
-    <p class="lede">三份中文说明：先看员工总指南，再用网页对话和知识库，选模型时对照单价。</p>
+    <p class="lede">中文说明：先看员工总指南，再用网页对话和知识库；大文件用本地 Desktop / Computer，选模型时对照单价。</p>
     <section class="notebook">
       <h2>文档</h2>
       <ol class="ledger">{"".join(cards)}</ol>

@@ -5,7 +5,8 @@
 版本：Open WebUI **v0.11.1**  
 更新日期：2026-08-30
 
-本指南只讲网页对话。Codex / Claude Code / Python 见 [USER_GUIDE_ZH.md](USER_GUIDE_ZH.md)。
+本指南只讲 **公司云端** [chat.imstem.org](https://chat.imstem.org)。Codex / Claude Code / Python 见 [USER_GUIDE_ZH.md](USER_GUIDE_ZH.md)。  
+大批本地文件、自己在电脑上建知识库：见 [OPENWEBUI_LOCAL_ZH.md](OPENWEBUI_LOCAL_ZH.md)（Open WebUI Desktop 与 Computer）。云端能用，但传大文件会慢。
 
 界面语言可能是英文。下文同时写 **中文习惯说法** 和 **界面英文**。右下角头像 → **Settings / 设置** → **General** 可把界面改成中文。
 

@@ -2,6 +2,7 @@
 
 完整中文指南：[USER_GUIDE_ZH.md](USER_GUIDE_ZH.md)  
 Open WebUI 界面与知识库：[OPENWEBUI_GUIDE_ZH.md](OPENWEBUI_GUIDE_ZH.md)  
+本地 Desktop / Computer：[OPENWEBUI_LOCAL_ZH.md](OPENWEBUI_LOCAL_ZH.md)  
 费用与岗位选模型：[MODEL_COST_ZH.md](MODEL_COST_ZH.md)  
 入职邮件模板：[EMAIL_ONBOARDING_ZH.md](EMAIL_ONBOARDING_ZH.md)
 
