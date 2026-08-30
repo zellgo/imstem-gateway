@@ -219,6 +219,156 @@
       </div>
       <p class="cite">AA Index：Artificial Analysis v4.1.1（2026-08-30）。Terminal-Bench / SWE / OSWorld / DeepSWE / GPQA / PaperBench / Toolathlon：各厂发布表与公开榜（Kimi、GLM-5.3 卡、通义 Qwen3.8、DeepSeek V4 Flash 卡、混元 Hy3/Hy4）。价格：公司网关华北2 官方原价；GLM / 混元 / MiniMax 为厂商国内官方价。MiniMax 输出按官方 $1.20 约合人民币。</p>
     </section>
+
+    <section class="aa-flash" id="qwen-flash" aria-labelledby="aa-heading">
+      <h2 id="aa-heading">为什么现在默认用 Qwen3.8-Flash</h2>
+      <p class="pick">网关模型名 <code>qwen3.8-flash</code>，对应阿里云 <strong>Qwen3.8-Flash-Next</strong>。数字摘自 Artificial Analysis 独立评测（同类 111 个开放权重模型），不是厂商宣传稿。</p>
+      <p class="source">原文：<a href="https://artificialanalysis.ai/models/qwen3-8-flash-next">https://artificialanalysis.ai/models/qwen3-8-flash-next</a></p>
+
+      <div class="aa-kpis">
+        <div class="aa-kpi">
+          <span class="n">#5 / 111</span>
+          <span class="lbl">智能</span>
+          <small>Intelligence Index 56，同类中位数 29，4 档里最高档</small>
+        </div>
+        <div class="aa-kpi">
+          <span class="n">83.3 t/s</span>
+          <span class="lbl">速度</span>
+          <small>同类第 18 / 111；中位数 66.6 t/s，快于平均</small>
+        </div>
+        <div class="aa-kpi">
+          <span class="n">$0.10</span>
+          <span class="lbl">每项任务成本</span>
+          <small>输入 $0.15 / 输出 $0.47 / 百万 tokens，缓存折扣 89%</small>
+        </div>
+        <div class="aa-kpi">
+          <span class="n">180B / 6B</span>
+          <span class="lbl">MoE 参数</span>
+          <small>推理只激活 6B；文本 / 图像 / 视频输入，256k 上下文</small>
+        </div>
+      </div>
+
+      <div class="aa-charts">
+        <figure class="bars">
+          <figcaption>Intelligence Index</figcaption>
+          <p class="axis">越高越好 · 同类中位数 29</p>
+          <div class="bar-row">
+            <span class="name">Qwen3.8 Max</span>
+            <span class="bar-track"><span class="bar-fill" style="--w:100%"></span></span>
+            <span class="val">58</span>
+          </div>
+          <div class="bar-row is-self">
+            <span class="name">Flash-Next</span>
+            <span class="bar-track"><span class="bar-fill" style="--w:96.6%"></span></span>
+            <span class="val">56</span>
+          </div>
+          <div class="bar-row">
+            <span class="name">Qwen3.8 27B</span>
+            <span class="bar-track"><span class="bar-fill" style="--w:89.7%"></span></span>
+            <span class="val">52</span>
+          </div>
+          <div class="bar-row is-median">
+            <span class="name">同类中位数</span>
+            <span class="bar-track"><span class="bar-fill" style="--w:50%"></span></span>
+            <span class="val">29</span>
+          </div>
+        </figure>
+
+        <figure class="bars">
+          <figcaption>输出速度（tokens / 秒）</figcaption>
+          <p class="axis">越高越好 · 阿里云官方 API</p>
+          <div class="bar-row is-self">
+            <span class="name">Flash-Next</span>
+            <span class="bar-track"><span class="bar-fill" style="--w:100%"></span></span>
+            <span class="val">83.3</span>
+          </div>
+          <div class="bar-row is-median">
+            <span class="name">同类中位数</span>
+            <span class="bar-track"><span class="bar-fill" style="--w:80%"></span></span>
+            <span class="val">66.6</span>
+          </div>
+          <div class="bar-row">
+            <span class="name">Qwen3.8 27B</span>
+            <span class="bar-track"><span class="bar-fill" style="--w:55.2%"></span></span>
+            <span class="val">46</span>
+          </div>
+          <div class="bar-row">
+            <span class="name">Qwen3.8 Max</span>
+            <span class="bar-track"><span class="bar-fill" style="--w:33.6%"></span></span>
+            <span class="val">28</span>
+          </div>
+        </figure>
+
+        <figure class="bars">
+          <figcaption>Intelligence Index 每项任务成本</figcaption>
+          <p class="axis">越低越好 · 单位 USD</p>
+          <div class="bar-row is-self">
+            <span class="name">Flash-Next</span>
+            <span class="bar-track"><span class="bar-fill" style="--w:11%"></span></span>
+            <span class="val">$0.10</span>
+          </div>
+          <div class="bar-row">
+            <span class="name">Qwen3.8 27B</span>
+            <span class="bar-track"><span class="bar-fill" style="--w:40.7%"></span></span>
+            <span class="val">$0.37</span>
+          </div>
+          <div class="bar-row">
+            <span class="name">Qwen3.8 2.4T</span>
+            <span class="bar-track"><span class="bar-fill" style="--w:89%"></span></span>
+            <span class="val">$0.81</span>
+          </div>
+          <div class="bar-row">
+            <span class="name">Qwen3.8 Max</span>
+            <span class="bar-track"><span class="bar-fill" style="--w:100%"></span></span>
+            <span class="val">$0.91</span>
+          </div>
+        </figure>
+
+        <figure class="bars">
+          <figcaption>官方单价（USD / 百万 tokens）</figcaption>
+          <p class="axis">越低越好 · 实心条为 Flash，灰条为同类中位数</p>
+          <div class="bar-row is-self">
+            <span class="name">输入 · Flash</span>
+            <span class="bar-track"><span class="bar-fill" style="--w:12.5%"></span></span>
+            <span class="val">$0.15</span>
+          </div>
+          <div class="bar-row is-median">
+            <span class="name">输入 · 中位数</span>
+            <span class="bar-track"><span class="bar-fill" style="--w:25%"></span></span>
+            <span class="val">$0.30</span>
+          </div>
+          <div class="bar-row is-self">
+            <span class="name">输出 · Flash</span>
+            <span class="bar-track"><span class="bar-fill" style="--w:39.2%"></span></span>
+            <span class="val">$0.47</span>
+          </div>
+          <div class="bar-row is-median">
+            <span class="name">输出 · 中位数</span>
+            <span class="bar-track"><span class="bar-fill" style="--w:100%"></span></span>
+            <span class="val">$1.20</span>
+          </div>
+        </figure>
+      </div>
+
+      <table class="aa-specs">
+        <tbody>
+          <tr><th>发布</th><td>阿里巴巴，2026-08-26；开放权重，Qwen Community License 1.0（商用有限制）</td></tr>
+          <tr><th>能力</th><td>推理模型；输入文本 / 图像 / 视频，输出文本；上下文 256k（约 384 页 A4）</td></tr>
+          <tr><th>体量</th><td>总参数 180B，推理激活 6B（MoE）</td></tr>
+          <tr><th>啰嗦程度</th><td>Intelligence Index 共生成 200M 输出 tokens，同类中位数 110M，偏冗长</td></tr>
+          <tr><th>时延</th><td>首 token 2.74 s，同类中位数 2.34 s，略慢于中位</td></tr>
+          <tr><th>权重</th><td><a href="https://huggingface.co/Qwen/Qwen3.8-Flash-Next">Hugging Face · Qwen/Qwen3.8-Flash-Next</a></td></tr>
+        </tbody>
+      </table>
+
+      <div class="why">
+        <h3>为什么现在最好用它，而不是 Max 或 Kimi</h3>
+        <p>Artificial Analysis 把 Qwen3.8-Flash-Next 放在同类开放权重大模型的智能第一梯队：Intelligence Index <strong>56</strong>，同类第 5 / 111，几乎贴着自家旗舰 Max 的 58，却远高于同类中位数 29。评测套件是 v4.1.1 的 9 项（GDPval-AA、银行业工具调用、Terminal-Bench、SciCode、HLE、GPQA Diamond、CritPt、AA-Omniscience、AA-LCR），不是单项刷分。</p>
+        <p>真正拉开差距的是<strong>单位智能的价钱和速度</strong>。跑完同一套 Intelligence Index，Flash 每项任务约 <strong>$0.10</strong>，Max 约 $0.91，大约贵 9 倍；输出速度 83.3 t/s，Max 只有 28 t/s。相对 27B，Flash 更聪明（56 vs 52）、更快（83 vs 46）、更便宜（$0.10 vs $0.37 / 任务）。对日常写材料、改稿、翻译、读图、短视频理解和大多数内部问答，多出来的那 2 分 Max 智能，换不到 9 倍账单。</p>
+        <p>公司网关上 Kimi K3、Qwen Max 分数可以更高，但输出单价也高一个数量级。把它们当默认模型，等于用旗舰价做草稿。Flash 是开放权重、支持图文视频、256k 上下文、缓存命中再打 89% 折的推理模型——日常默认它，难题、长时代码和必须顶格智能的任务再升 Max / Kimi，是现在最划算的用法。</p>
+        <p>注意两点：它偏啰嗦（评测输出量约是中位数的 1.8 倍），首 token 也略慢于中位。写短回复时主动说「简短」；真要顶格智能或复杂 Agent，再换模型。数字以原文为准：<a href="https://artificialanalysis.ai/models/qwen3-8-flash-next">artificialanalysis.ai/models/qwen3-8-flash-next</a>。</p>
+      </div>
+    </section>
     <footer class="site">不要把病人可识别信息、密码或上游 API Key 贴进对话。账号由管理员发邮件。</footer>
   </main>
   <script>
