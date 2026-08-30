@@ -151,13 +151,6 @@ def patch_js(root: Path) -> int:
             text = text.replace(JS_ENUM_OLD, JS_ENUM_NEW)
         if JS_MAP_OLD in text and 'Xiaomi:"xiaomi_mimo"' not in text:
             text = text.replace(JS_MAP_OLD, JS_MAP_NEW)
-        if "$/1M" in text:
-            text = (
-                text.replace("$/1M tokens", "\u00a5/百万 tokens")
-                .replace("$/1M Tokens", "\u00a5/百万 Tokens")
-                .replace("$/1M Tokens)", "\u00a5/百万 Tokens)")
-                .replace("($/1M", "(\u00a5/百万")
-            )
         if text != orig:
             js.write_text(text, encoding="utf-8")
             print(f"patched js {js}")
