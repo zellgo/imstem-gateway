@@ -1,0 +1,14 @@
+*
+!Dockerfile
+!railway.toml
+!litellm/
+!litellm/**
+!landing/
+!landing/**
+!landing_plugin.py
+!docs/
+!docs/**
+!config/
+!config/**
+!scripts/
+!scripts/**

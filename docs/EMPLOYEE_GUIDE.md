@@ -1,5 +1,10 @@
 # Employee guide — ImStem AI
 
+完整中文指南：[USER_GUIDE_ZH.md](USER_GUIDE_ZH.md)  
+Open WebUI 界面与知识库：[OPENWEBUI_GUIDE_ZH.md](OPENWEBUI_GUIDE_ZH.md)  
+费用与岗位选模型：[MODEL_COST_ZH.md](MODEL_COST_ZH.md)  
+入职邮件模板：[EMAIL_ONBOARDING_ZH.md](EMAIL_ONBOARDING_ZH.md)
+
 入口：[https://llm.imstem.org](https://llm.imstem.org)
 
 ## 网页对话
@@ -24,6 +29,8 @@
 ## 个人 API（Codex、Claude Code、OpenCode、Python）
 
 管理员会发给你一把 **AGENT** 虚拟密钥。它只在 `https://llm.imstem.org` 上有效。用量记在你的工号上。完整说明：[https://llm.imstem.org/guide](https://llm.imstem.org/guide)
+
+Windows 上把 ChatGPT / Codex 桌面版切到公司网关：用 [CC Switch](https://ccswitch.io/zh/)（中文官方站）。在 Codex 面板添加 ImStem（Base URL `https://llm.imstem.org/v1` + AGENT 密钥），模型名要手填。每次切换后用任务管理器搜索 `chatgpt` 结束全部进程再打开。步骤见 [USER_GUIDE_ZH.md](USER_GUIDE_ZH.md) §5.2。
 
 ### Codex / OpenCode / OpenAI SDK
 

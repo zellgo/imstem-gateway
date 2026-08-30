@@ -4,204 +4,113 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ImStem LLM</title>
-  <meta name="description" content="ImStem 内部大模型入口：网页对话、个人 API、使用说明。">
+  <meta name="description" content="ImStem 内部大模型入口：网页对话、个人 API、使用指南、官方单价。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --ink: #14221c;
-      --muted: #4c5d54;
-      --paper: #e7eee8;
-      --card: #f6f8f4;
-      --line: #c5d0c6;
-      --flask: #0f6b57;
-      --flask-ink: #f4fbf7;
-    }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; }
-    body {
-      min-height: 100vh;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at 12% 0%, rgba(15, 107, 87, 0.08), transparent 42%),
-        var(--paper);
-      font-family: "IBM Plex Sans", "Noto Sans SC", sans-serif;
-      letter-spacing: 0.01em;
-    }
-    main {
-      max-width: 920px;
-      margin: 0 auto;
-      padding: 4.5rem 1.5rem 5rem;
-    }
-    .mark {
-      display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--flask);
-      border: 1px solid var(--flask);
-      padding: 0.28rem 0.55rem;
-      margin-bottom: 1.4rem;
-    }
-    h1 {
-      font-family: "Noto Serif SC", "Source Serif 4", serif;
-      font-size: clamp(2rem, 5vw, 3.1rem);
-      font-weight: 700;
-      line-height: 1.15;
-      margin: 0 0 0.7rem;
-    }
-    .lede {
-      max-width: 38rem;
-      color: var(--muted);
-      font-size: 1.05rem;
-      line-height: 1.6;
-      margin: 0 0 2.4rem;
-    }
-    .cassettes {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-    }
-    a.cassette {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 11.5rem;
-      padding: 1.15rem 1.15rem 1.05rem;
-      background: var(--card);
-      border: 1px solid var(--line);
-      text-decoration: none;
-      color: inherit;
-      box-shadow: 0 1px 0 rgba(20, 34, 28, 0.04);
-      position: relative;
-    }
-    a.cassette::before {
-      content: "";
-      position: absolute;
-      top: 0.7rem;
-      right: 0.8rem;
-      width: 0.7rem;
-      height: 0.7rem;
-      border: 1.5px solid var(--flask);
-      transform: rotate(45deg);
-    }
-    a.cassette:hover,
-    a.cassette:focus-visible {
-      border-color: var(--flask);
-      outline: none;
-    }
-    a.cassette strong {
-      font-family: "Noto Serif SC", serif;
-      font-size: 1.35rem;
-      font-weight: 700;
-      display: block;
-      margin-bottom: 0.35rem;
-    }
-    a.cassette span {
-      color: var(--muted);
-      font-size: 0.92rem;
-      line-height: 1.45;
-    }
-    a.cassette em {
-      font-style: normal;
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--flask);
-      margin-top: 1.2rem;
-    }
-    .models {
-      margin-top: 3rem;
-      padding-top: 1.4rem;
-      border-top: 1px solid var(--line);
-    }
-    .models h2 {
-      font-size: 0.82rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--flask);
-      margin: 0 0 0.9rem;
-      font-weight: 600;
-    }
-    ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      columns: 2;
-      gap: 0 2rem;
-    }
-    li {
-      break-inside: avoid;
-      padding: 0.35rem 0;
-      border-bottom: 1px solid var(--line);
-      font-variant-numeric: tabular-nums;
-      font-size: 0.95rem;
-    }
-    li small {
-      display: block;
-      color: var(--muted);
-      font-size: 0.8rem;
-    }
-    footer {
-      margin-top: 2.5rem;
-      color: var(--muted);
-      font-size: 0.85rem;
-    }
-    @media (max-width: 760px) {
-      .cassettes { grid-template-columns: 1fr; }
-      ul { columns: 1; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      * { transition: none !important; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/site.css">
 </head>
 <body>
-  <main>
+  <div class="top">
     <div class="mark">ImStem Biotechnology</div>
+    <nav aria-label="快捷">
+      <a href="/guides">使用指南</a>
+      <a href="/costs">官方单价</a>
+      <a href="/guide">个人 API</a>
+    </nav>
+  </div>
+  <main class="page">
     <h1>公司大模型入口</h1>
     <p class="lede">
-      用公司账号走内部网关。上游 Qwen / Kimi / DeepSeek / MiMo 密钥留在服务器，不发到个人电脑。
+      用公司账号走内部网关。上游 Qwen / Kimi / DeepSeek / MiMo 密钥留在服务器。先读使用指南，再打开网页对话。
     </p>
     <nav class="cassettes" aria-label="主要入口">
       <a class="cassette" href="https://chat.imstem.org">
         <div>
           <strong>网页对话</strong>
-          <span>浏览器里选模型、问问题、写材料。用邮件里的 Open WebUI 账号登录。</span>
+          <span>浏览器里选模型、写材料、建知识库。用邮件里的 Open WebUI 账号登录。</span>
         </div>
         <em>chat.imstem.org</em>
+      </a>
+      <a class="cassette ink" href="/guides">
+        <div>
+          <strong>使用指南</strong>
+          <span>员工总说明、网页对话与知识库、模型怎么选才省钱。三份中文文档。</span>
+        </div>
+        <em>llm.imstem.org/guides</em>
       </a>
       <a class="cassette" href="/guide">
         <div>
           <strong>个人 API</strong>
-          <span>Codex、Claude Code、OpenCode、Python。Base URL 是 llm.imstem.org，密钥是你的虚拟 Key。</span>
+          <span>Codex、Claude Code、OpenCode、Python。Windows 桌面版用 CC Switch 切公司密钥。</span>
         </div>
         <em>llm.imstem.org/v1</em>
       </a>
-      <a class="cassette" href="/guide#models">
+      <a class="cassette" href="/costs">
         <div>
-          <strong>可选模型</strong>
-          <span>阿里云百炼：Qwen 3.8、Kimi K3、DeepSeek V4。小米：MiMo 2.5 / 2.5 Pro。</span>
+          <strong>官方单价 &#165;</strong>
+          <span>阿里云百炼华北2北京 / 小米国内按量。每周从官网同步，不是估算。</span>
         </div>
-        <em>8 models</em>
+        <em>llm.imstem.org/costs</em>
       </a>
     </nav>
+    <section class="notebook" aria-labelledby="guide-heading">
+      <h2 id="guide-heading">使用指南</h2>
+      <ol class="ledger">
+        <li>
+          <a href="/guides/user">
+            <span class="idx">01</span>
+            <span><strong>员工使用指南</strong><small>登录、选模型、个人 API、CC Switch 切公司密钥、安全与计费。</small></span>
+            <span class="go">打开</span>
+          </a>
+        </li>
+        <li>
+          <a href="/guides/openwebui">
+            <span class="idx">02</span>
+            <span><strong>网页对话与知识库</strong><small>Open WebUI 界面、文件夹、用 # 引用知识库、不能上传什么。</small></span>
+            <span class="go">打开</span>
+          </a>
+        </li>
+        <li>
+          <a href="/guides/cost">
+            <span class="idx">03</span>
+            <span><strong>模型单价与省钱</strong><small>各模型人民币官方价、岗位怎么选、为什么不要默认 Kimi。</small></span>
+            <span class="go">打开</span>
+          </a>
+        </li>
+      </ol>
+    </section>
     <section class="models" id="models">
-      <h2>当前开放的模型</h2>
-      <ul>
+      <h2>当前开放的模型（&#165; / 百万 tokens）</h2>
+      <ul class="model-list" id="model-list">
         <li>qwen3.8-flash<small>快、便宜，草稿和翻译</small></li>
         <li>qwen3.8-27b<small>日常写作与修改</small></li>
         <li>qwen3.8-max<small>难文、长上下文、复杂推理</small></li>
-        <li>kimi-k3<small>Agent / 代码，Codex 默认映射到这里</small></li>
+        <li>kimi-k3<small>Agent / 代码，勿作默认（最贵）</small></li>
         <li>deepseek-v4-flash-0731<small>低成本推理</small></li>
         <li>deepseek-v4-pro-0813<small>更强的 DeepSeek V4</small></li>
         <li>mimo-v2.5<small>小米 MiMo 2.5</small></li>
         <li>mimo-v2.5-pro<small>小米 MiMo 2.5 Pro</small></li>
       </ul>
     </section>
-    <footer>不要把病人可识别信息、密码或上游 API Key 贴进对话。账号由管理员单独发邮件。</footer>
+    <footer class="site">不要把病人可识别信息、密码或上游 API Key 贴进对话。账号由管理员发邮件。</footer>
   </main>
+  <script>
+    fetch("/imstem/prices").then(function (r) { return r.json(); }).then(function (data) {
+      var ul = document.getElementById("model-list");
+      if (!ul || !data.models) return;
+      ul.innerHTML = "";
+      Object.keys(data.models).forEach(function (id) {
+        var m = data.models[id];
+        var li = document.createElement("li");
+        var extra = "";
+        if (m.billing === "peak_offpeak") extra = "，闲时 &#165;" + m.input_idle_cny_per_million + "/&#165;" + m.output_idle_cny_per_million;
+        li.innerHTML = id + "<small>" + (m.purpose || "") +
+          " · 输入 " + (m.display_input || "") + " / 输出 " + (m.display_output || "") +
+          " / 百万 tokens" + extra + "</small>";
+        ul.appendChild(li);
+      });
+    }).catch(function () {});
+  </script>
 </body>
 </html>

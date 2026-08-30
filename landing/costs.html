@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ImStem LLM · 官方模型单价（&#165;）</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --ink:#14221c; --muted:#4c5d54; --paper:#e7eee8; --card:#f6f8f4; --line:#c5d0c6; --flask:#0f6b57; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:"IBM Plex Sans","Noto Sans SC",sans-serif; }
+    main { max-width: 960px; margin: 0 auto; padding: 3.2rem 1.4rem 5rem; }
+    a { color: var(--flask); }
+    h1 { font-family:"Noto Serif SC",serif; font-size:2rem; margin:0.4rem 0 0.8rem; }
+    p, li { line-height:1.6; }
+    .mark { font-size:0.72rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--flask); font-weight:600; }
+    .meta { color:var(--muted); font-size:0.92rem; margin-bottom:1.4rem; }
+    table { width:100%; border-collapse:collapse; font-size:0.92rem; background:var(--card); }
+    th, td { text-align:left; padding:0.55rem 0.5rem; border-bottom:1px solid var(--line); vertical-align:top; }
+    th { font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--flask); }
+    td.num, th.num { text-align:right; font-variant-numeric: tabular-nums; font-family:"IBM Plex Mono",monospace; }
+    code { font-family:"IBM Plex Mono",monospace; font-size:0.85rem; }
+    .back { display:inline-block; margin-bottom:1.2rem; }
+    .note { margin-top:1.2rem; color:var(--muted); font-size:0.88rem; }
+    tr.kimi td { background: #f3ece6; }
+  </style>
+</head>
+<body>
+<main>
+  <a class="back" href="/">← 返回入口</a>
+  <div class="mark">ImStem LLM</div>
+  <h1>模型官方单价（人民币 &#165;）</h1>
+  <p class="meta" id="meta">正在读取阿里云百炼华北2（北京） / 小米国内按量官方价…</p>
+  <table>
+    <thead>
+      <tr>
+        <th>模型</th>
+        <th>用途</th>
+        <th class="num">输入 / 百万</th>
+        <th class="num">输出 / 百万</th>
+        <th class="num">缓存命中</th>
+        <th>来源</th>
+      </tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <p class="note">
+    数字直接来自厂商文档，不是估算。DeepSeek 带日期的快照有闲时/忙时两档；上表「记账」列为<strong>忙时官方价</strong>（北京工作日 9:00–12:00、14:00–18:00），闲时列在同一格括号里。
+    LiteLLM Usage 里的金额按这些 &#165;/token 累计。价格文件每周从官网拉一次。
+  </p>
+</main>
+<script>
+function yuan(n) {
+  if (n === null || n === undefined) return "—";
+  return "&#165;" + Number(n).toString().replace(/\.0+$/, "");
+}
+fetch("/imstem/prices")
+  .then(function (r) { return r.json(); })
+  .then(function (data) {
+    var fetched = data.fetched_at ? new Date(data.fetched_at).toLocaleString("zh-CN", { hour12: false }) : "未知";
+    document.getElementById("meta").textContent =
+      (data.region || "华北2（北京）") + " · 更新于 " + fetched + " · 货币 CNY";
+    var body = document.getElementById("rows");
+    var models = data.models || {};
+    Object.keys(models).forEach(function (id) {
+      var m = models[id];
+      var tr = document.createElement("tr");
+      if (id === "kimi-k3") tr.className = "kimi";
+      var inp = yuan(m.input_cny_per_million);
+      var out = yuan(m.output_cny_per_million);
+      if (m.billing === "peak_offpeak") {
+        inp += "（闲 " + yuan(m.input_idle_cny_per_million) + "）";
+        out += "（闲 " + yuan(m.output_idle_cny_per_million) + "）";
+      }
+      tr.innerHTML =
+        "<td><code>" + id + "</code></td>" +
+        "<td>" + (m.purpose || "") + "</td>" +
+        "<td class='num'>" + inp + "</td>" +
+        "<td class='num'>" + out + "</td>" +
+        "<td class='num'>" + yuan(m.cache_hit_cny_per_million) + "</td>" +
+        "<td><a href='" + (m.source_url || "#") + "'>官方文档</a></td>";
+      body.appendChild(tr);
+    });
+  })
+  .catch(function () {
+    document.getElementById("meta").textContent = "价格文件读取失败，请稍后刷新。";
+  });
+</script>
+</body>
+</html>

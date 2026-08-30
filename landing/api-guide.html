@@ -22,14 +22,34 @@
     table { width:100%; border-collapse:collapse; font-size:0.92rem; }
     th, td { text-align:left; padding:0.45rem 0.3rem; border-bottom:1px solid var(--line); vertical-align:top; }
     .back { display:inline-block; margin-bottom:1.2rem; }
+    .tools { display:grid; grid-template-columns:1fr; gap:0.7rem; margin:1rem 0 1.6rem; }
+    .tool {
+      display:block; padding:0.9rem 1rem; background:var(--card);
+      border:1px solid var(--line); text-decoration:none; color:inherit;
+    }
+    .tool:hover { border-color:var(--flask); }
+    .tool strong { display:block; font-family:"Noto Serif SC",serif; font-size:1.15rem; margin-bottom:0.25rem; }
+    .tool span { display:block; color:var(--muted); font-size:0.9rem; line-height:1.45; }
+    .tool em { display:block; margin-top:0.45rem; font-style:normal; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--flask); }
   </style>
 </head>
 <body>
 <main>
-  <a class="back" href="/">← 返回入口</a>
+  <a class="back" href="/">← 返回入口</a> · <a class="back" href="/guides">使用指南</a>
   <div class="mark">ImStem LLM</div>
   <h1>个人 API 使用说明</h1>
   <p>每人一把 LiteLLM 虚拟密钥。它不是阿里云或小米的官方 Key，只在 <code>https://llm.imstem.org</code> 上有效。用量记在你的工号上。</p>
+
+  <h2>关键工具</h2>
+  <p>Windows 上把 ChatGPT / Codex 桌面版切到公司密钥，用 CC Switch，不要只靠手改配置文件。</p>
+  <div class="tools">
+    <a class="tool" href="https://ccswitch.io/zh/" rel="noopener noreferrer">
+      <strong>CC Switch</strong>
+      <span>官方中文站下载。添加 ImStem 供应商（Base URL <code>https://llm.imstem.org/v1</code> + 邮件里的 AGENT 密钥），在软件里手填模型名。每次切换供应商或模型后，用任务管理器搜索 chatgpt，结束全部进程再打开桌面版。</span>
+      <em>ccswitch.io/zh · 公司推荐</em>
+    </a>
+  </div>
+  <p>完整步骤见员工指南 <a href="/guides/user">§5.2 CC Switch</a>。</p>
 
   <h2>1. 网页对话</h2>
   <ol>
@@ -38,20 +58,35 @@
     <li>在模型列表里选下面的名字（不要选 GPT / Claude 的原名；那些会被网关转到 Kimi K3）</li>
   </ol>
 
-  <h2 id="models">2. 可选模型</h2>
+  <h2 id="models">2. 可选模型（官方 &#165; / 百万 tokens）</h2>
+  <p>单价来自阿里云百炼华北2（北京）和小米国内按量文档，每周自动同步。完整表：<a href="/costs">/costs</a>。</p>
   <table>
-    <thead><tr><th>模型名</th><th>适合</th><th>上游</th></tr></thead>
-    <tbody>
-      <tr><td><code>qwen3.8-flash</code></td><td>快、便宜，草稿翻译</td><td>阿里云百炼</td></tr>
-      <tr><td><code>qwen3.8-27b</code></td><td>日常写作修改</td><td>阿里云百炼</td></tr>
-      <tr><td><code>qwen3.8-max</code></td><td>难文、长文档</td><td>阿里云百炼</td></tr>
-      <tr><td><code>kimi-k3</code></td><td>Agent、代码、Codex 默认</td><td>阿里云百炼</td></tr>
-      <tr><td><code>deepseek-v4-flash-0731</code></td><td>低成本推理</td><td>阿里云百炼</td></tr>
-      <tr><td><code>deepseek-v4-pro-0813</code></td><td>更强 DeepSeek V4</td><td>阿里云百炼</td></tr>
-      <tr><td><code>mimo-v2.5</code></td><td>小米 2.5</td><td>Xiaomi MiMo</td></tr>
-      <tr><td><code>mimo-v2.5-pro</code></td><td>小米 2.5 Pro</td><td>Xiaomi MiMo</td></tr>
+    <thead><tr><th>模型名</th><th>适合</th><th>输入</th><th>输出</th></tr></thead>
+    <tbody id="model-rows">
+      <tr><td><code>qwen3.8-flash</code></td><td>快、便宜，草稿翻译</td><td>&#165;0.8</td><td>&#165;2.7</td></tr>
+      <tr><td><code>qwen3.8-27b</code></td><td>日常写作修改</td><td>&#165;3</td><td>&#165;12</td></tr>
+      <tr><td><code>qwen3.8-max</code></td><td>难文、长文档</td><td>&#165;12</td><td>&#165;36</td></tr>
+      <tr><td><code>kimi-k3</code></td><td>Agent、代码（最贵，勿默认）</td><td>&#165;20</td><td>&#165;100</td></tr>
+      <tr><td><code>deepseek-v4-flash-0731</code></td><td>低成本推理（忙时）</td><td>&#165;3</td><td>&#165;9</td></tr>
+      <tr><td><code>deepseek-v4-pro-0813</code></td><td>更强 DeepSeek V4（忙时）</td><td>&#165;9</td><td>&#165;27</td></tr>
+      <tr><td><code>mimo-v2.5</code></td><td>小米 2.5</td><td>&#165;1</td><td>&#165;2</td></tr>
+      <tr><td><code>mimo-v2.5-pro</code></td><td>小米 MiMo 2.5 Pro</td><td>&#165;3</td><td>&#165;6</td></tr>
     </tbody>
   </table>
+  <script>
+    fetch("/imstem/prices").then(function (r) { return r.json(); }).then(function (data) {
+      var body = document.getElementById("model-rows");
+      if (!body || !data.models) return;
+      body.innerHTML = "";
+      Object.keys(data.models).forEach(function (id) {
+        var m = data.models[id];
+        var tr = document.createElement("tr");
+        tr.innerHTML = "<td><code>" + id + "</code></td><td>" + (m.purpose || "") +
+          "</td><td>" + (m.display_input || "") + "</td><td>" + (m.display_output || "") + "</td>";
+        body.appendChild(tr);
+      });
+    }).catch(function () {});
+  </script>
 
   <h2>3. OpenAI 兼容（Codex / OpenCode / Python）</h2>
   <p>Base URL 必须带 <code>/v1</code>。把邮件里的 <code>AGENT</code> 密钥填进去。</p>
@@ -75,17 +110,19 @@ print(client.chat.completions.create(
     messages=[{"role":"user","content":"Hello"}],
 ).choices[0].message.content)</code></pre>
 
-  <h2>4. Codex</h2>
-<pre><code># ~/.codex/config.toml
-model = "kimi-k3"
+  <h2>4. Codex / ChatGPT 桌面版</h2>
+  <p><strong>推荐：</strong>用 <a href="https://ccswitch.io/zh/">CC Switch</a> 添加 ImStem 供应商（见页顶「关键工具」和 <a href="/guides/user">员工指南 5.2</a>）。手改配置在 Windows 桌面版上经常被沙盒窗口挡住。</p>
+  <p>CC Switch 目前<strong>列不全</strong>公司模型，请手填 <code>qwen3.8-flash</code> 等网关名字。每次切换供应商或切回 OpenAI 官方后：任务管理器搜索 <code>chatgpt</code>，结束全部进程，再开桌面版。</p>
+<pre><code># 仅在不用 CC Switch、自己改 CLI 时：~/.codex/config.toml
+model = "qwen3.8-flash"
 model_provider = "imstem"
 
 [model_providers.imstem]
 name = "ImStem"
 base_url = "https://llm.imstem.org/v1"
 env_key = "OPENAI_API_KEY"
-wire_api = "chat"</code></pre>
-  <p>如果 Codex 仍然发送 <code>gpt-4o</code> / <code>gpt-5</code>，网关会转到 <code>kimi-k3</code>，费用仍记在你名下。</p>
+wire_api = "responses"</code></pre>
+  <p>如果仍发送 <code>gpt-4o</code> / <code>gpt-5</code> / <code>gpt-5.4</code>，公司密钥会 403，或被网关转到 <code>kimi-k3</code>（最贵）。费用仍记在你名下。</p>
 
   <h2>5. Claude Code</h2>
   <p><code>ANTHROPIC_BASE_URL</code> <strong>不要</strong>加 <code>/v1</code>，Claude Code 会自己拼 <code>/v1/messages</code>。</p>
