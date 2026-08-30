@@ -3,7 +3,7 @@
 面向：已经在用腾讯 WorkBuddy 桌面客户端的同事  
 更新日期：2026-08-30
 
-WorkBuddy 自带额度用完后，不要去买零散第三方中转。把自定义模型指到 **公司网关** `llm.imstem.org`，用入职邮件里的个人 **AGENT** 密钥。用量记在你的工号上。
+WorkBuddy 自带额度用完后，不要去买零散第三方中转。把自定义模型指到 **公司网关** `llm.imstem.org`，用入职邮件里的个人 **AGENT** 密钥。用量记在你的密钥上。
 
 官网（国内）：[https://www.workbuddy.cn](https://www.workbuddy.cn)  
 官方文档：[https://www.workbuddy.cn/docs/workbuddy/Overview](https://www.workbuddy.cn/docs/workbuddy/Overview)

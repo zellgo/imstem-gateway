@@ -1,6 +1,6 @@
 # ImStem 大模型使用指南（员工完整版）
 
-面向：医学、临床监查、项目管理及后续入职同事  
+面向：使用公司网关的同事  
 
 更新日期：2026-08-30
 
@@ -12,10 +12,10 @@
 
 你拿到的是两样东西：
 
-| 用途                                   | 你怎么用                                                       | 费用记在谁身上             |
+| 用途                                   | 你怎么用                                                       | 费用记在哪               |
 | ------------------------------------ | ---------------------------------------------------------- | ------------------- |
-| 网页对话                                 | [https://chat.imstem.org](https://chat.imstem.org) 用邮箱密码登录 | 你的工号 `MED00X-CHAT`  |
-| 编程 / Agent（Codex、Claude Code、Python） | 个人 **AGENT** 密钥 + 公司 Base URL                              | 你的工号 `MED00X-AGENT` |
+| 网页对话                                 | [https://chat.imstem.org](https://chat.imstem.org) 用邮箱密码登录 | 你的 **CHAT** 密钥      |
+| 编程 / Agent（Codex、Claude Code、Python） | 个人 **AGENT** 密钥 + 公司 Base URL                              | 你的 **AGENT** 密钥     |
 
 两把密钥都是公司网关发的虚拟密钥，只能打 `https://llm.imstem.org`。转给同事、贴到公开网页或 ChatGPT 网站等于把额度送给别人。
 
@@ -31,14 +31,14 @@
 - 个人有月度上限。超额后密钥会失败，找管理员加额度，不要换同事的密钥继续用。
 
 省钱原则：**日常用 Flash 档——`qwen3.8-flash` 与 `glm-5.3-flash` 同级，写作可自由切换。** GLM 更便宜。写不好再升级，不要一上来用 Max / Kimi。  
-详细单价与岗位推荐见 [MODEL_COST_ZH.md](MODEL_COST_ZH.md)。实时官方价（￥）：[https://llm.imstem.org/costs](https://llm.imstem.org/costs)。
+详细单价与按任务选模型见 [MODEL_COST_ZH.md](MODEL_COST_ZH.md)。实时官方价：[https://llm.imstem.org/costs](https://llm.imstem.org/costs)。
 
 ---
 
 ## 3. 网页对话（Open WebUI）
 
 1. 打开 [https://chat.imstem.org](https://chat.imstem.org)
-2. 用入职邮件里的 **登录邮箱 + 密码**（不是工号，也不是阿里云账号）
+2. 用入职邮件里的 **登录邮箱 + 密码**（不是阿里云账号）
 3. 左上角选模型，发消息
 
 界面按钮、文件夹、**知识库（Workspace → Knowledge）** 的逐步说明见 [OPENWEBUI_GUIDE_ZH.md](OPENWEBUI_GUIDE_ZH.md)。  
@@ -66,13 +66,7 @@
 | 6 代码 / Agent 首选   | `mimo-v2.5` / `mimo-v2.5-pro` | Codex、脚本、表格处理、多步工具调用            | 正式中文医学公文（优先千问）      |
 | 7 最后手段            | `kimi-k3`                     | 别的模型都失败的长程 Agent、极难代码           | **禁止当默认聊天模型**（单价最高） |
 
-岗位对照：
-
-| 岗位   | 默认                         | 升级到 27b             | 才用 Max        | Agent / 代码                   |
-| ---- | -------------------------- | ------------------- | ------------- | ---------------------------- |
-| 医学经理 | Flash 档（千问或 GLM）：邮件、摘要、中英翻译 | 方案/IB/CSR 章节、审稿意见草稿 | 关键法规对读、科学逻辑卡住 | `mimo-v2.5-pro`；Kimi 仅在连续失败后 |
-| 项目经理 | Flash 档：纪要、邮件、进度话术           | 风险登记、供应商说明、里程碑冲突    | 复杂跨部门方案取舍     | 少用；脚本用 MiMo Pro              |
-| CRA  | Flash 档：访视报告、query 清单、TMF 核对 | 方案偏离解释、发现分级         | 几乎不用          | 一般不需要；做表用 Flash 或 MiMo       |
+按任务选：日常写作/翻译用 Flash 档；方案章节用 27b；法规对读用 Max；代码用 MiMo Pro。不要按人、按组来选。
 
 ---
 

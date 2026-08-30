@@ -46,7 +46,7 @@ GUIDES = (
         "file": "MODEL_COST_ZH.md",
         "title": "模型单价与省钱",
         "kicker": "03 · 费用",
-        "blurb": "各模型人民币官方价、岗位怎么选才省钱。",
+        "blurb": "各模型人民币官方价、按任务怎么选才省钱。",
     },
     {
         "slug": "local-openwebui",

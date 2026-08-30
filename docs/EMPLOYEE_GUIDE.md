@@ -4,7 +4,7 @@
 Open WebUI 界面与知识库：[OPENWEBUI_GUIDE_ZH.md](OPENWEBUI_GUIDE_ZH.md)  
 本地 Desktop / Computer：[OPENWEBUI_LOCAL_ZH.md](OPENWEBUI_LOCAL_ZH.md)  
 WorkBuddy 接公司网关：[WORKBUDDY_ZH.md](WORKBUDDY_ZH.md)  
-费用与岗位选模型：[MODEL_COST_ZH.md](MODEL_COST_ZH.md)  
+费用与按任务选模型：[MODEL_COST_ZH.md](MODEL_COST_ZH.md)  
 入职邮件模板：[EMAIL_ONBOARDING_ZH.md](EMAIL_ONBOARDING_ZH.md)
 
 入口：[https://llm.imstem.org](https://llm.imstem.org)
@@ -12,7 +12,7 @@ WorkBuddy 接公司网关：[WORKBUDDY_ZH.md](WORKBUDDY_ZH.md)
 ## 网页对话
 
 1. 打开 [https://chat.imstem.org](https://chat.imstem.org)
-2. 用管理员邮件里的 **邮箱 + 密码** 登录（不是工号）
+2. 用管理员邮件里的 **邮箱 + 密码** 登录
 3. 选模型：
 
 | 模型 | 适合 |
@@ -31,7 +31,7 @@ WorkBuddy 接公司网关：[WORKBUDDY_ZH.md](WORKBUDDY_ZH.md)
 
 ## 个人 API（Codex、Claude Code、OpenCode、Python）
 
-管理员会发给你一把 **AGENT** 虚拟密钥。它只在 `https://llm.imstem.org` 上有效。用量记在你的工号上。完整说明：[https://llm.imstem.org/guide](https://llm.imstem.org/guide)
+管理员会发给你一把 **AGENT** 虚拟密钥。它只在 `https://llm.imstem.org` 上有效。用量记在你自己的密钥上。完整说明：[https://llm.imstem.org/guide](https://llm.imstem.org/guide)
 
 Windows 上把 ChatGPT / Codex / Claude Code 切到公司网关：用 [CC Switch](https://ccswitch.io/zh/)（中文官方站）。地址栏叫 **API Request URL**（Codex 填 `https://llm.imstem.org/v1`，Claude Code 填 `https://llm.imstem.org` 不要加 `/v1`）+ AGENT 密钥。默认模型：点输入框右边下载按钮拉取列表，选好后 Save。Codex 每次切换后用任务管理器搜索 `chatgpt` 结束全部进程再打开。步骤见 [USER_GUIDE_ZH.md](USER_GUIDE_ZH.md) §5.2。
 

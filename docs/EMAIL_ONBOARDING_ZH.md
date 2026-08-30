@@ -1,9 +1,7 @@
 # 入职邮件模板（大模型账号）
 
-发给每位员工一封。密钥来自 `secret/outbox/roster.csv` 与对应 `MED00X.md`。  
+发给每位同事一封。密钥来自 `secret/outbox/` 里对应的账号文件。  
 **不要把本模板填好后的真实密钥提交到 git。** 填好的信在 `secret/outbox/emails/`。
-
-涂美慧（MED004）的邮箱在花名册中为拼音推断，发送前请口头确认。
 
 ---
 
@@ -21,7 +19,7 @@
 {{姓名}} 您好：
 
 公司已开通统一大模型入口，用于方案写作、监查记录、会议纪要、翻译和编程助手。
-这不是个人 ChatGPT 账号，密钥和用量记在您的工号上。
+这不是个人 ChatGPT 账号，密钥和用量记在您自己的网关账号上。
 
 ━━━━━━━━━━━━━━━━
 一、费用（必读）
@@ -35,7 +33,7 @@
 • 日常请用 Flash 档：qwen3.8-flash 与 glm-5.3-flash 同级，写作可自由切换（GLM 更便宜）。写不好再换 qwen3.8-27b，难题再用 qwen3.8-max。
 • 不要把 kimi-k3 当聊天默认模型，它是目前最贵的一档。
 
-完整选模型与单价：请向管理员索取《模型费用与岗位推荐》，或看入职附件。
+完整选模型与单价：https://llm.imstem.org/guides/cost
 
 ━━━━━━━━━━━━━━━━
 二、网页对话（每天用这个）
@@ -104,14 +102,4 @@ API 说明：https://llm.imstem.org/guide
 
 ---
 
-## 发送清单
-
-| 工号 | 姓名 | 岗位 | 邮箱 | 备注 |
-|---|---|---|---|---|
-| MED001 | 王丁坤 | 医学经理 | dingkunwang@imstem.com.cn | |
-| MED002 | 李子木 | CRA | zimuli@imstem.com.cn | |
-| MED003 | 刘士麟 | 项目经理 | shilinliu@imstem.com.cn | |
-| MED004 | 涂美慧 | CRA | meihuitu@imstem.com.cn | 邮箱待确认 |
-| MED005 | 王斯 | CRA | siwang@imstem.com.cn | |
-| MED006 | 于丽伟 | 项目经理 | liweiyu@imstem.com.cn | |
-| MED007 | 祁星 | CTA | xingqi@imstem.com.cn | |
+发送对象以管理员手头的账号表为准，不要把姓名或内部编号写进对外指南。
