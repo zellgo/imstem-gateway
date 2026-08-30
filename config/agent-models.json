@@ -1,6 +1,23 @@
 {
-  "chat_models": ["company-fast", "company-standard", "company-pro", "mimo-pro"],
+  "chat_models": [
+    "qwen3.8-flash",
+    "qwen3.8-27b",
+    "qwen3.8-max",
+    "kimi-k3",
+    "deepseek-v4-flash-0731",
+    "deepseek-v4-pro-0813",
+    "mimo-v2.5",
+    "mimo-v2.5-pro"
+  ],
   "agent_models": [
+    "qwen3.8-flash",
+    "qwen3.8-27b",
+    "qwen3.8-max",
+    "kimi-k3",
+    "deepseek-v4-flash-0731",
+    "deepseek-v4-pro-0813",
+    "mimo-v2.5",
+    "mimo-v2.5-pro",
     "company-fast",
     "company-standard",
     "company-agent",

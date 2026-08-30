@@ -47,7 +47,7 @@ def main() -> int:
     load_env(root)
     gateway = (
         os.environ.get("PUBLIC_GATEWAY_URL")
-        or "https://imstem-gateway-production.up.railway.app"
+        or "https://llm.imstem.org"
     ).rstrip("/")
     master = os.environ.get("LITELLM_MASTER_KEY")
     if not master:

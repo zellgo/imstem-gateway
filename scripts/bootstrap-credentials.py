@@ -68,12 +68,13 @@ def wanted_credentials() -> list[dict]:
                 "api_key": os.environ.get("DASHSCOPE_API_KEY", ""),
                 "api_base": os.environ.get(
                     "DASHSCOPE_API_BASE",
-                    "https://dashscope.aliyuncs.com/compatible-mode/v1",
+                    "https://ws-wl95ahuehne7eddv.cn-beijing.maas.aliyuncs.com/compatible-mode/v1",
                 ),
             },
             "credential_info": {
-                "custom_llm_provider": "dashscope",
-                "description": "Alibaba Qwen via DashScope",
+                # Workspace is OpenAI-compatible, not the public DashScope host.
+                "custom_llm_provider": "openai",
+                "description": "Aliyun Model Studio workspace (Qwen / Kimi / DeepSeek)",
             },
         },
         {
@@ -119,7 +120,9 @@ def main() -> int:
 
     root = Path(__file__).resolve().parents[1]
     load_env(root)
-    gateway = os.environ.get("PUBLIC_GATEWAY_URL") or f"http://127.0.0.1:{os.environ.get('LITELLM_PORT', '4000')}"
+    gateway = (
+        os.environ.get("PUBLIC_GATEWAY_URL") or "https://llm.imstem.org"
+    ).rstrip("/")
     master = os.environ.get("LITELLM_MASTER_KEY")
     if not master:
         sys.stderr.write("LITELLM_MASTER_KEY missing\n")

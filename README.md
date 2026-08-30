@@ -1,6 +1,6 @@
 # ImStem AI Gateway
 
-Company LLM gateway for a small biotechnology team. Employees use internal model names (`company-fast`, `company-standard`, `company-pro`, `company-agent`). Upstream DeepSeek / Qwen / MiMo keys stay on the server.
+Company LLM gateway for a small biotechnology team. Employees pick Aliyun models (`qwen3.8-flash`, `qwen3.8-max`, `kimi-k3`, `deepseek-v4-*`) and Xiaomi MiMo (`mimo-v2.5`, `mimo-v2.5-pro`). Upstream keys stay on the server.
 
 **Chat:** Open WebUI  
 **Agents (Codex, OpenCode, etc.):** OpenAI-compatible ` /v1 ` on LiteLLM  
@@ -38,9 +38,10 @@ docker compose up -d
 
 Open:
 
-- **Employee chat (use this in the browser):** https://open-webui-production-f828.up.railway.app
-- Gateway API for Codex / Claude Code: https://imstem-gateway-production.up.railway.app/v1
-- LiteLLM **admin** (not for employees): https://imstem-gateway-production.up.railway.app/ui
+- **Landing:** https://llm.imstem.org
+- **Employee chat:** https://chat.imstem.org
+- Gateway API: https://llm.imstem.org/v1
+- LiteLLM **admin** (not for employees): https://llm.imstem.org/ui
 
 ## Railway
 
@@ -70,13 +71,13 @@ Each employee gets two virtual keys. They never receive DeepSeek / Qwen / MiMo s
 
 ```bash
 # Codex / OpenCode
-OPENAI_BASE_URL=https://imstem-gateway-production.up.railway.app/v1
+OPENAI_BASE_URL=https://llm.imstem.org/v1
 OPENAI_API_KEY=<that employee's MED001-AGENT key>
 
 # Claude Code  (no /v1 on the base URL)
-ANTHROPIC_BASE_URL=https://imstem-gateway-production.up.railway.app
+ANTHROPIC_BASE_URL=https://llm.imstem.org
 ANTHROPIC_API_KEY=<same MED001-AGENT key>
-ANTHROPIC_MODEL=company-agent
+ANTHROPIC_MODEL=kimi-k3
 ```
 
 Issue a new pair: `./scripts/create-user.sh MED004 Medical`  

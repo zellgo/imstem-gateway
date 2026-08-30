@@ -13,7 +13,7 @@ fi
 EMPLOYEE_ID="${1:?employee id required, e.g. MED004}"
 DEPARTMENT="${2:?department required, e.g. Medical}"
 DISPLAY_NAME="${3:-$EMPLOYEE_ID}"
-GATEWAY="${PUBLIC_GATEWAY_URL:-https://imstem-gateway-production.up.railway.app}"
+GATEWAY="${PUBLIC_GATEWAY_URL:-https://llm.imstem.org}"
 AUTH="Authorization: Bearer ${LITELLM_MASTER_KEY:?LITELLM_MASTER_KEY missing}"
 
 CHAT_BUDGET="${CHAT_BUDGET:-30}"
@@ -32,7 +32,7 @@ api() {
 }
 
 echo "Ensuring team ${DEPARTMENT}..."
-api POST /team/new "{\"team_alias\":\"${DEPARTMENT}\",\"models\":[\"company-fast\",\"company-standard\",\"company-pro\",\"mimo-pro\",\"company-agent\"]}" >/tmp/imstem-team.json || true
+api POST /team/new "{\"team_alias\":\"${DEPARTMENT}\",\"models\":[\"qwen3.8-flash\",\"qwen3.8-27b\",\"qwen3.8-max\",\"kimi-k3\",\"deepseek-v4-flash-0731\",\"deepseek-v4-pro-0813\",\"mimo-v2.5\",\"mimo-v2.5-pro\"]}" >/tmp/imstem-team.json || true
 
 echo "Creating user ${EMPLOYEE_ID}..."
 api POST /user/new "$(cat <<JSON
@@ -95,12 +95,12 @@ print("")
 print("--- Codex / OpenCode / OpenAI SDKs ---")
 print(f"  export OPENAI_BASE_URL={gw}/v1")
 print(f"  export OPENAI_API_KEY={agent_key}")
-print("  model: company-agent   (gpt-4o / gpt-5 are remapped to this)")
+print("  model: kimi-k3   (gpt-4o / gpt-5 are remapped to this)")
 print("")
 print("--- Claude Code ---")
 print(f"  export ANTHROPIC_BASE_URL={gw}")
 print(f"  export ANTHROPIC_API_KEY={agent_key}")
-print("  export ANTHROPIC_MODEL=company-agent")
+print("  export ANTHROPIC_MODEL=kimi-k3")
 print("  (do not append /v1; Claude Code adds /v1/messages)")
 print("")
 print("Create the matching Open WebUI user in Admin → Users (signup is disabled).")

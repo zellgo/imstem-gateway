@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ImStem LLM</title>
+  <meta name="description" content="ImStem 内部大模型入口：网页对话、个人 API、使用说明。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #14221c;
+      --muted: #4c5d54;
+      --paper: #e7eee8;
+      --card: #f6f8f4;
+      --line: #c5d0c6;
+      --flask: #0f6b57;
+      --flask-ink: #f4fbf7;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(15, 107, 87, 0.08), transparent 42%),
+        var(--paper);
+      font-family: "IBM Plex Sans", "Noto Sans SC", sans-serif;
+      letter-spacing: 0.01em;
+    }
+    main {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 4.5rem 1.5rem 5rem;
+    }
+    .mark {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--flask);
+      border: 1px solid var(--flask);
+      padding: 0.28rem 0.55rem;
+      margin-bottom: 1.4rem;
+    }
+    h1 {
+      font-family: "Noto Serif SC", "Source Serif 4", serif;
+      font-size: clamp(2rem, 5vw, 3.1rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin: 0 0 0.7rem;
+    }
+    .lede {
+      max-width: 38rem;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin: 0 0 2.4rem;
+    }
+    .cassettes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    a.cassette {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 11.5rem;
+      padding: 1.15rem 1.15rem 1.05rem;
+      background: var(--card);
+      border: 1px solid var(--line);
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 1px 0 rgba(20, 34, 28, 0.04);
+      position: relative;
+    }
+    a.cassette::before {
+      content: "";
+      position: absolute;
+      top: 0.7rem;
+      right: 0.8rem;
+      width: 0.7rem;
+      height: 0.7rem;
+      border: 1.5px solid var(--flask);
+      transform: rotate(45deg);
+    }
+    a.cassette:hover,
+    a.cassette:focus-visible {
+      border-color: var(--flask);
+      outline: none;
+    }
+    a.cassette strong {
+      font-family: "Noto Serif SC", serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+    a.cassette span {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+    a.cassette em {
+      font-style: normal;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--flask);
+      margin-top: 1.2rem;
+    }
+    .models {
+      margin-top: 3rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid var(--line);
+    }
+    .models h2 {
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--flask);
+      margin: 0 0 0.9rem;
+      font-weight: 600;
+    }
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      columns: 2;
+      gap: 0 2rem;
+    }
+    li {
+      break-inside: avoid;
+      padding: 0.35rem 0;
+      border-bottom: 1px solid var(--line);
+      font-variant-numeric: tabular-nums;
+      font-size: 0.95rem;
+    }
+    li small {
+      display: block;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+    footer {
+      margin-top: 2.5rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    @media (max-width: 760px) {
+      .cassettes { grid-template-columns: 1fr; }
+      ul { columns: 1; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="mark">ImStem Biotechnology</div>
+    <h1>公司大模型入口</h1>
+    <p class="lede">
+      用公司账号走内部网关。上游 Qwen / Kimi / DeepSeek / MiMo 密钥留在服务器，不发到个人电脑。
+    </p>
+    <nav class="cassettes" aria-label="主要入口">
+      <a class="cassette" href="https://chat.imstem.org">
+        <div>
+          <strong>网页对话</strong>
+          <span>浏览器里选模型、问问题、写材料。用邮件里的 Open WebUI 账号登录。</span>
+        </div>
+        <em>chat.imstem.org</em>
+      </a>
+      <a class="cassette" href="/guide">
+        <div>
+          <strong>个人 API</strong>
+          <span>Codex、Claude Code、OpenCode、Python。Base URL 是 llm.imstem.org，密钥是你的虚拟 Key。</span>
+        </div>
+        <em>llm.imstem.org/v1</em>
+      </a>
+      <a class="cassette" href="/guide#models">
+        <div>
+          <strong>可选模型</strong>
+          <span>阿里云百炼：Qwen 3.8、Kimi K3、DeepSeek V4。小米：MiMo 2.5 / 2.5 Pro。</span>
+        </div>
+        <em>8 models</em>
+      </a>
+    </nav>
+    <section class="models" id="models">
+      <h2>当前开放的模型</h2>
+      <ul>
+        <li>qwen3.8-flash<small>快、便宜，草稿和翻译</small></li>
+        <li>qwen3.8-27b<small>日常写作与修改</small></li>
+        <li>qwen3.8-max<small>难文、长上下文、复杂推理</small></li>
+        <li>kimi-k3<small>Agent / 代码，Codex 默认映射到这里</small></li>
+        <li>deepseek-v4-flash-0731<small>低成本推理</small></li>
+        <li>deepseek-v4-pro-0813<small>更强的 DeepSeek V4</small></li>
+        <li>mimo-v2.5<small>小米 MiMo 2.5</small></li>
+        <li>mimo-v2.5-pro<small>小米 MiMo 2.5 Pro</small></li>
+      </ul>
+    </section>
+    <footer>不要把病人可识别信息、密码或上游 API Key 贴进对话。账号由管理员单独发邮件。</footer>
+  </main>
+</body>
+</html>

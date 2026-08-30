@@ -17,42 +17,42 @@ Admin creates them with:
 
 The AGENT key is printed **once**. Put it in the employee’s local env or agent config. Do not commit it.
 
-Gateway (current Railway URL):
+Gateway:
 
 ```text
-https://imstem-gateway-production.up.railway.app
+https://llm.imstem.org
 ```
 
 ## Codex / OpenAI-compatible tools
 
 ```bash
-export OPENAI_BASE_URL=https://imstem-gateway-production.up.railway.app/v1
+export OPENAI_BASE_URL=https://llm.imstem.org/v1
 export OPENAI_API_KEY=sk-…your-MED001-AGENT-key…
 ```
 
 Optional Codex `~/.codex/config.toml`:
 
 ```toml
-model = "company-agent"
+model = "kimi-k3"
 model_provider = "imstem"
 
 [model_providers.imstem]
 name = "ImStem"
-base_url = "https://imstem-gateway-production.up.railway.app/v1"
+base_url = "https://llm.imstem.org/v1"
 env_key = "OPENAI_API_KEY"
 wire_api = "chat"
 ```
 
-If Codex still sends `gpt-4o` / `gpt-5`, the gateway remaps those names to `company-agent`. Spend still lands on `MED001-AGENT`.
+If Codex still sends `gpt-4o` / `gpt-5`, the gateway remaps those names to `kimi-k3`. Spend still lands on `MED001-AGENT`.
 
 ## Claude Code
 
 Claude Code talks Anthropic’s `/v1/messages` API. LiteLLM accepts that path. **Do not** put `/v1` on `ANTHROPIC_BASE_URL` — Claude Code appends it.
 
 ```bash
-export ANTHROPIC_BASE_URL=https://imstem-gateway-production.up.railway.app
+export ANTHROPIC_BASE_URL=https://llm.imstem.org
 export ANTHROPIC_API_KEY=sk-…your-MED001-AGENT-key…
-export ANTHROPIC_MODEL=company-agent
+export ANTHROPIC_MODEL=kimi-k3
 ```
 
 Or in `~/.claude/settings.json`:
@@ -60,14 +60,14 @@ Or in `~/.claude/settings.json`:
 ```json
 {
   "env": {
-    "ANTHROPIC_BASE_URL": "https://imstem-gateway-production.up.railway.app",
+    "ANTHROPIC_BASE_URL": "https://llm.imstem.org",
     "ANTHROPIC_API_KEY": "sk-…your-MED001-AGENT-key…",
-    "ANTHROPIC_MODEL": "company-agent"
+    "ANTHROPIC_MODEL": "kimi-k3"
   }
 }
 ```
 
-If Claude Code still sends `claude-sonnet-4-…`, the gateway remaps it to `company-agent`. Spend still lands on `MED001-AGENT`.
+If Claude Code still sends `claude-sonnet-4-…`, the gateway remaps it to `kimi-k3`. Spend still lands on `MED001-AGENT`.
 
 ## OpenCode / other OpenAI SDKs
 

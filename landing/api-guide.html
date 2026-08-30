@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ImStem LLM · API 使用说明</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --ink:#14221c; --muted:#4c5d54; --paper:#e7eee8; --card:#f6f8f4; --line:#c5d0c6; --flask:#0f6b57; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:"IBM Plex Sans","Noto Sans SC",sans-serif; }
+    main { max-width: 820px; margin: 0 auto; padding: 3.2rem 1.4rem 5rem; }
+    a { color: var(--flask); }
+    h1 { font-family:"Noto Serif SC",serif; font-size:2rem; margin:0.4rem 0 0.8rem; }
+    h2 { font-size:1.05rem; margin:2rem 0 0.6rem; }
+    p, li { line-height:1.6; color:var(--ink); }
+    .mark { font-size:0.72rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--flask); font-weight:600; }
+    pre, code { font-family:"IBM Plex Mono", ui-monospace, monospace; }
+    pre { background:#14221c; color:#e7eee8; padding:1rem 1.1rem; overflow:auto; font-size:0.82rem; line-height:1.5; }
+    table { width:100%; border-collapse:collapse; font-size:0.92rem; }
+    th, td { text-align:left; padding:0.45rem 0.3rem; border-bottom:1px solid var(--line); vertical-align:top; }
+    .back { display:inline-block; margin-bottom:1.2rem; }
+  </style>
+</head>
+<body>
+<main>
+  <a class="back" href="/">← 返回入口</a>
+  <div class="mark">ImStem LLM</div>
+  <h1>个人 API 使用说明</h1>
+  <p>每人一把 LiteLLM 虚拟密钥。它不是阿里云或小米的官方 Key，只在 <code>https://llm.imstem.org</code> 上有效。用量记在你的工号上。</p>
+
+  <h2>1. 网页对话</h2>
+  <ol>
+    <li>打开 <a href="https://chat.imstem.org">https://chat.imstem.org</a></li>
+    <li>用邮件里的 Open WebUI 邮箱和密码登录</li>
+    <li>在模型列表里选下面的名字（不要选 GPT / Claude 的原名；那些会被网关转到 Kimi K3）</li>
+  </ol>
+
+  <h2 id="models">2. 可选模型</h2>
+  <table>
+    <thead><tr><th>模型名</th><th>适合</th><th>上游</th></tr></thead>
+    <tbody>
+      <tr><td><code>qwen3.8-flash</code></td><td>快、便宜，草稿翻译</td><td>阿里云百炼</td></tr>
+      <tr><td><code>qwen3.8-27b</code></td><td>日常写作修改</td><td>阿里云百炼</td></tr>
+      <tr><td><code>qwen3.8-max</code></td><td>难文、长文档</td><td>阿里云百炼</td></tr>
+      <tr><td><code>kimi-k3</code></td><td>Agent、代码、Codex 默认</td><td>阿里云百炼</td></tr>
+      <tr><td><code>deepseek-v4-flash-0731</code></td><td>低成本推理</td><td>阿里云百炼</td></tr>
+      <tr><td><code>deepseek-v4-pro-0813</code></td><td>更强 DeepSeek V4</td><td>阿里云百炼</td></tr>
+      <tr><td><code>mimo-v2.5</code></td><td>小米 2.5</td><td>Xiaomi MiMo</td></tr>
+      <tr><td><code>mimo-v2.5-pro</code></td><td>小米 2.5 Pro</td><td>Xiaomi MiMo</td></tr>
+    </tbody>
+  </table>
+
+  <h2>3. OpenAI 兼容（Codex / OpenCode / Python）</h2>
+  <p>Base URL 必须带 <code>/v1</code>。把邮件里的 <code>AGENT</code> 密钥填进去。</p>
+<pre><code>export OPENAI_BASE_URL=https://llm.imstem.org/v1
+export OPENAI_API_KEY=sk-你的AGENT密钥
+
+curl https://llm.imstem.org/v1/chat/completions \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "qwen3.8-flash",
+    "messages": [{"role":"user","content":"用一句话介绍间充质干细胞"}]
+  }'</code></pre>
+<pre><code>from openai import OpenAI
+client = OpenAI(
+    base_url="https://llm.imstem.org/v1",
+    api_key="sk-你的AGENT密钥",
+)
+print(client.chat.completions.create(
+    model="qwen3.8-max",
+    messages=[{"role":"user","content":"Hello"}],
+).choices[0].message.content)</code></pre>
+
+  <h2>4. Codex</h2>
+<pre><code># ~/.codex/config.toml
+model = "kimi-k3"
+model_provider = "imstem"
+
+[model_providers.imstem]
+name = "ImStem"
+base_url = "https://llm.imstem.org/v1"
+env_key = "OPENAI_API_KEY"
+wire_api = "chat"</code></pre>
+  <p>如果 Codex 仍然发送 <code>gpt-4o</code> / <code>gpt-5</code>，网关会转到 <code>kimi-k3</code>，费用仍记在你名下。</p>
+
+  <h2>5. Claude Code</h2>
+  <p><code>ANTHROPIC_BASE_URL</code> <strong>不要</strong>加 <code>/v1</code>，Claude Code 会自己拼 <code>/v1/messages</code>。</p>
+<pre><code>export ANTHROPIC_BASE_URL=https://llm.imstem.org
+export ANTHROPIC_API_KEY=sk-你的AGENT密钥
+export ANTHROPIC_MODEL=kimi-k3</code></pre>
+<pre><code>// ~/.claude/settings.json
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://llm.imstem.org",
+    "ANTHROPIC_API_KEY": "sk-你的AGENT密钥",
+    "ANTHROPIC_MODEL": "kimi-k3"
+  }
+}</code></pre>
+
+  <h2>6. 不要做的事</h2>
+  <ul>
+    <li>不要把阿里云 / 小米官方 Key 写进任何本地工具</li>
+    <li>不要把你的虚拟 Key 转给同事</li>
+    <li>不要上传可识别的患者信息、密码、未脱敏病历</li>
+  </ul>
+  <p>问题找网关管理员。Key 失效通常是轮换或月度额度用完。</p>
+</main>
+</body>
+</html>

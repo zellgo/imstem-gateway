@@ -1,53 +1,59 @@
 # Employee guide — ImStem AI
 
-## Chat (browser)
+入口：[https://llm.imstem.org](https://llm.imstem.org)
 
-1. Open the employee chat: https://open-webui-production-f828.up.railway.app
-   (Not the LiteLLM `/ui` admin URL.)
-2. Sign in with your employee ID (`MED001`, `CMC001`, …)
-3. Pick a model:
-   - **company-fast** — quick drafts, translation
-   - **company-standard** — everyday work
-   - **company-pro** — harder writing / reasoning
-   - **company-agent** — tool-heavy work (usually via Codex, not the chat box)
+## 网页对话
 
-Do not paste provider keys. You do not have them.
+1. 打开 [https://chat.imstem.org](https://chat.imstem.org)
+2. 用管理员邮件里的 **邮箱 + 密码** 登录（不是工号）
+3. 选模型：
 
-## Coding agents (Codex, Claude Code, OpenCode)
+| 模型 | 适合 |
+|---|---|
+| `qwen3.8-flash` | 快、便宜，草稿和翻译 |
+| `qwen3.8-27b` | 日常写作、修改 |
+| `qwen3.8-max` | 难文、长文档 |
+| `kimi-k3` | Agent、代码（Codex 默认） |
+| `deepseek-v4-flash-0731` | 低成本推理 |
+| `deepseek-v4-pro-0813` | 更强 DeepSeek V4 |
+| `mimo-v2.5` | 小米 MiMo 2.5 |
+| `mimo-v2.5-pro` | 小米 MiMo 2.5 Pro |
 
-Ask admin for **your** AGENT key. It looks like `MED001-AGENT`. Nobody else should have it. All of your agent usage is billed and reported under that key.
+不要粘贴阿里云或小米的官方 Key。你没有那些 Key。
 
-### Codex / OpenCode
+## 个人 API（Codex、Claude Code、OpenCode、Python）
+
+管理员会发给你一把 **AGENT** 虚拟密钥。它只在 `https://llm.imstem.org` 上有效。用量记在你的工号上。完整说明：[https://llm.imstem.org/guide](https://llm.imstem.org/guide)
+
+### Codex / OpenCode / OpenAI SDK
 
 ```bash
-export OPENAI_BASE_URL=https://imstem-gateway-production.up.railway.app/v1
-export OPENAI_API_KEY=sk-…your AGENT key…
+export OPENAI_BASE_URL=https://llm.imstem.org/v1
+export OPENAI_API_KEY=sk-…你的 AGENT 密钥…
 ```
 
-Prefer model `company-agent`. If the tool still sends `gpt-4o` or `gpt-5`, the gateway maps that to `company-agent` and still counts it as **you**.
+推荐 `kimi-k3` 或 `qwen3.8-max`。如果工具仍发送 `gpt-4o` / `gpt-5`，网关会转到 `kimi-k3`，费用仍是你的。
 
 ### Claude Code
 
 ```bash
-export ANTHROPIC_BASE_URL=https://imstem-gateway-production.up.railway.app
-export ANTHROPIC_API_KEY=sk-…your AGENT key…
-export ANTHROPIC_MODEL=company-agent
+export ANTHROPIC_BASE_URL=https://llm.imstem.org
+export ANTHROPIC_API_KEY=sk-…你的 AGENT 密钥…
+export ANTHROPIC_MODEL=kimi-k3
 ```
 
-Do not add `/v1` on `ANTHROPIC_BASE_URL`. Full copy-paste examples: [CODING_AGENTS.md](CODING_AGENTS.md).
+`ANTHROPIC_BASE_URL` **不要**加 `/v1`。拷贝示例见 [CODING_AGENTS.md](CODING_AGENTS.md)。
 
-Never put a DeepSeek / Qwen / MiMo key in an agent tool. Those stay on the server.
+## 不要上传
 
-## What you must not upload
-
-| Class | Examples | Rule |
+| 类别 | 例子 | 规则 |
 |---|---|---|
-| Public | papers, public regs | OK |
-| Internal | drafts, non-public decks | OK on this system |
-| Sensitive | PHI, identifiable patients, passwords, API keys, unapproved legal files | **Do not upload** unless a separate approved environment exists |
+| 公开 | 论文、公开法规 | 可以 |
+| 内部 | 草稿、非公开 PPT | 可以走这套系统 |
+| 敏感 | 可识别患者信息、密码、API Key、未批准的法律文件 | **不要上传** |
 
-De-identify clinical content before any AI use.
+临床内容先去标识再问模型。
 
-## Problems
+## 出问题
 
-Contact the gateway admin (ADMIN001). If a key stops working it was probably rotated or your monthly budget was hit.
+找网关管理员。密钥失效通常是轮换或月度额度用完。

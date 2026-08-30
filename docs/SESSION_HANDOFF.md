@@ -27,7 +27,7 @@ Scripts: `scripts/bootstrap-credentials.py`, `scripts/sync-company-models.py`, `
 
 ## How to edit in the UI (after hard refresh)
 
-https://imstem-gateway-production.up.railway.app/ui  
+https://llm.imstem.org/ui  
 Login `admin` + UI password, then master key.
 
 | Task | Where |

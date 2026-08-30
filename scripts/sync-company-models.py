@@ -5,6 +5,7 @@ Config.yaml models are read-only in the UI. These rows live in LiteLLM_ProxyMode
 (database badge) and can be retargeted / repriced without a git deploy.
 
 Safe to re-run. Existing DB rows with the same model_info.id are updated.
+Old company-* deployment rows are removed so Open WebUI only lists real model names.
 """
 from __future__ import annotations
 
@@ -15,26 +16,37 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
+# USD per token (LiteLLM stores per-token). Approximate Aliyun Beijing / Xiaomi list prices.
 COST = {
-    "deepseek": {
-        "input_cost_per_token": 0.00000022,
-        "output_cost_per_token": 0.00000066,
-        "cache_read_input_token_cost": 0.000000007,
+    "qwen_flash": {
+        "input_cost_per_token": 0.00000015,
+        "output_cost_per_token": 0.00000045,
+        "cache_read_input_token_cost": 0.000000015,
     },
-    "qwen_turbo": {
-        "input_cost_per_token": 0.00000004167,
-        "output_cost_per_token": 0.00000008333,
-        "cache_read_input_token_cost": 0.000000004167,
-    },
-    "qwen_plus": {
-        "input_cost_per_token": 0.0000001111,
-        "output_cost_per_token": 0.0000002778,
-        "cache_read_input_token_cost": 0.00000001111,
+    "qwen_27b": {
+        "input_cost_per_token": 0.00000043,
+        "output_cost_per_token": 0.00000255,
+        "cache_read_input_token_cost": 0.000000043,
     },
     "qwen_max": {
-        "input_cost_per_token": 0.0000003333,
-        "output_cost_per_token": 0.000001333,
-        "cache_read_input_token_cost": 0.00000003333,
+        "input_cost_per_token": 0.000002,
+        "output_cost_per_token": 0.000006,
+        "cache_read_input_token_cost": 0.00000025,
+    },
+    "kimi_k3": {
+        "input_cost_per_token": 0.000003,
+        "output_cost_per_token": 0.000015,
+        "cache_read_input_token_cost": 0.0000003,
+    },
+    "ds_flash": {
+        "input_cost_per_token": 0.00000014,
+        "output_cost_per_token": 0.00000028,
+        "cache_read_input_token_cost": 0.000000015,
+    },
+    "ds_pro": {
+        "input_cost_per_token": 0.00000133,
+        "output_cost_per_token": 0.000004,
+        "cache_read_input_token_cost": 0.000000044,
     },
     "mimo": {
         "input_cost_per_token": 0.00000014,
@@ -47,6 +59,18 @@ COST = {
         "cache_read_input_token_cost": 0.0000000036,
     },
 }
+
+RETIRE_IDS = [
+    "company-fast",
+    "company-fast-qwen",
+    "company-standard",
+    "company-standard-mimo",
+    "company-pro",
+    "company-pro-qwen",
+    "mimo-pro",
+    "company-agent",
+    "company-agent-qwen",
+]
 
 
 def deployment(
@@ -74,81 +98,71 @@ def deployment(
     }
 
 
-# Public name employees type → one or more backend deployments.
-# Edit the PRIMARY row in the UI to change which LLM the alias uses.
-# Extra rows with the same public name are load-balanced / failover targets.
+# Public name employees type in Open WebUI / API.
 MODELS = [
     deployment(
-        "company-fast",
-        "company-fast",
-        "deepseek/deepseek-chat",
-        "deepseek",
-        "deepseek",
-        "company-fast PRIMARY → DeepSeek Chat. Change litellm model + credential to retarget.",
-    ),
-    deployment(
-        "company-fast",
-        "company-fast-qwen",
-        "dashscope/qwen-turbo",
+        "qwen3.8-flash",
+        "qwen3.8-flash",
+        "openai/qwen3.8-flash",
         "dashscope",
-        "qwen_turbo",
-        "company-fast extra deployment → Qwen Turbo (load-balance / failover).",
+        "qwen_flash",
+        "Qwen3.8 Flash via Aliyun Model Studio workspace (OpenAI-compatible).",
     ),
     deployment(
-        "company-standard",
-        "company-standard",
-        "dashscope/qwen-plus",
+        "qwen3.8-27b",
+        "qwen3.8-27b",
+        "openai/qwen3.8-27b",
         "dashscope",
-        "qwen_plus",
-        "company-standard PRIMARY → Qwen Plus. Change litellm model + credential to retarget.",
+        "qwen_27b",
+        "Qwen3.8 27B via Aliyun Model Studio workspace.",
     ),
     deployment(
-        "company-standard",
-        "company-standard-mimo",
+        "qwen3.8-max",
+        "qwen3.8-max",
+        "openai/qwen3.8-max",
+        "dashscope",
+        "qwen_max",
+        "Qwen3.8 Max via Aliyun Model Studio workspace.",
+    ),
+    deployment(
+        "kimi-k3",
+        "kimi-k3",
+        "openai/kimi-k3",
+        "dashscope",
+        "kimi_k3",
+        "Kimi K3 via Aliyun Model Studio workspace. Codex/Claude aliases map here.",
+    ),
+    deployment(
+        "deepseek-v4-flash-0731",
+        "deepseek-v4-flash-0731",
+        "openai/deepseek-v4-flash-0731",
+        "dashscope",
+        "ds_flash",
+        "DeepSeek V4 Flash 0731 via Aliyun Model Studio workspace.",
+    ),
+    deployment(
+        "deepseek-v4-pro-0813",
+        "deepseek-v4-pro-0813",
+        "openai/deepseek-v4-pro-0813",
+        "dashscope",
+        "ds_pro",
+        "DeepSeek V4 Pro 0813 via Aliyun Model Studio workspace.",
+    ),
+    deployment(
+        "mimo-v2.5",
+        "mimo-v2.5",
         "xiaomi_mimo/mimo-v2.5",
         "mimo",
         "mimo",
-        "company-standard extra deployment → MiMo V2.5.",
+        "Xiaomi MiMo V2.5.",
     ),
     deployment(
-        "company-pro",
-        "company-pro",
+        "mimo-v2.5-pro",
+        "mimo-v2.5-pro",
         "xiaomi_mimo/mimo-v2.5-pro",
         "mimo",
         "mimo_pro",
-        "company-pro PRIMARY → MiMo V2.5 Pro. Change litellm model + credential to retarget.",
-    ),
-    deployment(
-        "company-pro",
-        "company-pro-qwen",
-        "dashscope/qwen-max",
-        "dashscope",
-        "qwen_max",
-        "company-pro extra deployment → Qwen Max.",
-    ),
-    deployment(
-        "mimo-pro",
-        "mimo-pro",
-        "xiaomi_mimo/mimo-v2.5-pro",
-        "mimo",
-        "mimo_pro",
-        "mimo-pro PRIMARY → MiMo V2.5 Pro (same backend as company-pro by default).",
-    ),
-    deployment(
-        "company-agent",
-        "company-agent",
-        "deepseek/deepseek-chat",
-        "deepseek",
-        "deepseek",
-        "company-agent PRIMARY → DeepSeek Chat. Codex/Claude aliases follow this via model_group_alias.",
-    ),
-    deployment(
-        "company-agent",
-        "company-agent-qwen",
-        "dashscope/qwen-plus",
-        "dashscope",
-        "qwen_plus",
-        "company-agent extra deployment → Qwen Plus.",
+        "Xiaomi MiMo V2.5 Pro.",
     ),
 ]
 
@@ -206,7 +220,9 @@ def list_db_ids(gateway: str, master: str) -> dict[str, dict]:
 def main() -> int:
     root = Path(__file__).resolve().parents[1]
     load_env(root)
-    gateway = os.environ.get("PUBLIC_GATEWAY_URL") or f"http://127.0.0.1:{os.environ.get('LITELLM_PORT', '4000')}"
+    gateway = (
+        os.environ.get("PUBLIC_GATEWAY_URL") or "https://llm.imstem.org"
+    ).rstrip("/")
     master = os.environ.get("LITELLM_MASTER_KEY")
     if not master:
         sys.stderr.write("LITELLM_MASTER_KEY missing\n")
@@ -232,13 +248,18 @@ def main() -> int:
             print(f"{mid}: error {result.get('error')} {result.get('body')}")
             rc = 1
         else:
-            db = None
-            if isinstance(result, dict):
-                db = (result.get("model_info") or {}).get("db_model")
-                if db is None and isinstance(result.get("data"), dict):
-                    db = (result["data"].get("model_info") or {}).get("db_model")
-            print(f"{spec['model_name']:16} {mid:22} {action} db_model={db}")
-    print("Done. In the UI, database-badge rows are editable. Config-badge rows stay locked until yaml is deployed without them.")
+            print(f"{spec['model_name']:24} {mid:24} {action}")
+
+    keep = {spec["model_info"]["id"] for spec in MODELS}
+    for mid in RETIRE_IDS:
+        if mid in keep or mid not in existing:
+            continue
+        result = api(gateway, master, "POST", "/model/delete", {"id": mid})
+        if result.get("error"):
+            print(f"retire {mid}: error {result.get('error')} {result.get('body')}")
+        else:
+            print(f"retired {mid}")
+    print("Done. Employees pick qwen3.8-* / kimi-k3 / deepseek-v4-* / mimo-v2.5*.")
     return rc
 
 

@@ -1,11 +1,12 @@
 # Company AI identity registry.
 # Primary accounting ID is the employee code, never a personal name.
+# Secrets (passwords, virtual keys) are written to secret/outbox/ and are not stored here.
 
 departments:
   Medical:
     team_alias: Medical
-    default_chat_budget_usd: 30
-    default_agent_budget_usd: 50
+    default_chat_budget_usd: 40
+    default_agent_budget_usd: 80
   CMC:
     team_alias: CMC
     default_chat_budget_usd: 30
@@ -27,44 +28,86 @@ departments:
     default_chat_budget_usd: 50
     default_agent_budget_usd: 100
 
+# Employee-facing model names (Aliyun Model Studio + Xiaomi MiMo).
 chat_models:
-  - company-fast
-  - company-standard
-  - company-pro
-  - mimo-pro
+  - qwen3.8-flash
+  - qwen3.8-27b
+  - qwen3.8-max
+  - kimi-k3
+  - deepseek-v4-flash-0731
+  - deepseek-v4-pro-0813
+  - mimo-v2.5
+  - mimo-v2.5-pro
 
 agent_models:
-  - company-fast
-  - company-standard
-  - company-agent
+  - qwen3.8-flash
+  - qwen3.8-27b
+  - qwen3.8-max
+  - kimi-k3
+  - deepseek-v4-flash-0731
+  - deepseek-v4-pro-0813
+  - mimo-v2.5
+  - mimo-v2.5-pro
 
 budget_duration: 30d
 
+public:
+  chat_url: https://chat.imstem.org
+  api_base: https://llm.imstem.org/v1
+  anthropic_base: https://llm.imstem.org
+  landing_url: https://llm.imstem.org
+  guide_url: https://llm.imstem.org/guide
+
 employees:
   - id: MED001
-    name: TBD
+    name: 王丁坤
+    email: dingkunwang@imstem.com.cn
     department: Medical
+    title: 医学经理
+    intensity: agent-high
+    chat_budget_usd: 50
+    agent_budget_usd: 100
+    wants_api: true
+    tools: [codex, claude-code, ppt]
   - id: MED002
-    name: TBD
+    name: 李子木
+    email: zimuli@imstem.com.cn
     department: Medical
+    title: CRA
+    intensity: agent-high
+    chat_budget_usd: 50
+    agent_budget_usd: 100
+    wants_api: true
+    tools: [codex, ppt]
   - id: MED003
-    name: TBD
+    name: 刘士麟
+    email: shilinliu@imstem.com.cn
     department: Medical
-  - id: CMC001
-    name: TBD
-    department: CMC
-  - id: CMC002
-    name: TBD
-    department: CMC
-  - id: CLIN001
-    name: TBD
-    department: Clinical
-  - id: BD001
-    name: TBD
-    department: BD
-  - id: FIN001
-    name: TBD
-    department: Finance
-  - id: ADMIN001
-    name: TBD
-    department: Admin
+    title: 项目经理
+    intensity: agent-high
+    chat_budget_usd: 50
+    agent_budget_usd: 100
+    wants_api: true
+    tools: [codex, ppt]
+  - id: MED004
+    name: 涂美慧
+    # Spreadsheet had no company email. Inferred from name pinyin; confirm before sending.
+    email: meihuitu@imstem.com.cn
+    email_inferred: true
+    department: Medical
+    title: CRA
+    intensity: heavy
+    chat_budget_usd: 40
+    agent_budget_usd: 80
+    wants_api: true
+    tools: [codex, ppt]
+  - id: MED005
+    name: 王斯
+    email: siwang@imstem.com.cn
+    department: Medical
+    title: CRA
+    intensity: heavy
+    chat_budget_usd: 40
+    agent_budget_usd: 80
+    wants_api: true
+    tools: [codex, ppt]

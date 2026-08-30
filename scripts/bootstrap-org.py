@@ -51,7 +51,9 @@ def api(gateway: str, master: str, method: str, path: str, body: dict | None = N
 def main() -> int:
     root = Path(__file__).resolve().parents[1]
     load_env(root)
-    gateway = os.environ.get("PUBLIC_GATEWAY_URL") or f"http://127.0.0.1:{os.environ.get('LITELLM_PORT', '4000')}"
+    gateway = (
+        os.environ.get("PUBLIC_GATEWAY_URL") or "https://llm.imstem.org"
+    ).rstrip("/")
     master = os.environ.get("LITELLM_MASTER_KEY")
     if not master:
         sys.stderr.write("LITELLM_MASTER_KEY missing\n")

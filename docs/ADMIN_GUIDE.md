@@ -4,9 +4,11 @@
 
 | Who | URL |
 |---|---|
-| **Employees (chat homepage)** | https://open-webui-production-f828.up.railway.app |
-| Agents (Codex / Claude Code) | https://imstem-gateway-production.up.railway.app/v1 |
-| LiteLLM admin (keys, spend) | https://imstem-gateway-production.up.railway.app/ui |
+| **Landing (3 links only)** | https://llm.imstem.org |
+| **Employees (chat)** | https://chat.imstem.org |
+| Agents (Codex / Claude Code) | https://llm.imstem.org/v1 |
+| API guide | https://llm.imstem.org/guide |
+| LiteLLM admin (keys, spend) | https://llm.imstem.org/ui |
 
 The LiteLLM host is an **admin/API** site. Do not send it to employees as the homepage. First Open WebUI login on an empty database becomes the admin user; after that, create employees in Open WebUI Admin → Users (`ENABLE_SIGNUP` is off).
 
@@ -16,15 +18,20 @@ Login can show a yellow **No Redis configured** banner. That is a warning, not a
 
 ## Company model names
 
-Employees never type DeepSeek / Qwen / MiMo. They pick a company name. Default mapping (change anytime in the UI):
+Employees pick the real model names. Backends are Aliyun Model Studio (workspace) and Xiaomi MiMo.
 
-| Employees call | Default backend | Provider prefix | Credential |
-|---|---|---|---|
-| `company-fast` | DeepSeek Chat (extra: Qwen Turbo) | `deepseek/` / `dashscope/` | `deepseek` / `dashscope` |
-| `company-standard` | Qwen Plus (extra: MiMo V2.5) | `dashscope/` / `xiaomi_mimo/` | `dashscope` / `mimo` |
-| `company-pro` | **MiMo V2.5 Pro** (extra: Qwen Max) | `xiaomi_mimo/` / `dashscope/` | `mimo` / `dashscope` |
-| `mimo-pro` | MiMo V2.5 Pro | `xiaomi_mimo/` | `mimo` |
-| `company-agent` | DeepSeek Chat (extra: Qwen Plus) | `deepseek/` / `dashscope/` | `deepseek` / `dashscope` |
+| Employees call | Backend | Credential |
+|---|---|---|
+| `qwen3.8-flash` | Aliyun `qwen3.8-flash` | `dashscope` |
+| `qwen3.8-27b` | Aliyun `qwen3.8-27b` | `dashscope` |
+| `qwen3.8-max` | Aliyun `qwen3.8-max` | `dashscope` |
+| `kimi-k3` | Aliyun `kimi-k3` | `dashscope` |
+| `deepseek-v4-flash-0731` | Aliyun `deepseek-v4-flash-0731` | `dashscope` |
+| `deepseek-v4-pro-0813` | Aliyun `deepseek-v4-pro-0813` | `dashscope` |
+| `mimo-v2.5` | `xiaomi_mimo/mimo-v2.5` | `mimo` |
+| `mimo-v2.5-pro` | `xiaomi_mimo/mimo-v2.5-pro` | `mimo` |
+
+`company-fast` / `company-agent` / `gpt-4o` / `claude-sonnet-4-5` still work as aliases (`kimi-k3` or a Qwen tier) so old Codex configs do not break.
 
 In **Add Model** / **LLM Credentials**:
 
@@ -32,7 +39,7 @@ In **Add Model** / **LLM Credentials**:
 - Xiaomi → **Xiaomi** (API Key + API Base)
 - DeepSeek → **Deepseek** (API Key + API Base on this image; upstream Deepseek form is key-only)
 
-Two rows with the same public name are one group (primary + extra). Codex/Claude default names (`gpt-4o`, `claude-sonnet-4-5`, …) are aliases of `company-agent`.
+Codex/Claude default names (`gpt-4o`, `claude-sonnet-4-5`, …) are aliases of `kimi-k3`.
 
 ## Change which LLM a company model uses, or its price
 
@@ -94,7 +101,7 @@ The AGENT key is what Codex and Claude Code use. Spend for that key is always `u
 Default create-user talks to production:
 
 ```bash
-PUBLIC_GATEWAY_URL=https://imstem-gateway-production.up.railway.app \
+PUBLIC_GATEWAY_URL=https://llm.imstem.org \
   ./scripts/create-user.sh MED004 Medical
 ```
 
@@ -120,7 +127,7 @@ LiteLLM UI → Virtual Keys → select `MED001-CHAT` → set max budget / durati
 
 ## Assign models
 
-Edit `litellm/config.yaml` aliases, or restrict models on the key (`models` list). Employees never see `deepseek-chat` / `qwen-plus` / `mimo-v2.5-pro`. Open WebUI should list `company-fast`, `company-standard`, `company-pro`, and `mimo-pro` (`mimo-pro` is MiMo V2.5 Pro, same backend as `company-pro`).
+Restrict models on the virtual key. Open WebUI lists `qwen3.8-*`, `kimi-k3`, `deepseek-v4-*`, and `mimo-v2.5*`. Reset DB models with `python3 scripts/sync-company-models.py`. Onboard the spreadsheet with `python3 scripts/provision-employees.py` (writes `secret/outbox/`).
 
 ## Read spend
 

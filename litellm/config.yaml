@@ -1,25 +1,25 @@
 # ImStem company model aliases.
 #
-# Employee-facing models (company-fast / company-standard / company-pro /
-# mimo-pro / company-agent) live in Postgres, NOT in this file, so the
-# Admin UI can retarget the backend LLM and edit prices:
-#   LiteLLM UI → Models + Endpoints → click a database-badge row → Edit
+# Employee-facing models live in Postgres (LiteLLM_ProxyModelTable), NOT
+# in this file, so the Admin UI can retarget backends and edit prices:
+#   LiteLLM UI → Models + Endpoints → database-badge row → Edit
 #
 # Seed or reset those rows:
-#   python3 scripts/bootstrap-credentials.py
+#   python3 scripts/bootstrap-credentials.py --update
 #   python3 scripts/sync-company-models.py
 #
-# Provider keys: LiteLLM UI → LLM Credentials (deepseek | dashscope | mimo)
+# Provider keys: LiteLLM UI → LLM Credentials (dashscope | mimo)
 #
-# Codex / Claude Code default model names are aliased onto company-agent
-# below so spend still lands on the employee's AGENT key.
+# Codex / Claude Code default model names are aliased onto kimi-k3
+# (company-agent) so spend still lands on the employee's AGENT key.
 
 litellm_settings:
   drop_params: true
   turn_off_message_logging: true
   cache: false
-  request_timeout: 120
+  request_timeout: 180
   set_verbose: false
+  callbacks: ["landing_plugin.landing_plugin"]
 
 router_settings:
   routing_strategy: simple-shuffle
@@ -27,30 +27,45 @@ router_settings:
   cooldown_time: 60
   num_retries: 1
   fallbacks:
-    - company-fast: ["company-standard"]
-    - company-standard: ["company-fast"]
-    - company-pro: ["company-standard"]
-    - mimo-pro: ["company-pro"]
-    - company-agent: ["company-standard"]
+    - qwen3.8-flash: ["qwen3.8-27b"]
+    - qwen3.8-27b: ["qwen3.8-flash"]
+    - qwen3.8-max: ["kimi-k3", "qwen3.8-27b"]
+    - kimi-k3: ["qwen3.8-max"]
+    - deepseek-v4-flash-0731: ["qwen3.8-flash"]
+    - deepseek-v4-pro-0813: ["qwen3.8-max"]
+    - mimo-v2.5: ["qwen3.8-flash"]
+    - mimo-v2.5-pro: ["qwen3.8-max"]
+    - company-fast: ["qwen3.8-flash"]
+    - company-standard: ["qwen3.8-27b"]
+    - company-pro: ["qwen3.8-max"]
+    - mimo-pro: ["mimo-v2.5-pro"]
+    - company-agent: ["kimi-k3", "qwen3.8-max"]
   model_group_alias:
-    gpt-4o: company-agent
-    gpt-4.1: company-agent
-    gpt-4: company-agent
-    gpt-5: company-agent
-    o3: company-agent
-    o3-mini: company-agent
-    o4-mini: company-agent
-    claude-sonnet-4-20250514: company-agent
-    claude-opus-4-20250514: company-agent
-    claude-3-5-sonnet-latest: company-agent
-    claude-3-5-haiku-latest: company-agent
-    claude-sonnet-4-5: company-agent
-    claude-haiku-4-5: company-agent
-    claude-opus-4-1: company-agent
+    company-fast: qwen3.8-flash
+    company-standard: qwen3.8-27b
+    company-pro: qwen3.8-max
+    company-agent: kimi-k3
+    mimo-pro: mimo-v2.5-pro
+    gpt-4o: kimi-k3
+    gpt-4.1: kimi-k3
+    gpt-4: kimi-k3
+    gpt-5: kimi-k3
+    o3: kimi-k3
+    o3-mini: qwen3.8-flash
+    o4-mini: qwen3.8-flash
+    claude-sonnet-4-20250514: kimi-k3
+    claude-opus-4-20250514: kimi-k3
+    claude-3-5-sonnet-latest: kimi-k3
+    claude-3-5-haiku-latest: qwen3.8-flash
+    claude-sonnet-4-5: kimi-k3
+    claude-haiku-4-5: qwen3.8-flash
+    claude-opus-4-1: kimi-k3
 
 general_settings:
   store_model_in_db: true
   store_prompts_in_spend_logs: false
   allow_user_auth: true
+  ui_access_mode: admin_only
+  user_header_name: X-OpenWebUI-User-Email
   # Admin UI is protected by UI_USERNAME / UI_PASSWORD plus the master key.
-  # Do not share the LiteLLM URL with employees; they use Open WebUI or /v1.
+  # Employees use https://chat.imstem.org and https://llm.imstem.org/v1.
