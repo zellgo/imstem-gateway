@@ -16,49 +16,8 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
-# USD per token (LiteLLM stores per-token). Approximate Aliyun Beijing / Xiaomi list prices.
-COST = {
-    "qwen_flash": {
-        "input_cost_per_token": 0.00000015,
-        "output_cost_per_token": 0.00000045,
-        "cache_read_input_token_cost": 0.000000015,
-    },
-    "qwen_27b": {
-        "input_cost_per_token": 0.00000043,
-        "output_cost_per_token": 0.00000255,
-        "cache_read_input_token_cost": 0.000000043,
-    },
-    "qwen_max": {
-        "input_cost_per_token": 0.000002,
-        "output_cost_per_token": 0.000006,
-        "cache_read_input_token_cost": 0.00000025,
-    },
-    "kimi_k3": {
-        "input_cost_per_token": 0.000003,
-        "output_cost_per_token": 0.000015,
-        "cache_read_input_token_cost": 0.0000003,
-    },
-    "ds_flash": {
-        "input_cost_per_token": 0.00000014,
-        "output_cost_per_token": 0.00000028,
-        "cache_read_input_token_cost": 0.000000015,
-    },
-    "ds_pro": {
-        "input_cost_per_token": 0.00000133,
-        "output_cost_per_token": 0.000004,
-        "cache_read_input_token_cost": 0.000000044,
-    },
-    "mimo": {
-        "input_cost_per_token": 0.00000014,
-        "output_cost_per_token": 0.00000028,
-        "cache_read_input_token_cost": 0.0000000028,
-    },
-    "mimo_pro": {
-        "input_cost_per_token": 0.000000435,
-        "output_cost_per_token": 0.00000087,
-        "cache_read_input_token_cost": 0.0000000036,
-    },
-}
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from official_prices import cost_fields, load_prices  # noqa: E402
 
 RETIRE_IDS = [
     "company-fast",
@@ -73,21 +32,37 @@ RETIRE_IDS = [
 ]
 
 
+def _prices() -> dict:
+    return (load_prices().get("models") or {})
+
+
 def deployment(
     public_name: str,
     model_id: str,
     backend: str,
     credential: str,
-    cost_key: str,
-    description: str,
+    fallback_description: str,
+    extra_params: dict | None = None,
 ) -> dict:
-    cost = COST[cost_key]
+    rec = _prices().get(public_name) or {}
+    cost = cost_fields(rec) if rec else {}
+    if rec:
+        description = (
+            f"{rec.get('purpose') or fallback_description}。"
+            f"{rec.get('region') or '华北2（北京）'} 官方原价："
+            f"输入 \u00a5{rec['input_cny_per_million']:g}/百万 · "
+            f"输出 \u00a5{rec['output_cny_per_million']:g}/百万。"
+        )
+        cost = {**cost, "currency": "CNY"}
+    else:
+        description = fallback_description
     return {
         "model_name": public_name,
         "litellm_params": {
             "model": backend,
             "litellm_credential_name": credential,
-            **cost,
+            **{k: v for k, v in cost.items() if k != "currency"},
+            **(extra_params or {}),
         },
         "model_info": {
             "id": model_id,
@@ -99,72 +74,78 @@ def deployment(
 
 
 # Public name employees type in Open WebUI / API.
-MODELS = [
-    deployment(
-        "qwen3.8-flash",
-        "qwen3.8-flash",
-        "openai/qwen3.8-flash",
-        "dashscope",
-        "qwen_flash",
-        "Qwen3.8 Flash via Aliyun Model Studio workspace (OpenAI-compatible).",
-    ),
-    deployment(
-        "qwen3.8-27b",
-        "qwen3.8-27b",
-        "openai/qwen3.8-27b",
-        "dashscope",
-        "qwen_27b",
-        "Qwen3.8 27B via Aliyun Model Studio workspace.",
-    ),
-    deployment(
-        "qwen3.8-max",
-        "qwen3.8-max",
-        "openai/qwen3.8-max",
-        "dashscope",
-        "qwen_max",
-        "Qwen3.8 Max via Aliyun Model Studio workspace.",
-    ),
-    deployment(
-        "kimi-k3",
-        "kimi-k3",
-        "openai/kimi-k3",
-        "dashscope",
-        "kimi_k3",
-        "Kimi K3 via Aliyun Model Studio workspace. Codex/Claude aliases map here.",
-    ),
-    deployment(
-        "deepseek-v4-flash-0731",
-        "deepseek-v4-flash-0731",
-        "openai/deepseek-v4-flash-0731",
-        "dashscope",
-        "ds_flash",
-        "DeepSeek V4 Flash 0731 via Aliyun Model Studio workspace.",
-    ),
-    deployment(
-        "deepseek-v4-pro-0813",
-        "deepseek-v4-pro-0813",
-        "openai/deepseek-v4-pro-0813",
-        "dashscope",
-        "ds_pro",
-        "DeepSeek V4 Pro 0813 via Aliyun Model Studio workspace.",
-    ),
-    deployment(
-        "mimo-v2.5",
-        "mimo-v2.5",
-        "xiaomi_mimo/mimo-v2.5",
-        "mimo",
-        "mimo",
-        "Xiaomi MiMo V2.5.",
-    ),
-    deployment(
-        "mimo-v2.5-pro",
-        "mimo-v2.5-pro",
-        "xiaomi_mimo/mimo-v2.5-pro",
-        "mimo",
-        "mimo_pro",
-        "Xiaomi MiMo V2.5 Pro.",
-    ),
-]
+def company_models() -> list[dict]:
+    return [
+        deployment(
+            "qwen3.8-flash",
+            "qwen3.8-flash",
+            "openai/qwen3.8-flash",
+            "dashscope",
+            "Qwen3.8 Flash via Aliyun Model Studio workspace (OpenAI-compatible).",
+        ),
+        deployment(
+            "qwen3.8-27b",
+            "qwen3.8-27b",
+            "openai/qwen3.8-27b",
+            "dashscope",
+            "Qwen3.8 27B via Aliyun Model Studio workspace.",
+        ),
+        deployment(
+            "qwen3.8-max",
+            "qwen3.8-max",
+            "openai/qwen3.8-max",
+            "dashscope",
+            "Qwen3.8 Max via Aliyun Model Studio workspace.",
+        ),
+        deployment(
+            "kimi-k3",
+            "kimi-k3",
+            "openai/kimi-k3",
+            "dashscope",
+            "Kimi K3 via Aliyun Model Studio workspace. Codex/Claude aliases map here.",
+        ),
+        deployment(
+            "deepseek-v4-flash-0731",
+            "deepseek-v4-flash-0731",
+            "openai/deepseek-v4-flash-0731",
+            "dashscope",
+            "DeepSeek V4 Flash 0731 via Aliyun Model Studio workspace.",
+        ),
+        deployment(
+            "deepseek-v4-pro-0813",
+            "deepseek-v4-pro-0813",
+            "openai/deepseek-v4-pro-0813",
+            "dashscope",
+            "DeepSeek V4 Pro 0813 via Aliyun Model Studio workspace.",
+        ),
+        deployment(
+            "mimo-v2.5",
+            "mimo-v2.5",
+            "xiaomi_mimo/mimo-v2.5",
+            "mimo",
+            "Xiaomi MiMo V2.5.",
+        ),
+        deployment(
+            "mimo-v2.5-pro",
+            "mimo-v2.5-pro",
+            "xiaomi_mimo/mimo-v2.5-pro",
+            "mimo",
+            "Xiaomi MiMo V2.5 Pro.",
+        ),
+        deployment(
+            "glm-5.3-flash",
+            "glm-5.3-flash",
+            "openrouter/z-ai/glm-5.3-flash",
+            "openrouter",
+            "Z.ai GLM-5.3 Flash via OpenRouter.",
+            extra_params={
+                "headers": {
+                    "HTTP-Referer": "https://llm.imstem.org",
+                    "X-Title": "ImStem Gateway",
+                }
+            },
+        ),
+    ]
 
 
 def load_env(root: Path) -> None:
@@ -231,6 +212,7 @@ def main() -> int:
 
     existing = list_db_ids(gateway, master)
     rc = 0
+    MODELS = company_models()
     for spec in MODELS:
         mid = spec["model_info"]["id"]
         if mid in existing:
@@ -260,7 +242,7 @@ def main() -> int:
             print(f"retire {mid}: error {result.get('error')} {result.get('body')}")
         else:
             print(f"retired {mid}")
-    print("Done. Employees pick qwen3.8-* / kimi-k3 / deepseek-v4-* / mimo-v2.5*.")
+    print("Done. Employees pick qwen3.8-* / kimi-k3 / deepseek-v4-* / mimo-v2.5* / glm-5.3-flash.")
     return rc
 
 

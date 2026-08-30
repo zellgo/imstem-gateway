@@ -18,6 +18,7 @@ WorkBuddy 接公司网关：[WORKBUDDY_ZH.md](WORKBUDDY_ZH.md)
 | 模型 | 适合 |
 |---|---|
 | `qwen3.8-flash` | 快、便宜，草稿和翻译 |
+| `glm-5.3-flash` | 与千问 Flash 同级、更便宜，日常写作可换 |
 | `qwen3.8-27b` | 日常写作、修改 |
 | `qwen3.8-max` | 难文、长文档 |
 | `kimi-k3` | Agent、代码（Codex 默认） |

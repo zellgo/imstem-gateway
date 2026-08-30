@@ -58,6 +58,30 @@ h1 {
   line-height: 1.15;
   margin: 1.1rem 0 0.7rem;
 }
+.notice {
+  max-width: 44rem;
+  margin: 0 0 1.35rem;
+  padding: 0.85rem 1rem 0.9rem;
+  background: #e4f0ea;
+  border: 1px solid var(--flask);
+  color: var(--ink);
+  line-height: 1.6;
+  font-size: 0.98rem;
+}
+.notice strong {
+  display: block;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--flask);
+  margin: 0 0 0.28rem;
+}
+.notice code {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.86em;
+  background: #d5e6dc;
+  padding: 0.08em 0.28em;
+}
 .lede {
   max-width: 40rem;
   color: var(--muted);

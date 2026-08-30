@@ -16,7 +16,7 @@
 
 1. 打开 [https://chat.imstem.org](https://chat.imstem.org)
 2. 用入职邮件里的 **公司邮箱 + 密码**（不是工号，也不是阿里云账号）
-3. 登录后应能在左上角看到模型列表（`qwen3.8-flash` 等）
+3. 登录后应能在左上角看到模型列表（`qwen3.8-flash`、`glm-5.3-flash` 等）
 
 看不到模型：按 `Ctrl + Shift + R` 硬刷新，或退出再登录。仍没有，找管理员。不要自己去「连接 / Connections」里贴阿里云或小米官方 Key。
 
@@ -45,7 +45,7 @@
 
 ### 2.3 建议的第一次设置
 
-1. 左上角模型选 `qwen3.8-flash`（默认、便宜）
+1. 左上角模型选 `qwen3.8-flash` 或 `glm-5.3-flash`（同级，日常写作可自由切换；GLM 更便宜）
 2. 头像 → **Settings** → **General**：语言选中文（可选）
 3. 不要改 **Connections / 连接** 里的网关地址和密钥
 
@@ -66,7 +66,7 @@
 
 点左上角模型名，选：
 
-- 草稿、翻译、纪要、访视报告套话 → `qwen3.8-flash`
+- 草稿、翻译、纪要、访视报告套话 → `qwen3.8-flash` 或 `glm-5.3-flash`（同级可换）
 - 方案章节、SOP → `qwen3.8-27b`
 - 法规对读、很难的医学论证 → `qwen3.8-max`
 - 不要把 `kimi-k3` 当聊天默认（最贵）
@@ -288,7 +288,7 @@ ImStem 可参考的拆法：
 
 建议：
 
-- 检索问答默认 `qwen3.8-flash` 或 `qwen3.8-27b`
+- 检索问答默认 `qwen3.8-flash`、`glm-5.3-flash` 或 `qwen3.8-27b`
 - 不要对一个大库开 Full Context + `kimi-k3`
 - 同一主题连续问，用同一场对话（缓存更便宜）；换主题就 **New Chat**
 
@@ -321,7 +321,7 @@ A：硬刷新。不要改 Connections。找管理员。
 ## 12. 五分钟走一遍（建议每人做一次）
 
 1. 登录 [https://chat.imstem.org](https://chat.imstem.org)
-2. 选 `qwen3.8-flash`，问一句「用三句话说明间充质干细胞」确认能聊
+2. 选 `qwen3.8-flash` 或 `glm-5.3-flash`，问一句「用三句话说明间充质干细胞」确认能聊
 3. **Workspace → Knowledge → Create**，建 `练习-公开法规`（只放已公开文件）
 4. 上传一份无患者信息的 PDF，等到处理完成
 5. **New Chat**，输入 `#`，选这个库

@@ -8,7 +8,8 @@
 | **Employees (chat)** | https://chat.imstem.org |
 | Agents (Codex / Claude Code) | https://llm.imstem.org/v1 |
 | API guide | https://llm.imstem.org/guide |
-| LiteLLM admin (keys, spend) | https://llm.imstem.org/ui |
+| Official ￥ prices | https://llm.imstem.org/costs |
+| LiteLLM admin (keys, spend in ￥) | https://llm.imstem.org/ui |
 
 The LiteLLM host is an **admin/API** site. Do not send it to employees as the homepage. First Open WebUI login on an empty database becomes the admin user; after that, create employees in Open WebUI Admin → Users (`ENABLE_SIGNUP` is off).
 
@@ -30,8 +31,9 @@ Employees pick the real model names. Backends are Aliyun Model Studio (workspace
 | `deepseek-v4-pro-0813` | Aliyun `deepseek-v4-pro-0813` | `dashscope` |
 | `mimo-v2.5` | `xiaomi_mimo/mimo-v2.5` | `mimo` |
 | `mimo-v2.5-pro` | `xiaomi_mimo/mimo-v2.5-pro` | `mimo` |
+| `glm-5.3-flash` | OpenRouter `z-ai/glm-5.3-flash` | `openrouter` |
 
-`company-fast` / `company-agent` / `gpt-4o` / `claude-sonnet-4-5` still work as aliases (`kimi-k3` or a Qwen tier) so old Codex configs do not break.
+Old `company-fast` / `company-agent` names still remap in the gateway so leftover Codex configs do not break, but they are not listed in Open WebUI. Employees only see the real model IDs above. `gpt-4o` / `claude-sonnet-4-5` remap to `kimi-k3`.
 
 In **Add Model** / **LLM Credentials**:
 
@@ -63,7 +65,7 @@ python3 scripts/sync-company-models.py
 
 ## Rotate DeepSeek / Qwen / MiMo keys
 
-LiteLLM UI → **Models + Endpoints** → **LLM Credentials** → `deepseek` / `dashscope` / `mimo`
+LiteLLM UI → **Models + Endpoints** → **LLM Credentials** → `deepseek` / `dashscope` / `mimo` / `openrouter`
 
 Change `api_key` and `api_base`. Encrypted in `LiteLLM_CredentialsTable` (database **`litellm`**). First-time seed:
 
@@ -82,13 +84,15 @@ Pass `--update` only if you want to overwrite UI-edited keys from `.env` / Railw
 This creates:
 
 1. LiteLLM user `MED004`
-2. Virtual key `MED004-CHAT` (company-fast, company-standard, default $30 / 30d)
-3. Virtual key `MED004-AGENT` (plus company-agent, default $50 / 30d)
+2. Virtual key `MED004-CHAT` (qwen3.8-* / kimi-k3 / deepseek-v4-* / mimo-v2.5*, default $30 / 30d)
+3. Virtual key `MED004-AGENT` (same models plus Codex/Claude aliases, default $50 / 30d)
 
 Then in Open WebUI Admin → Users:
 
 1. Add user `MED004` (signup is disabled)
-2. Put the CHAT key in that user’s OpenAI API key field
+2. Attach that user’s `MED00X-CHAT` key with `python3 scripts/sync-openwebui-user-keys.py`
+
+Chat spend is per employee in LiteLLM Usage (filter `MED001-CHAT`, …). Do not put a shared key back in Admin → Connections.
 
 Give the employee:
 

@@ -10,8 +10,9 @@
 #
 # Provider keys: LiteLLM UI → LLM Credentials (dashscope | mimo)
 #
-# Codex / Claude Code default model names are aliased onto kimi-k3
-# (company-agent) so spend still lands on the employee's AGENT key.
+# Codex / Claude Code default model names (gpt-4o, claude-sonnet-4-5, …)
+# remap to kimi-k3 so spend still lands on the employee's AGENT key.
+# Old company-* names still remap below but are not shown in the picker.
 
 litellm_settings:
   drop_params: true
@@ -35,17 +36,16 @@ router_settings:
     - deepseek-v4-pro-0813: ["qwen3.8-max"]
     - mimo-v2.5: ["qwen3.8-flash"]
     - mimo-v2.5-pro: ["qwen3.8-max"]
-    - company-fast: ["qwen3.8-flash"]
-    - company-standard: ["qwen3.8-27b"]
-    - company-pro: ["qwen3.8-max"]
-    - mimo-pro: ["mimo-v2.5-pro"]
-    - company-agent: ["kimi-k3", "qwen3.8-max"]
+    - glm-5.3-flash: ["qwen3.8-flash"]
   model_group_alias:
     company-fast: qwen3.8-flash
     company-standard: qwen3.8-27b
     company-pro: qwen3.8-max
     company-agent: kimi-k3
     mimo-pro: mimo-v2.5-pro
+    GLM-5.3-Flash: glm-5.3-flash
+    glm-5.3-flash-next: glm-5.3-flash
+    z-ai/glm-5.3-flash: glm-5.3-flash
     gpt-4o: kimi-k3
     gpt-4.1: kimi-k3
     gpt-4: kimi-k3

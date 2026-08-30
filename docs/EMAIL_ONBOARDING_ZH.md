@@ -32,7 +32,7 @@
 • 试用期内，优先用千问（尤其是 qwen3.8-flash），尽量把免费额度用在正经工作上。
 • 免费额度用尽后，将按阿里云官方 Token 单价从公司账户扣费，并记到您的密钥。
 • Kimi、DeepSeek、小米 MiMo 不在千问免费额度内，调用即可能产生费用。
-• 日常请默认 qwen3.8-flash。写不好再换 qwen3.8-27b，难题再用 qwen3.8-max。
+• 日常请用 Flash 档：qwen3.8-flash 与 glm-5.3-flash 同级，写作可自由切换（GLM 更便宜）。写不好再换 qwen3.8-27b，难题再用 qwen3.8-max。
 • 不要把 kimi-k3 当聊天默认模型，它是目前最贵的一档。
 
 完整选模型与单价：请向管理员索取《模型费用与岗位推荐》，或看入职附件。
@@ -45,7 +45,7 @@
 登录邮箱：{{登录邮箱}}
 密码：{{网页密码}}
 
-登录后左上角选择模型。推荐先选：qwen3.8-flash
+登录后左上角选择模型。推荐先选：qwen3.8-flash 或 glm-5.3-flash
 
 大批本地文件、自己建知识库：不要往云端传。用本机 Open WebUI Desktop
   下载：https://github.com/open-webui/desktop
@@ -64,7 +64,7 @@ Agent API Key：
 {{AGENT密钥}}
 
 推荐模型：
-• 日常：qwen3.8-flash
+• 日常：qwen3.8-flash 或 glm-5.3-flash（同级可换）
 • 写代码：mimo-v2.5-pro
 • 很难的医学文本：qwen3.8-max
 
@@ -86,7 +86,7 @@ WorkBuddy 免费额度用完后：自定义 / Custom 接到公司网关
 Claude Code 注意：Base URL 不要加 /v1
   ANTHROPIC_BASE_URL=https://llm.imstem.org
   ANTHROPIC_API_KEY=（同一把 AGENT 密钥）
-  ANTHROPIC_MODEL=qwen3.8-flash
+  ANTHROPIC_MODEL=qwen3.8-flash   # 或 glm-5.3-flash，同级可换
 
 ━━━━━━━━━━━━━━━━
 四、安全

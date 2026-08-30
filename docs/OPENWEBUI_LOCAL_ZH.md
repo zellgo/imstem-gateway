@@ -71,9 +71,9 @@ Windows 一般下 `open-webui-x64-setup.exe`。macOS Apple Silicon 下 `open-web
 | Auth | **Bearer** |
 | API Key | 入职邮件里你自己的虚拟密钥 |
 
-保存。左上角模型列表应出现 `qwen3.8-flash` 等公司模型。没有的话硬刷新或退出再开；仍没有，核对 URL 是否漏了 `/v1`、密钥是不是 CHAT/AGENT 那把。
+保存。左上角模型列表应出现 `qwen3.8-flash`、`glm-5.3-flash` 等公司模型。没有的话硬刷新或退出再开；仍没有，核对 URL 是否漏了 `/v1`、密钥是不是 CHAT/AGENT 那把。
 
-默认模型建议 `qwen3.8-flash`。
+默认模型建议 `qwen3.8-flash` 或 `glm-5.3-flash`（同级可换）。
 
 ### 3.3 在 Desktop 里建自己的知识库
 
@@ -134,7 +134,7 @@ docker run --rm -it \
 2. 添加连接，类型选 **OpenAI**（OpenAI 兼容，没有单独的「公司网关」项）
 3. **Base URL**：`https://llm.imstem.org/v1`
 4. **API Key**：你的个人虚拟密钥
-5. Models 可留空，让它自动拉网关模型列表；然后把默认模型设成 `qwen3.8-flash`
+5. Models 可留空，让它自动拉网关模型列表；然后把默认模型设成 `qwen3.8-flash` 或 `glm-5.3-flash`
 
 不要填阿里云 / 小米官方地址。
 

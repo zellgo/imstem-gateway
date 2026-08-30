@@ -25,13 +25,15 @@ python3 scripts/monthly-report.py --month 2026-08
 
 CSV lands in `reports/YYYY-MM-usage.csv`.
 
+LiteLLM `spend` is **CNY (￥)** mapped from Aliyun 华北2（北京） and Xiaomi domestic list prices (`scripts/official_prices.py`, weekly). GLM-5.3 Flash uses OpenRouter listed USD × 6.72. The admin UI may still print a `$` glyph; the number is yuan. Live table: https://llm.imstem.org/costs
+
 ## Layer 2 — Provider invoices
 
 Once a month, compare:
 
 ```
 sum(LiteLLM spend)
-≈ DeepSeek invoice + DashScope invoice + MiMo invoice
+≈ DeepSeek invoice + DashScope invoice + MiMo invoice + OpenRouter invoice
 ```
 
 Differences are normal at small scale (rounding, cached tokens, failed retries). Investigate if LiteLLM is **much higher** (double logging) or **much lower** (missing keys, untracked traffic).

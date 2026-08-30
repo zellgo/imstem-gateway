@@ -24,9 +24,9 @@ WorkBuddy 的「接口地址」要写到 **完整的 chat completions 路径**�
 
 公司允许的模型名（一字不差）：
 
-`qwen3.8-flash` · `qwen3.8-27b` · `qwen3.8-max` · `kimi-k3` · `deepseek-v4-flash-0731` · `deepseek-v4-pro-0813` · `mimo-v2.5` · `mimo-v2.5-pro`
+`qwen3.8-flash` · `glm-5.3-flash` · `qwen3.8-27b` · `qwen3.8-max` · `kimi-k3` · `deepseek-v4-flash-0731` · `deepseek-v4-pro-0813` · `mimo-v2.5` · `mimo-v2.5-pro`
 
-日常先用 `qwen3.8-flash`。不要填 `deepseek-chat`、`gpt-4o`、`gpt-5` 这类官方原名，公司密钥不允许。
+日常先用 `qwen3.8-flash` 或 `glm-5.3-flash`（同级，可自由切换）。不要填 `deepseek-chat`、`gpt-4o`、`gpt-5` 这类官方原名，公司密钥不允许。
 
 ---
 
@@ -47,7 +47,7 @@ WorkBuddy 的「接口地址」要写到 **完整的 chat completions 路径**�
 |---|---|
 | 接口地址（URL） | `https://llm.imstem.org/v1/chat/completions` |
 | API Key | 你的 **AGENT** 密钥 |
-| 模型名称（Model ID） | 例如 `qwen3.8-flash` |
+| 模型名称（Model ID） | 例如 `qwen3.8-flash` 或 `glm-5.3-flash` |
 
 3. 高级项如有「工具调用」，建议勾上（WorkBuddy 要调工具）。图片 / 推理按模型能力勾，没有就留空。
 4. 有 **测试连接** 就点一下，通过后再 **保存**。没有测试按钮就直接保存。
@@ -78,6 +78,14 @@ UTF-8 无 BOM。示例（密钥自己替换）：
       "supportsToolCall": true
     },
     {
+      "id": "glm-5.3-flash",
+      "name": "ImStem GLM Flash",
+      "vendor": "OpenAI",
+      "url": "https://llm.imstem.org/v1/chat/completions",
+      "apiKey": "sk-你的AGENT密钥",
+      "supportsToolCall": true
+    },
+    {
       "id": "mimo-v2.5-pro",
       "name": "ImStem MiMo Pro",
       "vendor": "OpenAI",
@@ -86,7 +94,7 @@ UTF-8 无 BOM。示例（密钥自己替换）：
       "supportsToolCall": true
     }
   ],
-  "availableModels": ["qwen3.8-flash", "mimo-v2.5-pro"]
+  "availableModels": ["qwen3.8-flash", "glm-5.3-flash", "mimo-v2.5-pro"]
 }
 ```
 
@@ -96,7 +104,7 @@ UTF-8 无 BOM。示例（密钥自己替换）：
 
 ## 4. 测通了再干活
 
-保存后新建一个任务，模型选 `qwen3.8-flash`，发一句「用一句话介绍间充质干细胞」。能回就说明走的是公司网关。
+保存后新建一个任务，模型选 `qwen3.8-flash` 或 `glm-5.3-flash`，发一句「用一句话介绍间充质干细胞」。能回就说明走的是公司网关。
 
 失败时按这个顺序查：
 

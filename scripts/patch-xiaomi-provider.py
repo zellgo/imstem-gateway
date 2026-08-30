@@ -100,6 +100,45 @@ def patch_fields(path: Path) -> None:
     print(f"patched fields {path}")
 
 
+UI_SCRIPT = '<script src="/imstem-ui.js" defer></script>'
+
+
+def patch_ui_html(root: Path) -> int:
+    n = 0
+    dirs = [
+        root / "proxy" / "_experimental" / "out",
+        root / "proxy" / "public",
+        root / "proxy" / "ui",
+        root / "proxy" / "_experimental" / "out" / "dashboard",
+    ]
+    seen: set[Path] = set()
+    files: list[Path] = []
+    for d in dirs:
+        if d.is_dir():
+            files.extend(d.rglob("*.html"))
+    files.extend(root.rglob("index.html"))
+    for html in files:
+        html = html.resolve()
+        if html in seen:
+            continue
+        seen.add(html)
+        try:
+            text = html.read_text(encoding="utf-8")
+        except (UnicodeDecodeError, OSError):
+            continue
+        if UI_SCRIPT in text:
+            continue
+        if "</body>" in text:
+            html.write_text(text.replace("</body>", UI_SCRIPT + "</body>", 1), encoding="utf-8")
+            n += 1
+        elif "</html>" in text:
+            html.write_text(text.replace("</html>", UI_SCRIPT + "</html>", 1), encoding="utf-8")
+            n += 1
+    if n:
+        print(f"patched {n} LiteLLM UI html files with CNY script")
+    return n
+
+
 def patch_js(root: Path) -> int:
     n = 0
     for js in root.rglob("*.js"):
@@ -112,6 +151,13 @@ def patch_js(root: Path) -> int:
             text = text.replace(JS_ENUM_OLD, JS_ENUM_NEW)
         if JS_MAP_OLD in text and 'Xiaomi:"xiaomi_mimo"' not in text:
             text = text.replace(JS_MAP_OLD, JS_MAP_NEW)
+        if "$/1M" in text:
+            text = (
+                text.replace("$/1M tokens", "\u00a5/百万 tokens")
+                .replace("$/1M Tokens", "\u00a5/百万 Tokens")
+                .replace("$/1M Tokens)", "\u00a5/百万 Tokens)")
+                .replace("($/1M", "(\u00a5/百万")
+            )
         if text != orig:
             js.write_text(text, encoding="utf-8")
             print(f"patched js {js}")
@@ -123,6 +169,7 @@ def main() -> int:
     patch_fields(fields_path())
     n = patch_js(litellm_root())
     print(f"js files patched: {n}")
+    patch_ui_html(litellm_root())
     if n == 0:
         print("warning: no dashboard JS matched; Xiaomi may still be missing from the dropdown")
     return 0

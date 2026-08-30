@@ -4,6 +4,7 @@
 Sources (not estimates):
   Aliyun Model Studio 华北2（北京） model pages
   Xiaomi MiMo 国内按量价
+  OpenRouter listed USD prices converted at CNY/USD 6.72
 
 LiteLLM stores per-token numbers. Those numbers are CNY / token so Usage spend
 matches Aliyun/MiMo invoices in yuan. The admin UI dollar sign is relabelled.
@@ -86,6 +87,9 @@ MIMO = [
     {"id": "mimo-v2.5", "purpose": "小米 MiMo 2.5"},
     {"id": "mimo-v2.5-pro", "purpose": "小米 MiMo 2.5 Pro"},
 ]
+
+OPENROUTER_FX_CNY_PER_USD = 6.72
+OPENROUTER_GLM_FLASH_URL = "https://openrouter.ai/z-ai/glm-5.3-flash"
 
 END_MARKERS = ("新加坡", "德国（法兰克福）", "美国（弗吉尼亚）", "日本（东京）", "中国香港", "限流")
 
@@ -232,7 +236,7 @@ def _record(
         "id": model_id,
         "source": source,
         "source_url": url,
-        "region": REGION if source == "aliyun" else "中国内地按量",
+        "region": REGION if source == "aliyun" else ("OpenRouter" if source == "openrouter" else "中国内地按量"),
         "purpose": purpose,
         "billing": billing,
         "accounting_band": accounting,
@@ -283,6 +287,28 @@ def parse_mimo(text: str) -> dict[str, dict]:
     return found
 
 
+def openrouter_glm_flash() -> dict:
+    # OpenRouter model page In/Out Price (USD / million), not a single provider's list.
+    usd_in, usd_out, usd_cache = 0.05, 0.1667, 0.01
+    fx = OPENROUTER_FX_CNY_PER_USD
+    rec = _record(
+        "glm-5.3-flash",
+        source="openrouter",
+        url=OPENROUTER_GLM_FLASH_URL,
+        purpose="GLM-5.3 Flash，与 Qwen Flash 同档、更便宜",
+        inp=round(usd_in * fx, 4),
+        out=round(usd_out * fx, 4),
+        cache=round(usd_cache * fx, 4),
+        billing="flat",
+        accounting="list",
+    )
+    rec["usd_input_per_million"] = usd_in
+    rec["usd_output_per_million"] = usd_out
+    rec["usd_cache_hit_per_million"] = usd_cache
+    rec["fx_cny_per_usd"] = fx
+    return rec
+
+
 def fetch_official_prices() -> dict:
     models: dict[str, dict] = {}
     errors: list[str] = []
@@ -300,6 +326,7 @@ def fetch_official_prices() -> dict:
         models.update(parse_mimo(mimo_text))
     except Exception as e:  # noqa: BLE001
         errors.append(f"mimo: {e}")
+    models["glm-5.3-flash"] = openrouter_glm_flash()
     if len(models) < 6:
         raise RuntimeError("too few official prices: " + "; ".join(errors))
     payload = {
@@ -309,7 +336,7 @@ def fetch_official_prices() -> dict:
         "unit": "每百万tokens",
         "fetched_at": datetime.now(timezone.utc).isoformat(),
         "refresh_seconds": WEEK_SECONDS,
-        "note": "阿里云为华北2（北京）官方原价；DeepSeek 快照记账用忙时官方价。小米为国内按量官方价。",
+        "note": "阿里云为华北2（北京）官方原价；DeepSeek 快照记账用忙时官方价。小米为国内按量官方价。GLM-5.3 Flash 为 OpenRouter 标价（USD×6.72）。",
         "models": models,
         "errors": errors,
     }

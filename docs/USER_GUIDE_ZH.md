@@ -8,7 +8,7 @@
 
 ## 1. 这套系统是什么
 
-公司把通义千问、Kimi、DeepSeek、小米 MiMo 接到统一网关。你 **看不到、也不需要** 阿里云或小米的官方 Key。
+公司把通义千问、Kimi、DeepSeek、小米 MiMo、GLM-5.3 Flash（OpenRouter）接到统一网关。你 **看不到、也不需要** 阿里云、小米或 OpenRouter 的官方 Key。
 
 你拿到的是两样东西：
 
@@ -27,10 +27,10 @@
 
 - 试用期内，千问系列调用尽量走免费额度，账单上可能显示为 0 或接近 0。
 - **免费额度用尽后，按阿里云官方 Token 单价从公司账户扣费**，同时记到你的虚拟密钥上。
-- Kimi、DeepSeek 快照版、小米 MiMo **不在千问免费额度里**，从一开始就可能产生费用。
+- Kimi、DeepSeek 快照版、小米 MiMo、GLM-5.3 Flash **不在千问免费额度里**，从一开始就可能产生费用。
 - 个人有月度上限。超额后密钥会失败，找管理员加额度，不要换同事的密钥继续用。
 
-省钱原则：**日常默认 `qwen3.8-flash`。写不好再升级，不要一上来用 Max / Kimi。**  
+省钱原则：**日常用 Flash 档——`qwen3.8-flash` 与 `glm-5.3-flash` 同级，写作可自由切换。** GLM 更便宜。写不好再升级，不要一上来用 Max / Kimi。  
 详细单价与岗位推荐见 [MODEL_COST_ZH.md](MODEL_COST_ZH.md)。实时官方价（￥）：[https://llm.imstem.org/costs](https://llm.imstem.org/costs)。
 
 ---
@@ -46,7 +46,7 @@
 
 首次登录后建议：
 
-- 把默认模型设成 `qwen3.8-flash`
+- 把默认模型设成 `qwen3.8-flash` 或 `glm-5.3-flash`（同级，可随时换）
 - 不要在「连接 / Connections」里粘贴阿里云或小米官方 Key（公司已经配好）
 - 硬刷新一次（Ctrl+Shift+R）如果看不到模型列表
 
@@ -54,11 +54,11 @@
 
 ## 4. 选哪个模型（日常口诀）
 
-**能用 Flash 就不要用 Max；能用 Max 就不要用 Kimi。**
+**能用 Flash 就不要用 Max；能用 Max 就不要用 Kimi。日常写作：`qwen3.8-flash` 和 `glm-5.3-flash` 同级，自由切换。**
 
 | 优先级               | 模型名（必须一字不差）                   | 适合做什么                           | 不适合                 |
 | ----------------- | ----------------------------- | ------------------------------- | ------------------- |
-| 1 默认              | `qwen3.8-flash`               | 翻译、润色、会议纪要、邮件、访视报告草稿、清单、把长文缩短   | 很难的法规对读、长程写代码       |
+| 1 默认              | `qwen3.8-flash` 或 `glm-5.3-flash` | 翻译、润色、会议纪要、邮件、访视报告草稿、清单、把长文缩短。两档同级，GLM 更便宜 | 很难的法规对读、长程写代码       |
 | 2 日常写作            | `qwen3.8-27b`                 | SOP / 方案章节、监查发现归纳、项目风险描述、PPT 大纲 | 把整本方案反复塞进去「再想一遍」    |
 | 3 难题              | `qwen3.8-max`                 | 方案逻辑冲突、法规条款对照、复杂医学论证、审稿意见回复     | 日常聊天、批量翻译           |
 | 4 便宜推理            | `deepseek-v4-flash-0731`      | 列表、分类、简单推理；可作 Flash 备选          | 要强中文公文腔时不如千问        |
@@ -70,9 +70,9 @@
 
 | 岗位   | 默认                         | 升级到 27b             | 才用 Max        | Agent / 代码                   |
 | ---- | -------------------------- | ------------------- | ------------- | ---------------------------- |
-| 医学经理 | Flash：邮件、摘要、中英翻译           | 方案/IB/CSR 章节、审稿意见草稿 | 关键法规对读、科学逻辑卡住 | `mimo-v2.5-pro`；Kimi 仅在连续失败后 |
-| 项目经理 | Flash：纪要、邮件、进度话术           | 风险登记、供应商说明、里程碑冲突    | 复杂跨部门方案取舍     | 少用；脚本用 MiMo Pro              |
-| CRA  | Flash：访视报告、query 清单、TMF 核对 | 方案偏离解释、发现分级         | 几乎不用          | 一般不需要；做表用 Flash 或 MiMo       |
+| 医学经理 | Flash 档（千问或 GLM）：邮件、摘要、中英翻译 | 方案/IB/CSR 章节、审稿意见草稿 | 关键法规对读、科学逻辑卡住 | `mimo-v2.5-pro`；Kimi 仅在连续失败后 |
+| 项目经理 | Flash 档：纪要、邮件、进度话术           | 风险登记、供应商说明、里程碑冲突    | 复杂跨部门方案取舍     | 少用；脚本用 MiMo Pro              |
+| CRA  | Flash 档：访视报告、query 清单、TMF 核对 | 方案偏离解释、发现分级         | 几乎不用          | 一般不需要；做表用 Flash 或 MiMo       |
 
 ---
 
@@ -92,7 +92,8 @@ export OPENAI_API_KEY=sk-你的AGENT密钥
 推荐模型（省钱）：
 
 ```text
-qwen3.8-flash          # 默认
+qwen3.8-flash          # 默认之一
+glm-5.3-flash          # 与千问 Flash 同级、更便宜，日常写作可换
 mimo-v2.5-pro          # 写代码 / Agent
 qwen3.8-max            # 很难的医学文本
 ```
@@ -145,14 +146,14 @@ print(client.chat.completions.create(
 | API Request URL（Codex） | `https://llm.imstem.org/v1`（必须带 `/v1`） |
 | API Request URL（Claude Code） | `https://llm.imstem.org`（**不要**加 `/v1`） |
 | API Key | 入职邮件里的 **AGENT** 密钥 |
-| 默认模型 | 先点模型输入框**右边的下载按钮**，拉取可用模型，再选你要用的（日常 `qwen3.8-flash`，写代码 `mimo-v2.5-pro`），点 **Save** |
+| 默认模型 | 先点模型输入框**右边的下载按钮**，拉取可用模型，再选你要用的（日常 `qwen3.8-flash` 或 `glm-5.3-flash`，写代码 `mimo-v2.5-pro`），点 **Save** |
 
 5. 在 CC Switch 里把当前供应商切到 `ImStem`。
 6. Codex 桌面版：**完全退出** ChatGPT / Codex，再打开。切供应商之后不要以为点一下桌面图标就生效。
 
 公司允许的模型名（必须一字不差，不要填 `gpt-5.4` / `gpt-5.6-*`）：
 
-`qwen3.8-flash` · `qwen3.8-27b` · `qwen3.8-max` · `kimi-k3` · `deepseek-v4-flash-0731` · `deepseek-v4-pro-0813` · `mimo-v2.5` · `mimo-v2.5-pro`
+`qwen3.8-flash` · `glm-5.3-flash` · `qwen3.8-27b` · `qwen3.8-max` · `kimi-k3` · `deepseek-v4-flash-0731` · `deepseek-v4-pro-0813` · `mimo-v2.5` · `mimo-v2.5-pro`
 
 **已知问题（请照做，否则会以为「没切成功」）：**
 

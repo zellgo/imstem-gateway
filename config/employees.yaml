@@ -28,7 +28,7 @@ departments:
     default_chat_budget_usd: 50
     default_agent_budget_usd: 100
 
-# Employee-facing model names (Aliyun Model Studio + Xiaomi MiMo).
+# Employee-facing model names (Aliyun Model Studio + Xiaomi MiMo + OpenRouter).
 chat_models:
   - qwen3.8-flash
   - qwen3.8-27b
@@ -38,6 +38,7 @@ chat_models:
   - deepseek-v4-pro-0813
   - mimo-v2.5
   - mimo-v2.5-pro
+  - glm-5.3-flash
 
 agent_models:
   - qwen3.8-flash
@@ -48,6 +49,7 @@ agent_models:
   - deepseek-v4-pro-0813
   - mimo-v2.5
   - mimo-v2.5-pro
+  - glm-5.3-flash
 
 budget_duration: 30d
 
@@ -106,6 +108,26 @@ employees:
     email: siwang@imstem.com.cn
     department: Medical
     title: CRA
+    intensity: heavy
+    chat_budget_usd: 40
+    agent_budget_usd: 80
+    wants_api: true
+    tools: [codex, ppt]
+  - id: MED006
+    name: 于丽伟
+    email: liweiyu@imstem.com.cn
+    department: Medical
+    title: 项目经理
+    intensity: agent-high
+    chat_budget_usd: 50
+    agent_budget_usd: 100
+    wants_api: true
+    tools: [codex, ppt]
+  - id: MED007
+    name: 祁星
+    email: xingqi@imstem.com.cn
+    department: Medical
+    title: CTA
     intensity: heavy
     chat_budget_usd: 40
     agent_budget_usd: 80

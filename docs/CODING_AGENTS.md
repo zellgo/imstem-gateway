@@ -93,7 +93,7 @@ The CSV has one row group per employee, key kind (chat vs agent), model, and cos
 
 ## Rules
 
-- Never give an employee `DEEPSEEK_API_KEY` / `DASHSCOPE_API_KEY` / `MIMO_API_KEY`.
+- Never give an employee `DEEPSEEK_API_KEY` / `DASHSCOPE_API_KEY` / `MIMO_API_KEY` / `OPENROUTER_API_KEY`.
 - Never share `MED001-AGENT` with MED002.
 - Revoke with `./scripts/offboard-user.sh MED001` — the key stops immediately.
 - Agent loops that burn budget only hit **that** employee’s AGENT cap, not the whole company.

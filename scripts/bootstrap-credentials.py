@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create (or skip existing) named LiteLLM credentials for DeepSeek, DashScope, MiMo.
+"""Create (or skip existing) named LiteLLM credentials for DeepSeek, DashScope, MiMo, OpenRouter.
 
 Safe to re-run. Existing credentials are left alone unless --update is passed.
 Keys are stored encrypted in LiteLLM_CredentialsTable (Railway Postgres).
@@ -48,7 +48,19 @@ def api(gateway: str, master: str, method: str, path: str, body: dict | None = N
         return {"error": e.code, "body": err}
 
 
-def wanted_credentials() -> list[dict]:
+def _secret_key(root: Path, filename: str) -> str:
+    path = root / "secret" / filename
+    if not path.is_file():
+        return ""
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line and not line.startswith("#"):
+            return line
+    return ""
+
+
+def wanted_credentials(root: Path) -> list[dict]:
+    openrouter_key = os.environ.get("OPENROUTER_API_KEY", "") or _secret_key(root, "openrouter.txt")
     return [
         {
             "credential_name": "deepseek",
@@ -93,6 +105,17 @@ def wanted_credentials() -> list[dict]:
                 "description": "Xiaomi MiMo Token Plan / PAYG",
             },
         },
+        {
+            "credential_name": "openrouter",
+            "credential_values": {
+                "api_key": openrouter_key,
+                "api_base": os.environ.get("OPENROUTER_API_BASE", "https://openrouter.ai/api/v1"),
+            },
+            "credential_info": {
+                "custom_llm_provider": "openrouter",
+                "description": "OpenRouter (GLM-5.3 Flash)",
+            },
+        },
     ]
 
 
@@ -131,7 +154,7 @@ def main() -> int:
 
     present = existing_names(gateway, master)
     rc = 0
-    for cred in wanted_credentials():
+    for cred in wanted_credentials(root):
         name = cred["credential_name"]
         key = cred["credential_values"].get("api_key") or ""
         if not key or key in {"replace-me", "changeme"}:

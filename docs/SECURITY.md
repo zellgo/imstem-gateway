@@ -4,7 +4,7 @@
 
 | Kind | Where it lives | Who sees it |
 |---|---|---|
-| DeepSeek / DashScope / MiMo | Railway variables / local `.env` | Admins only |
+| DeepSeek / DashScope / MiMo / OpenRouter | Railway variables / local `.env` / `secret/openrouter.txt` | Admins only |
 | `LITELLM_MASTER_KEY` / `LITELLM_SALT_KEY` | same | Admins only |
 | Virtual keys `MED001-CHAT` / `MED001-AGENT` | LiteLLM DB (hashed) + employee | That employee + admin |
 
