@@ -54,6 +54,80 @@
         <em>llm.imstem.org/costs</em>
       </a>
     </nav>
+    <section class="value" id="value" aria-labelledby="value-heading">
+      <h2 id="value-heading">为什么默认千问 3.8 · 性价比</h2>
+      <p class="pick">日常用 <code>qwen3.8-flash</code>。写不好再升 <code>qwen3.8-27b</code>。法规对读、长文档、卡住再用 <code>qwen3.8-max</code>。<strong>不要把 kimi-k3 当默认</strong>——它最贵。</p>
+      <div class="charts">
+        <figure>
+          <figcaption>办公 Agent · CoWorkBench</figcaption>
+          <p class="chart-note">Flash 超过 DeepSeek V4 Flash，并压过 Claude Opus 4.6。</p>
+          <div class="bar-row ours">
+            <span class="bar-name">Qwen3.8-Flash</span>
+            <span class="bar-track"><span class="bar-fill" style="width:100%"></span></span>
+            <span class="bar-n">73.9</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-name">Claude Opus 4.6</span>
+            <span class="bar-track"><span class="bar-fill" style="width:92%"></span></span>
+            <span class="bar-n">68.2</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-name">DeepSeek V4 Flash</span>
+            <span class="bar-track"><span class="bar-fill" style="width:61%"></span></span>
+            <span class="bar-n">45.1</span>
+          </div>
+        </figure>
+        <figure>
+          <figcaption>Agent 编程 · Terminal-Bench 2.1</figcaption>
+          <p class="chart-note">Max 与 GPT-5.6 Sol、Claude 同档（86.6 / 88.8 / 84.6）。</p>
+          <div class="bar-row">
+            <span class="bar-name">GPT-5.6 Sol</span>
+            <span class="bar-track"><span class="bar-fill" style="width:100%"></span></span>
+            <span class="bar-n">88.8</span>
+          </div>
+          <div class="bar-row ours">
+            <span class="bar-name">Qwen3.8-Max</span>
+            <span class="bar-track"><span class="bar-fill" style="width:98%"></span></span>
+            <span class="bar-n">86.6</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-name">Claude Opus 4.8</span>
+            <span class="bar-track"><span class="bar-fill" style="width:95%"></span></span>
+            <span class="bar-n">84.6</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-name">DeepSeek V4 Flash</span>
+            <span class="bar-track"><span class="bar-fill" style="width:93%"></span></span>
+            <span class="bar-n">82.7</span>
+          </div>
+        </figure>
+        <figure>
+          <figcaption>输出价 · 元 / 百万 tokens</figcaption>
+          <p class="chart-note">越短越省。公司华北2 官方原价；DeepSeek 为忙时价。</p>
+          <div class="bar-row ours cheap">
+            <span class="bar-name">qwen3.8-flash</span>
+            <span class="bar-track"><span class="bar-fill" style="width:8%"></span></span>
+            <span class="bar-n">¥2.7</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-name">deepseek-v4-flash</span>
+            <span class="bar-track"><span class="bar-fill" style="width:27%"></span></span>
+            <span class="bar-n">¥9</span>
+          </div>
+          <div class="bar-row ours">
+            <span class="bar-name">qwen3.8-max</span>
+            <span class="bar-track"><span class="bar-fill" style="width:36%"></span></span>
+            <span class="bar-n">¥36</span>
+          </div>
+          <div class="bar-row dear">
+            <span class="bar-name">kimi-k3</span>
+            <span class="bar-track"><span class="bar-fill" style="width:100%"></span></span>
+            <span class="bar-n">¥100</span>
+          </div>
+        </figure>
+      </div>
+      <p class="cite">分数：通义官方表（<a href="https://qwenlm.github.io/blog/qwen3.8-flash-next/">Flash-Next</a>、<a href="https://openlm.ai/qwen3.8/">Qwen3.8-Max</a>，2026-08）及 DeepSeek V4 Flash 模型卡。价格：公司网关同步的阿里云华北2 / 小米国内官方价。</p>
+    </section>
     <section class="notebook" aria-labelledby="guide-heading">
       <h2 id="guide-heading">使用指南</h2>
       <ol class="ledger">
