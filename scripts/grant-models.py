@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Add a model to every existing LiteLLM virtual key without rotating keys.
+"""Update model allowlists on every LiteLLM virtual key without rotating keys.
 
 Usage:
-  python3 scripts/grant-models.py glm-5.3-flash
+  python3 scripts/grant-models.py glm-5.3-flash          # append
+  python3 scripts/grant-models.py --replace               # set exact company list
 """
 from __future__ import annotations
 
@@ -68,10 +69,22 @@ def list_keys(gateway: str, master: str) -> list[dict]:
     return found
 
 
+ALLOWED = [
+    "qwen3.8-flash",
+    "qwen3.8-27b",
+    "qwen3.8-max",
+    "kimi-k3",
+    "deepseek-v4-flash-0731",
+    "deepseek-v4-pro-0813",
+    "mimo-v2.5",
+    "mimo-v2.5-pro",
+    "glm-5.3-flash",
+]
+
+
 def main() -> int:
+    replace = "--replace" in sys.argv
     extra = [a for a in sys.argv[1:] if not a.startswith("-")]
-    if not extra:
-        extra = ["glm-5.3-flash"]
     root = Path(__file__).resolve().parents[1]
     load_env(root)
     gateway = (os.environ.get("PUBLIC_GATEWAY_URL") or "https://llm.imstem.org").rstrip("/")
@@ -90,6 +103,29 @@ def main() -> int:
             print(f"{alias}: skip (no token)")
             skipped += 1
             continue
+        if replace:
+            wanted = list(ALLOWED)
+            extra_now = [m for m in models if m not in wanted]
+            if models == wanted:
+                print(f"{alias}: already {len(wanted)}")
+                skipped += 1
+                continue
+            result = api(
+                gateway,
+                master,
+                "POST",
+                "/key/update",
+                {"key": token, "models": wanted},
+            )
+            if result.get("error"):
+                print(f"{alias}: error {result}")
+                failed += 1
+            else:
+                print(f"{alias}: set {len(wanted)} (removed {extra_now})")
+                updated += 1
+            continue
+        if not extra:
+            extra = ["glm-5.3-flash"]
         if models in ([],) or any(m in {"*", "all"} for m in models):
             print(f"{alias}: skip (unrestricted)")
             skipped += 1

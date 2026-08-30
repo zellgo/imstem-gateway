@@ -19,20 +19,6 @@
     "deepseek-v4-pro-0813",
     "mimo-v2.5",
     "mimo-v2.5-pro",
-    "glm-5.3-flash",
-    "gpt-4o",
-    "gpt-4.1",
-    "gpt-4",
-    "gpt-5",
-    "o3",
-    "o3-mini",
-    "o4-mini",
-    "claude-sonnet-4-20250514",
-    "claude-opus-4-20250514",
-    "claude-3-5-sonnet-latest",
-    "claude-3-5-haiku-latest",
-    "claude-sonnet-4-5",
-    "claude-haiku-4-5",
-    "claude-opus-4-1"
+    "glm-5.3-flash"
   ]
 }
