@@ -250,6 +250,54 @@ a.cassette em {
   font-size: 0.95rem;
 }
 .model-list small { display: block; color: var(--muted); font-size: 0.8rem; }
+.scoreboard {
+  margin-top: 2.6rem;
+  padding-top: 1.2rem;
+  border-top: 2px solid var(--ink);
+}
+.scoreboard h2 {
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--flask);
+  margin: 0 0 0.7rem;
+}
+.scoreboard .table-wrap { overflow-x: auto; margin: 0.6rem 0 0.8rem; }
+table.scores {
+  width: 100%;
+  min-width: 68rem;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+  background: var(--card);
+}
+table.scores th, table.scores td {
+  padding: 0.45rem 0.4rem;
+  border-bottom: 1px solid var(--line);
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+table.scores thead th {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--ink);
+  background: #eef4f0;
+  text-align: center;
+}
+table.scores tbody th {
+  text-align: left;
+  font-weight: 600;
+  position: sticky;
+  left: 0;
+  background: var(--card);
+  z-index: 1;
+}
+table.scores th.gw { color: var(--flask); }
+table.scores td.best {
+  color: var(--flask);
+  font-weight: 700;
+  background: #e4f0ea;
+}
 footer.site {
   margin-top: 2.6rem;
   color: var(--muted);
