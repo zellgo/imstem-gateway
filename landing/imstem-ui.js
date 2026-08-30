@@ -66,11 +66,9 @@
       });
     });
     obs.observe(document.body, { childList: true, subtree: true, characterData: true });
-    var n = 0;
-    var tick = setInterval(function () {
+    setInterval(function () {
       walk(document.body);
-      if (++n > 40) clearInterval(tick);
-    }, 250);
+    }, 500);
   }
 
   if (document.readyState === "loading") {

@@ -100,7 +100,7 @@ def patch_fields(path: Path) -> None:
     print(f"patched fields {path}")
 
 
-UI_SCRIPT = '<script src="/imstem-ui.js?v=5" defer></script>'
+UI_SCRIPT = '<script src="/imstem-ui.js?v=6" defer></script>'
 
 
 def patch_ui_html(root: Path) -> int:
