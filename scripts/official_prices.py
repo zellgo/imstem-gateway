@@ -28,7 +28,7 @@ from pathlib import Path
 
 UA = "Mozilla/5.0 ImStemGateway/1.0"
 REGION = "华北2（北京）"
-SYMBOL = "\u00a5"  # yen sign, ASCII source; HTML uses &#165;
+SYMBOL = "&#165;"  # ASCII HTML entity; never put a ¥ glyph in HTML/JSON display
 WEEK_SECONDS = 7 * 24 * 3600
 
 def _repo_root() -> Path:

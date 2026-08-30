@@ -50,8 +50,8 @@ def deployment(
         description = (
             f"{rec.get('purpose') or fallback_description}。"
             f"{rec.get('region') or '华北2（北京）'} 官方原价："
-            f"输入 \u00a5{rec['input_cny_per_million']:g}/百万 · "
-            f"输出 \u00a5{rec['output_cny_per_million']:g}/百万。"
+            f"输入 &#165;{rec['input_cny_per_million']:g}/百万 · "
+            f"输出 &#165;{rec['output_cny_per_million']:g}/百万。"
         )
         cost = {**cost, "currency": "CNY"}
     else:

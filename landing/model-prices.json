@@ -1,6 +1,6 @@
 {
   "currency": "CNY",
-  "symbol": "¥",
+  "symbol": "&#165;",
   "region": "华北2（北京）",
   "unit": "每百万tokens",
   "fetched_at": "2026-08-30T03:38:34.693917+00:00",
@@ -16,7 +16,7 @@
       "billing": "flat",
       "accounting_band": "list",
       "currency": "CNY",
-      "symbol": "¥",
+      "symbol": "&#165;",
       "unit": "每百万tokens",
       "input_cny_per_million": 0.8,
       "output_cny_per_million": 2.7,
@@ -30,8 +30,8 @@
       "input_cost_per_token": 8e-07,
       "output_cost_per_token": 2.7e-06,
       "cache_read_input_token_cost": 1e-07,
-      "display_input": "¥0.8",
-      "display_output": "¥2.7"
+      "display_input": "&#165;0.8",
+      "display_output": "&#165;2.7"
     },
     "qwen3.8-27b": {
       "id": "qwen3.8-27b",
@@ -42,7 +42,7 @@
       "billing": "flat",
       "accounting_band": "list",
       "currency": "CNY",
-      "symbol": "¥",
+      "symbol": "&#165;",
       "unit": "每百万tokens",
       "input_cny_per_million": 3.0,
       "output_cny_per_million": 12.0,
@@ -56,8 +56,8 @@
       "input_cost_per_token": 3e-06,
       "output_cost_per_token": 1.2e-05,
       "cache_read_input_token_cost": 6e-07,
-      "display_input": "¥3",
-      "display_output": "¥12"
+      "display_input": "&#165;3",
+      "display_output": "&#165;12"
     },
     "qwen3.8-max": {
       "id": "qwen3.8-max",
@@ -68,7 +68,7 @@
       "billing": "flat",
       "accounting_band": "list",
       "currency": "CNY",
-      "symbol": "¥",
+      "symbol": "&#165;",
       "unit": "每百万tokens",
       "input_cny_per_million": 12.0,
       "output_cny_per_million": 36.0,
@@ -82,8 +82,8 @@
       "input_cost_per_token": 1.2e-05,
       "output_cost_per_token": 3.6e-05,
       "cache_read_input_token_cost": 1.5e-06,
-      "display_input": "¥12",
-      "display_output": "¥36"
+      "display_input": "&#165;12",
+      "display_output": "&#165;36"
     },
     "kimi-k3": {
       "id": "kimi-k3",
@@ -94,7 +94,7 @@
       "billing": "flat",
       "accounting_band": "list",
       "currency": "CNY",
-      "symbol": "¥",
+      "symbol": "&#165;",
       "unit": "每百万tokens",
       "input_cny_per_million": 20.0,
       "output_cny_per_million": 100.0,
@@ -108,8 +108,8 @@
       "input_cost_per_token": 2e-05,
       "output_cost_per_token": 0.0001,
       "cache_read_input_token_cost": 2e-06,
-      "display_input": "¥20",
-      "display_output": "¥100"
+      "display_input": "&#165;20",
+      "display_output": "&#165;100"
     },
     "deepseek-v4-flash-0731": {
       "id": "deepseek-v4-flash-0731",
@@ -120,7 +120,7 @@
       "billing": "peak_offpeak",
       "accounting_band": "busy",
       "currency": "CNY",
-      "symbol": "¥",
+      "symbol": "&#165;",
       "unit": "每百万tokens",
       "input_cny_per_million": 3.0,
       "output_cny_per_million": 9.0,
@@ -134,8 +134,8 @@
       "input_cost_per_token": 3e-06,
       "output_cost_per_token": 9e-06,
       "cache_read_input_token_cost": 3e-07,
-      "display_input": "¥3",
-      "display_output": "¥9"
+      "display_input": "&#165;3",
+      "display_output": "&#165;9"
     },
     "deepseek-v4-pro-0813": {
       "id": "deepseek-v4-pro-0813",
@@ -146,7 +146,7 @@
       "billing": "peak_offpeak",
       "accounting_band": "busy",
       "currency": "CNY",
-      "symbol": "¥",
+      "symbol": "&#165;",
       "unit": "每百万tokens",
       "input_cny_per_million": 9.0,
       "output_cny_per_million": 27.0,
@@ -160,8 +160,8 @@
       "input_cost_per_token": 9e-06,
       "output_cost_per_token": 2.7e-05,
       "cache_read_input_token_cost": 9e-07,
-      "display_input": "¥9",
-      "display_output": "¥27"
+      "display_input": "&#165;9",
+      "display_output": "&#165;27"
     },
     "mimo-v2.5": {
       "id": "mimo-v2.5",
@@ -172,7 +172,7 @@
       "billing": "flat",
       "accounting_band": "list",
       "currency": "CNY",
-      "symbol": "¥",
+      "symbol": "&#165;",
       "unit": "每百万tokens",
       "input_cny_per_million": 1.0,
       "output_cny_per_million": 2.0,
@@ -186,8 +186,8 @@
       "input_cost_per_token": 1e-06,
       "output_cost_per_token": 2e-06,
       "cache_read_input_token_cost": 2e-08,
-      "display_input": "¥1",
-      "display_output": "¥2"
+      "display_input": "&#165;1",
+      "display_output": "&#165;2"
     },
     "mimo-v2.5-pro": {
       "id": "mimo-v2.5-pro",
@@ -198,7 +198,7 @@
       "billing": "flat",
       "accounting_band": "list",
       "currency": "CNY",
-      "symbol": "¥",
+      "symbol": "&#165;",
       "unit": "每百万tokens",
       "input_cny_per_million": 3.0,
       "output_cny_per_million": 6.0,
@@ -212,8 +212,8 @@
       "input_cost_per_token": 3e-06,
       "output_cost_per_token": 6e-06,
       "cache_read_input_token_cost": 2.5e-08,
-      "display_input": "¥3",
-      "display_output": "¥6"
+      "display_input": "&#165;3",
+      "display_output": "&#165;6"
     },
     "glm-5.3-flash": {
       "id": "glm-5.3-flash",
@@ -224,7 +224,7 @@
       "billing": "flat",
       "accounting_band": "list",
       "currency": "CNY",
-      "symbol": "¥",
+      "symbol": "&#165;",
       "unit": "每百万tokens",
       "input_cny_per_million": 0.336,
       "output_cny_per_million": 1.1202,
@@ -238,8 +238,8 @@
       "input_cost_per_token": 3.36e-07,
       "output_cost_per_token": 1.1202e-06,
       "cache_read_input_token_cost": 6.72e-08,
-      "display_input": "¥0.336",
-      "display_output": "¥1.1202",
+      "display_input": "&#165;0.336",
+      "display_output": "&#165;1.1202",
       "usd_input_per_million": 0.05,
       "usd_output_per_million": 0.1667,
       "usd_cache_hit_per_million": 0.01,

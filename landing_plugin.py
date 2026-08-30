@@ -76,7 +76,7 @@ def _prices_payload() -> dict:
             import json
 
             return json.loads(baked.read_text(encoding="utf-8"))
-        return {"currency": "CNY", "symbol": "\u00a5", "models": {}, "errors": ["missing prices"]}
+        return {"currency": "CNY", "symbol": "&#165;", "models": {}, "errors": ["missing prices"]}
 
 
 def _chrome(title: str, inner: str, current: str = "") -> str:

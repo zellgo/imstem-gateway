@@ -1,7 +1,7 @@
 /* Relabel LiteLLM admin spend as CNY (yen). Official Aliyun Beijing / MiMo / OpenRouter rates. */
 (function () {
   var BANNER_ID = "imstem-cny-banner";
-  var YEN = "\u00a5";
+  var YEN = String.fromCharCode(165); // &#165;
 
   function ensureBanner() {
     if (document.getElementById(BANNER_ID) || !document.body) return;
