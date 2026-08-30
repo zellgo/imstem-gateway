@@ -233,48 +233,6 @@ def _install() -> None:
             return HTMLResponse("未找到该指南。", status_code=404, media_type="text/html; charset=utf-8")
         return HTMLResponse(page, media_type="text/html; charset=utf-8")
 
-    from starlette.middleware.base import BaseHTTPMiddleware
-    from starlette.responses import Response as StarletteResponse
-
-    class _CnyUiMiddleware(BaseHTTPMiddleware):
-        async def dispatch(self, request, call_next):  # noqa: ANN001
-            response = await call_next(request)
-            path = (request.url.path or "").lower()
-            if not path.startswith("/ui"):
-                return response
-            if path.endswith((".js", ".css", ".map", ".json", ".ico", ".png", ".svg", ".woff", ".woff2", ".ttf")):
-                return response
-            ctype = (response.headers.get("content-type") or "").lower()
-            if ctype and "html" not in ctype:
-                return response
-            body = getattr(response, "body", None)
-            if body is None:
-                chunks = []
-                async for chunk in response.body_iterator:
-                    chunks.append(chunk)
-                body = b"".join(chunks)
-            if b"</body>" not in body or b"imstem-ui.js" in body:
-                headers = dict(response.headers)
-                headers["content-length"] = str(len(body))
-                return StarletteResponse(body, status_code=response.status_code, headers=headers)
-            try:
-                text = body.decode("utf-8")
-            except UnicodeDecodeError:
-                return StarletteResponse(body, status_code=response.status_code, headers=dict(response.headers))
-            text = text.replace("</body>", '<script src="/imstem-ui.js" defer></script></body>', 1)
-            raw = text.encode("utf-8")
-            headers = dict(response.headers)
-            headers.pop("content-length", None)
-            headers["content-type"] = "text/html; charset=utf-8"
-            return StarletteResponse(
-                raw,
-                status_code=response.status_code,
-                media_type="text/html; charset=utf-8",
-                headers=headers,
-            )
-
-    app.add_middleware(_CnyUiMiddleware)
-
     skip = {
         ("/", "GET"),
         ("/guide", "GET"),
