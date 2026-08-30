@@ -202,7 +202,11 @@ def _install() -> None:
         return JSONResponse(_prices_payload())
 
     async def ui_script(_request=None):
-        return Response(ui_js_text, media_type="application/javascript; charset=utf-8")
+        return Response(
+            ui_js_text,
+            media_type="application/javascript; charset=utf-8",
+            headers={"Cache-Control": "no-store, max-age=0"},
+        )
 
     async def css(_request=None):
         return Response(css_text, media_type="text/css; charset=utf-8")

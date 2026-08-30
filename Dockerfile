@@ -3,6 +3,7 @@ FROM ghcr.io/berriai/litellm:main-stable
 WORKDIR /app
 COPY litellm/config.yaml /app/config.yaml
 COPY landing /app/landing
+COPY landing/imstem-ui.js /app/landing/imstem-ui.js
 COPY docs/USER_GUIDE_ZH.md docs/OPENWEBUI_GUIDE_ZH.md docs/MODEL_COST_ZH.md docs/OPENWEBUI_LOCAL_ZH.md docs/WORKBUDDY_ZH.md /app/docs/
 COPY config/model-prices.json /app/config/model-prices.json
 COPY landing_plugin.py /app/landing_plugin.py

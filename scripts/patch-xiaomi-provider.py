@@ -100,7 +100,7 @@ def patch_fields(path: Path) -> None:
     print(f"patched fields {path}")
 
 
-UI_SCRIPT = '<script src="/imstem-ui.js" defer></script>'
+UI_SCRIPT = '<script src="/imstem-ui.js?v=5" defer></script>'
 
 
 def patch_ui_html(root: Path) -> int:
@@ -153,10 +153,8 @@ def patch_js(root: Path) -> int:
             text = text.replace(JS_MAP_OLD, JS_MAP_NEW)
         # Models page renders ["Input: $", cost, "/1M tokens"] — $ is its own text node.
         if "Input: $" in text:
-            text = (
-                text.replace("Input: $", "Input: \\xA5")
-                .replace("Output: $", "Output: \\xA5")
-            )
+            yen = chr(165)  # ASCII &#165;
+            text = text.replace("Input: $", "Input: " + yen).replace("Output: $", "Output: " + yen)
         if "Max Budget (USD)" in text:
             text = text.replace("Max Budget (USD)", "Max Budget (CNY)")
         if "Current Cycle Spend (USD)" in text:
