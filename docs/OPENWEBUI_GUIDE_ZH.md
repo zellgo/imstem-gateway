@@ -2,7 +2,7 @@
 
 面向：ImStem 医学、监查、项目管理同事  
 地址：[https://chat.imstem.org](https://chat.imstem.org)  
-版本：Open WebUI **v0.11.1**  
+版本：Open WebUI **v0.11.3**  
 更新日期：2026-08-30
 
 本指南只讲 **公司云端** [chat.imstem.org](https://chat.imstem.org)。Codex / Claude Code / Python 见 [USER_GUIDE_ZH.md](USER_GUIDE_ZH.md)。  

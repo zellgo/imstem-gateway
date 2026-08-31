@@ -34,7 +34,7 @@ services:
       start_period: 40s
 
   open-webui:
-    image: ghcr.io/open-webui/open-webui:v0.11.0
+    image: ghcr.io/open-webui/open-webui:v0.11.3
     restart: unless-stopped
     extra_hosts:
       - "host.docker.internal:host-gateway"
@@ -52,6 +52,7 @@ services:
       ENABLE_OPENAI_API: "true"
       OPENAI_API_BASE_URL: http://litellm:4000/v1
       OPENAI_API_KEY: ${OPENWEBUI_BOOTSTRAP_KEY}
+      ENABLE_DIRECT_CONNECTIONS: "true"
       ENABLE_OLLAMA_API: "false"
       ENABLE_PERSISTENT_CONFIG: "true"
       VECTOR_DB: chroma
