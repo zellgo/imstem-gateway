@@ -56,7 +56,9 @@ Required service variables (set once, never commit):
 | `LITELLM_SALT_KEY` | `sk-…` (set once, never rotate after models are saved) |
 | `UI_USERNAME` / `UI_PASSWORD` | admin UI |
 | `DEEPSEEK_API_KEY` | provider |
-| `DASHSCOPE_API_KEY` | Qwen |
+| `DASHSCOPE_API_KEY` | Aliyun workspace (Kimi / DeepSeek) |
+| `DASHSCOPE_TOKENPLAN_API_KEY` | Aliyun token plan (qwen3.8-flash / 27b / max) |
+| `DASHSCOPE_TOKENPLAN_API_BASE` | `https://token-plan.cn-beijing.maas.aliyuncs.com/compatible-mode/v1` |
 | `MIMO_API_KEY` | Xiaomi MiMo |
 | `STORE_MODEL_IN_DB` | `True` |
 

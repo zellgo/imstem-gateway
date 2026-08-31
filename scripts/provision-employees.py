@@ -316,6 +316,11 @@ def update_openwebui_shared_key(gateway: str, master: str, models: list[str]) ->
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--no-rotate", action="store_true")
+    parser.add_argument(
+        "--only",
+        default="",
+        help="Comma-separated employee ids to provision (default: all). Merges into roster.csv.",
+    )
     args = parser.parse_args()
 
     root = Path(__file__).resolve().parents[1]
@@ -352,8 +357,11 @@ def main() -> int:
     outdir.mkdir(parents=True, exist_ok=True)
     roster: list[dict] = []
     rotate = not args.no_rotate
+    only = {x.strip() for x in args.only.split(",") if x.strip()}
 
     for emp in cfg.get("employees") or []:
+        if only and emp["id"] not in only:
+            continue
         ensure_user(gateway, master, emp, duration)
         chat_key = issue_key(
             gateway,
@@ -394,23 +402,31 @@ def main() -> int:
         roster.append(rec)
 
     roster_path = outdir / "roster.csv"
+    fieldnames = [
+        "id",
+        "name",
+        "email",
+        "email_inferred",
+        "department",
+        "openwebui_login",
+        "openwebui_password",
+        "chat_key",
+        "agent_key",
+    ]
+    merged: dict[str, dict] = {}
+    if roster_path.exists() and only:
+        with roster_path.open(encoding="utf-8") as fh:
+            for old in csv.DictReader(fh):
+                if old.get("id"):
+                    merged[old["id"]] = old
+    for rec in roster:
+        merged[rec["id"]] = rec
+    rows = list(merged.values())
+    rows.sort(key=lambda r: (0 if str(r.get("id", "")).startswith("ADMIN") else 1, r.get("id") or ""))
     with roster_path.open("w", newline="", encoding="utf-8") as fh:
-        writer = csv.DictWriter(
-            fh,
-            fieldnames=[
-                "id",
-                "name",
-                "email",
-                "email_inferred",
-                "department",
-                "openwebui_login",
-                "openwebui_password",
-                "chat_key",
-                "agent_key",
-            ],
-        )
+        writer = csv.DictWriter(fh, fieldnames=fieldnames, extrasaction="ignore")
         writer.writeheader()
-        writer.writerows(roster)
+        writer.writerows(rows)
     (outdir / "README.md").write_text(
         "These files are secrets. Email one `{ID}.md` per person. Do not commit.\n",
         encoding="utf-8",

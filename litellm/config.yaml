@@ -8,7 +8,7 @@
 #   python3 scripts/bootstrap-credentials.py --update
 #   python3 scripts/sync-company-models.py
 #
-# Provider keys: LiteLLM UI → LLM Credentials (dashscope | mimo)
+# Provider keys: LiteLLM UI → LLM Credentials (dashscope | dashscope-tokenplan | mimo)
 #
 # Codex / Claude Code default model names (gpt-4o, claude-sonnet-4-5, …)
 # remap to kimi-k3 so spend still lands on the employee's AGENT key.
@@ -27,16 +27,8 @@ router_settings:
   allowed_fails: 3
   cooldown_time: 60
   num_retries: 1
-  fallbacks:
-    - qwen3.8-flash: ["qwen3.8-27b"]
-    - qwen3.8-27b: ["qwen3.8-flash"]
-    - qwen3.8-max: ["kimi-k3", "qwen3.8-27b"]
-    - kimi-k3: ["qwen3.8-max"]
-    - deepseek-v4-flash-0731: ["qwen3.8-flash"]
-    - deepseek-v4-pro-0813: ["qwen3.8-max"]
-    - mimo-v2.5: ["qwen3.8-flash"]
-    - mimo-v2.5-pro: ["qwen3.8-max"]
-    - glm-5.3-flash: ["qwen3.8-flash"]
+  # No fallbacks: when a backend errors (e.g. quota exhausted) the user sees
+  # that model's own error in Open WebUI instead of a silent downgrade.
   model_group_alias:
     company-fast: qwen3.8-flash
     company-standard: qwen3.8-27b

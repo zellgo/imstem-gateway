@@ -23,9 +23,9 @@ Employees pick the real model names. Backends are Aliyun Model Studio (workspace
 
 | Employees call | Backend | Credential |
 |---|---|---|
-| `qwen3.8-flash` | Aliyun `qwen3.8-flash` | `dashscope` |
-| `qwen3.8-27b` | Aliyun `qwen3.8-27b` | `dashscope` |
-| `qwen3.8-max` | Aliyun `qwen3.8-max` | `dashscope` |
+| `qwen3.8-flash` | Aliyun `qwen3.8-flash` | `dashscope-tokenplan` |
+| `qwen3.8-27b` | Aliyun `qwen3.8-27b` | `dashscope-tokenplan` |
+| `qwen3.8-max` | Aliyun `qwen3.8-max` | `dashscope-tokenplan` |
 | `kimi-k3` | Aliyun `kimi-k3` | `dashscope` |
 | `deepseek-v4-flash-0731` | Aliyun `deepseek-v4-flash-0731` | `dashscope` |
 | `deepseek-v4-pro-0813` | Aliyun `deepseek-v4-pro-0813` | `dashscope` |
@@ -65,7 +65,7 @@ python3 scripts/sync-company-models.py
 
 ## Rotate DeepSeek / Qwen / MiMo keys
 
-LiteLLM UI → **Models + Endpoints** → **LLM Credentials** → `deepseek` / `dashscope` / `mimo` / `openrouter`
+LiteLLM UI → **Models + Endpoints** → **LLM Credentials** → `deepseek` / `dashscope` / `dashscope-tokenplan` / `mimo` / `openrouter`
 
 Change `api_key` and `api_base`. Encrypted in `LiteLLM_CredentialsTable` (database **`litellm`**). First-time seed:
 

@@ -80,8 +80,8 @@ def company_models() -> list[dict]:
             "qwen3.8-flash",
             "qwen3.8-flash",
             "openai/qwen3.8-flash",
-            "dashscope",
-            "Qwen3.8 Flash via Aliyun Model Studio workspace (OpenAI-compatible).",
+            "dashscope-tokenplan",
+            "Qwen3.8 Flash via Aliyun token plan (OpenAI-compatible).",
         ),
         deployment(
             "qwen3.8-27b",
@@ -94,8 +94,8 @@ def company_models() -> list[dict]:
             "qwen3.8-max",
             "qwen3.8-max",
             "openai/qwen3.8-max",
-            "dashscope",
-            "Qwen3.8 Max via Aliyun Model Studio workspace.",
+            "dashscope-tokenplan",
+            "Qwen3.8 Max via Aliyun token plan.",
         ),
         deployment(
             "kimi-k3",

@@ -33,8 +33,8 @@ fi
 
 if [[ -n "${LITELLM_MASTER_KEY:-}" ]]; then
   models="$(curl -fsS --max-time 15 -H "Authorization: Bearer ${LITELLM_MASTER_KEY}" "${GATEWAY}/v1/models" || true)"
-  if echo "$models" | grep -q "company-fast"; then
-    echo "OK  models include company-fast"
+  if echo "$models" | grep -q "qwen3.8-flash" && echo "$models" | grep -q "mimo-v2.5-pro"; then
+    echo "OK  models include qwen3.8-flash and mimo-v2.5-pro"
   else
     echo "FAIL models listing"
     FAIL=1

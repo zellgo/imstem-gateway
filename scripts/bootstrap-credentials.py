@@ -59,8 +59,39 @@ def _secret_key(root: Path, filename: str) -> str:
     return ""
 
 
+TOKENPLAN_API_BASE_DEFAULT = (
+    "https://token-plan.cn-beijing.maas.aliyuncs.com/compatible-mode/v1"
+)
+
+
+def _secret_ali_tokenplan(root: Path) -> tuple[str, str]:
+    """Parse secret/ali-tokenplan.txt: first line is key, then openai <url>."""
+    path = root / "secret" / "ali-tokenplan.txt"
+    if not path.is_file():
+        return "", TOKENPLAN_API_BASE_DEFAULT
+    lines = [ln.strip() for ln in path.read_text(encoding="utf-8").splitlines()]
+    key = ""
+    openai_base = ""
+    i = 0
+    while i < len(lines):
+        if lines[i] and not lines[i].startswith("#"):
+            key = lines[i]
+            i += 1
+            break
+        i += 1
+    while i < len(lines):
+        if lines[i].lower() == "openai" and i + 1 < len(lines):
+            openai_base = lines[i + 1]
+            break
+        i += 1
+    return key, openai_base or TOKENPLAN_API_BASE_DEFAULT
+
+
 def wanted_credentials(root: Path) -> list[dict]:
     openrouter_key = os.environ.get("OPENROUTER_API_KEY", "") or _secret_key(root, "openrouter.txt")
+    tokenplan_key, tokenplan_base = _secret_ali_tokenplan(root)
+    tokenplan_key = os.environ.get("DASHSCOPE_TOKENPLAN_API_KEY", "") or tokenplan_key
+    tokenplan_base = os.environ.get("DASHSCOPE_TOKENPLAN_API_BASE", "") or tokenplan_base
     return [
         {
             "credential_name": "deepseek",
@@ -87,7 +118,18 @@ def wanted_credentials(root: Path) -> list[dict]:
             "credential_info": {
                 # Workspace is OpenAI-compatible, not the public DashScope host.
                 "custom_llm_provider": "openai",
-                "description": "Aliyun Model Studio workspace (Qwen / Kimi / DeepSeek)",
+                "description": "Aliyun Model Studio workspace (Kimi / DeepSeek)",
+            },
+        },
+        {
+            "credential_name": "dashscope-tokenplan",
+            "credential_values": {
+                "api_key": tokenplan_key,
+                "api_base": tokenplan_base or TOKENPLAN_API_BASE_DEFAULT,
+            },
+            "credential_info": {
+                "custom_llm_provider": "openai",
+                "description": "Aliyun token plan (qwen3.8-flash / qwen3.8-27b / qwen3.8-max)",
             },
         },
         {

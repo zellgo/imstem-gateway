@@ -60,7 +60,7 @@ def main() -> int:
         sys.stderr.write("LITELLM_MASTER_KEY missing\n")
         return 1
     cfg = yaml.safe_load((root / "config" / "employees.yaml").read_text())
-    models = list({*cfg.get("chat_models", []), *cfg.get("agent_models", []), "company-pro"})
+    models = list({*cfg.get("chat_models", []), *cfg.get("agent_models", [])})
     for name, dept in cfg["departments"].items():
         payload = {
             "team_alias": dept.get("team_alias") or name,
