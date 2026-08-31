@@ -79,6 +79,7 @@ ALLOWED = [
     "mimo-v2.5",
     "mimo-v2.5-pro",
     "glm-5.3-flash",
+    "glm-4.7",
 ]
 
 

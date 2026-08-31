@@ -158,6 +158,21 @@ def wanted_credentials(root: Path) -> list[dict]:
                 "description": "OpenRouter (GLM-5.3 Flash)",
             },
         },
+        {
+            "credential_name": "bigmodel",
+            "credential_values": {
+                "api_key": os.environ.get("BIGMODEL_API_KEY", ""),
+                "api_base": os.environ.get(
+                    "BIGMODEL_API_BASE",
+                    "https://open.bigmodel.cn/api/paas/v4",
+                ),
+            },
+            "credential_info": {
+                # Z.ai bigmodel.cn is OpenAI-compatible.
+                "custom_llm_provider": "openai",
+                "description": "Z.ai bigmodel.cn (GLM-4.7, free)",
+            },
+        },
     ]
 
 

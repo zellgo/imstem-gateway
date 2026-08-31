@@ -145,6 +145,13 @@ def company_models() -> list[dict]:
                 }
             },
         ),
+        deployment(
+            "glm-4.7",
+            "glm-4.7",
+            "openai/glm-4.7",
+            "bigmodel",
+            "Z.ai GLM-4.7 via bigmodel.cn (free, reasoning model).",
+        ),
     ]
 
 

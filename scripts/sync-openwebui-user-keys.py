@@ -31,6 +31,7 @@ CHAT_MODELS = [
     "mimo-v2.5",
     "mimo-v2.5-pro",
     "glm-5.3-flash",
+    "glm-4.7",
 ]
 
 
@@ -78,7 +79,27 @@ def litellm_api(gw: str, master: str, method: str, path: str, body: dict | None 
     return data if isinstance(data, dict) else {"data": data}
 
 
-def ensure_admin_chat_key(gw: str, master: str) -> str:
+def _valid_chat_key(gw: str, key: str) -> bool:
+    code, _ = http(gw.rstrip("/") + "/v1/models", method="GET", token=key)
+    return code == 200
+
+
+def _persisted_admin_key(root: Path) -> str:
+    """Last known plaintext ADMIN001-CHAT key from the outbox (if any)."""
+    admin_md = root / "secret" / "outbox" / "ADMIN001.md"
+    if admin_md.exists():
+        for line in admin_md.read_text().splitlines():
+            if line.startswith("CHAT key:"):
+                return line.split(":", 1)[1].strip()
+    roster = root / "secret" / "outbox" / "roster.csv"
+    if roster.exists():
+        for row in csv.DictReader(roster.open(encoding="utf-8")):
+            if row.get("id") == "ADMIN001" and row.get("chat_key"):
+                return row["chat_key"]
+    return ""
+
+
+def ensure_admin_chat_key(gw: str, master: str, root: Path) -> str:
     listed = litellm_api(gw, master, "GET", "/user/info?user_id=ADMIN001")
     keys = listed.get("keys") or listed.get("data") or []
     if isinstance(keys, dict):
@@ -95,6 +116,13 @@ def ensure_admin_chat_key(gw: str, master: str) -> str:
             if plaintext.startswith("sk-"):
                 return plaintext
         break
+    # /user/info returns a hashed token, not plaintext. Reuse the last
+    # persisted key while it still works so Open WebUI does not lose its key.
+    persisted = _persisted_admin_key(root)
+    if persisted and _valid_chat_key(gw, persisted):
+        return persisted
+    # Persisted key is stale: drop the old alias so /key/generate succeeds.
+    litellm_api(gw, master, "POST", "/key/delete", {"key_aliases": ["ADMIN001-CHAT"]})
     created = litellm_api(
         gw,
         master,
@@ -193,7 +221,7 @@ def main() -> int:
     )
     print("cleared global openai connection", code, openai_cfg if code != 200 else "ok")
 
-    admin_chat_key = ensure_admin_chat_key(gw, master)
+    admin_chat_key = ensure_admin_chat_key(gw, master, root)
     accounts = [
         {"email": admin_email, "password": admin_password, "id": "ADMIN001", "chat_key": admin_chat_key}
     ]
