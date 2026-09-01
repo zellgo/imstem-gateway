@@ -92,7 +92,7 @@ mimo-v2.5-pro          # 写代码 / Agent
 qwen3.8-max            # 很难的医学文本
 ```
 
-**请在工具里显式指定模型。** 若 Codex / Claude 仍发送 `gpt-4o`、`gpt-5`、`claude-sonnet-4-5`，网关会转到最贵的 `kimi-k3`，费用仍记在你名下。
+**请在工具里显式指定网关模型名。** 若 Codex / Claude 仍发送 `gpt-4o`、`gpt-5`、`claude-sonnet-4-5`，请求会失败，网关不会改走别的模型。
 
 Codex 配置示例 `~/.codex/config.toml`：
 

@@ -43,7 +43,7 @@ env_key = "OPENAI_API_KEY"
 wire_api = "chat"
 ```
 
-If Codex still sends `gpt-4o` / `gpt-5`, the gateway remaps those names to `kimi-k3`. Spend still lands on `MED001-AGENT`.
+Set `model` to a gateway id (`kimi-k3`, `qwen3.8-flash`, …). If Codex still sends `gpt-4o` / `gpt-5`, the request fails — the gateway does not remap or fall back.
 
 ## Claude Code
 

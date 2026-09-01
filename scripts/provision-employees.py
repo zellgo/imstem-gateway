@@ -248,7 +248,7 @@ export ANTHROPIC_API_KEY={agent_key or 'sk-你的AGENT密钥'}
 export ANTHROPIC_MODEL=kimi-k3
 ```
 
-如果工具仍发送 `gpt-4o` / `gpt-5` / `claude-sonnet-4-5`，网关会转到 `kimi-k3`，费用记在你名下。
+必须在工具里写上网关模型名。若仍发送 `gpt-4o` / `gpt-5` / `claude-sonnet-4-5`，请求会失败，网关不会改走别的模型。
 
 ## 注意
 

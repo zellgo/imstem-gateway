@@ -39,7 +39,7 @@ Login `admin` + UI password, then master key.
 
 Do not pick native Xiaomi/Deepseek forms from an **old** cached JS bundle; Ctrl+Shift+R.
 
-Employee-facing models: `qwen3.8-flash` / `qwen3.8-27b` / `qwen3.8-max` / `kimi-k3` / `deepseek-v4-flash-0731` / `deepseek-v4-pro-0813` / `mimo-v2.5` / `mimo-v2.5-pro` / `glm-5.3-flash`. Old `company-*` names remap in `model_group_alias` but are not listed in Open WebUI. Codex/Claude names remap to `kimi-k3`. `glm-5.3-flash` uses the OpenRouter credential.
+Employee-facing models: `qwen3.8-flash` / `qwen3.8-27b` / `qwen3.8-max` / `kimi-k3` / `deepseek-v4-flash-0731` / `deepseek-v4-pro-0813` / `mimo-v2.5` / `mimo-v2.5-pro` / `glm-5.3-flash` / `glm-5.3` / `glm-4.7-flash`. No `model_group_alias` and no router fallbacks. Clients must send an exact gateway model id. `glm-5.3-flash` uses the OpenRouter credential.
 
 ## Railway
 

@@ -33,7 +33,7 @@ Employees pick the real model names. Backends are Aliyun Model Studio (workspace
 | `mimo-v2.5-pro` | `xiaomi_mimo/mimo-v2.5-pro` | `mimo` |
 | `glm-5.3-flash` | OpenRouter `z-ai/glm-5.3-flash` | `openrouter` |
 
-Old `company-fast` / `company-agent` names still remap in the gateway so leftover Codex configs do not break, but they are not listed in Open WebUI. Employees only see the real model IDs above. `gpt-4o` / `claude-sonnet-4-5` remap to `kimi-k3`.
+Old `company-fast` / `company-agent` names and `gpt-4o` / `claude-sonnet-4-5` are **not** remapped. Clients must send an exact gateway model id. Quota errors stay on that model — no fallback.
 
 In **Add Model** / **LLM Credentials**:
 
@@ -41,7 +41,7 @@ In **Add Model** / **LLM Credentials**:
 - Xiaomi → **Xiaomi** (API Key + API Base)
 - DeepSeek → **Deepseek** (API Key + API Base on this image; upstream Deepseek form is key-only)
 
-Codex/Claude default names (`gpt-4o`, `claude-sonnet-4-5`, …) are aliases of `kimi-k3`.
+Codex / Claude Code / WorkBuddy must set the gateway model id explicitly (`qwen3.8-flash`, `kimi-k3`, …). Default vendor names (`gpt-4o`, `claude-sonnet-4-5`) are rejected, not remapped.
 
 ## Change which LLM a company model uses, or its price
 

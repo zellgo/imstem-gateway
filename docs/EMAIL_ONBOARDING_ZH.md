@@ -67,7 +67,7 @@ Agent API Key：
 • 很难的医学文本：qwen3.8-max
 
 请在工具里写上上面的模型名。若软件仍发送 gpt-4o / gpt-5 / claude-sonnet-4-5，
-网关会转到最贵的 kimi-k3，费用仍算您的。
+请求会失败，网关不会改走别的模型。
 
 Windows 上 ChatGPT / Codex / Claude Code：请用 CC Switch 切到公司密钥
   下载：https://ccswitch.io/zh/

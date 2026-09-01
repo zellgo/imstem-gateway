@@ -42,7 +42,7 @@ export OPENAI_BASE_URL=https://llm.imstem.org/v1
 export OPENAI_API_KEY=sk-…你的 AGENT 密钥…
 ```
 
-推荐 `kimi-k3` 或 `qwen3.8-max`。如果工具仍发送 `gpt-4o` / `gpt-5`，网关会转到 `kimi-k3`，费用仍是你的。
+推荐 `kimi-k3` 或 `qwen3.8-max`。必须在工具里写上网关模型名。若仍发送 `gpt-4o` / `gpt-5`，请求会失败，网关不会改走别的模型。
 
 ### Claude Code
 
